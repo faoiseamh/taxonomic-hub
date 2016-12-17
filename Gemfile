@@ -33,6 +33,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 
+gem 'mysql2'
+
 # React
 gem 'react-rails', '~> 1.0'
 
