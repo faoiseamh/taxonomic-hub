@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      render json: @category
+      render partial: 'categories/category', locals: { category: @category}
     else
       render json: @category.errors, status: :unprocessable_entity
     end

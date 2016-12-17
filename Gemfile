@@ -45,6 +45,7 @@ gem 'mysql2'
 
 # Assets
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "browserify-rails"
 
 # React
 gem 'react-rails', '~> 1.0'
