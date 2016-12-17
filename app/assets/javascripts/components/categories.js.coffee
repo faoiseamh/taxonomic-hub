@@ -1,7 +1,6 @@
 @Categories = React.createClass
   addCategory: (category) ->
-    categories = @state.categories.slice()
-    categories.push category
+    categories = React.addons.update(@state.categories, { $push: [category] })
     @setState categories: categories
   getInitialState: ->
     categories: @props.data
