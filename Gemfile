@@ -40,7 +40,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 
+# Backend
 gem 'mysql2'
+
+# Assets
+gem 'bootstrap-sass', '~> 3.3.6'
 
 # React
 gem 'react-rails', '~> 1.0'
