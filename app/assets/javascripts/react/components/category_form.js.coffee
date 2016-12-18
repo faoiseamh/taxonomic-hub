@@ -21,7 +21,8 @@
         className: 'form-group'
         React.createElement TextField,
           name: 'title'
-          hintText: 'Title'
+          hintText: 'a concise title for category'
+          floatingLabelText: 'Title'
           onChange: @handleChange
           value: @state.title
       React.createElement RaisedButton,

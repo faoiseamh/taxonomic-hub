@@ -11,6 +11,14 @@ injectTapEventPlugin = require('react-tap-event-plugin'); injectTapEventPlugin()
 //Material Design Library Custom Theme
 // MyRawTheme = require('./theme');
 
+Card = require('material-ui/Card').Card;
+CardActions = require('material-ui/Card').CardActions;
+CardHeader = require('material-ui/Card').CardHeader;
+CardMedia = require('material-ui/Card').CardMedia;
+CardTitle = require('material-ui/Card').CardTitle;
+CardText = require('material-ui/Card').CardText;
+
+
 RaisedButton = require('material-ui/RaisedButton/RaisedButton').default;
 
 TextField = require('material-ui/TextField').default;
