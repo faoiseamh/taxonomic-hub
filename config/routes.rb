@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'hello_world', to: 'hello_world#index'
   resources :topics
   resources :categories
   # The priority is based upon order of creation: first created -> highest priority.

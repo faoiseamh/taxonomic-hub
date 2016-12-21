@@ -63,3 +63,5 @@ group :development, :test do
   gem 'spring'
 end
 
+
+gem 'mini_racer', platforms: :ruby
