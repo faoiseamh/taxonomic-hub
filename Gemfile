@@ -45,10 +45,10 @@ gem 'mysql2'
 
 # Assets
 gem 'bootstrap-sass', '~> 3.3.6'
-gem "browserify-rails"
 
-# React
-gem 'react-rails', '~> 1.0'
+# React on rails (webpack, babel, react, redux, react-router)
+gem "react_on_rails", "~> 6"
+
 
 
 
