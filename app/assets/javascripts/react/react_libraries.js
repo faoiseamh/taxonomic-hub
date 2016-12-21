@@ -17,6 +17,8 @@ MaterialUi = require('material-ui')
 // MyRawTheme = require('./theme');
 
 // Material UI
+AppBar = require('material-ui/AppBar').default;
+
 Card = require('material-ui/Card').Card;
 CardActions = require('material-ui/Card').CardActions;
 CardHeader = require('material-ui/Card').CardHeader;

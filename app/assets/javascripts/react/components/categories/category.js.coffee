@@ -5,4 +5,8 @@
       React.createElement TableRowColumn, null, @props.category.title
       React.createElement TableRowColumn, null,
         React.createElement List, null,
-          React.createElement ListItem, key: topic.id, primaryText: topic.title for topic in @props.category.topics
+          React.createElement(ListItem,
+            key: topic.id
+            primaryText: topic.title
+            href: "/topics/#{topic.id}"
+          ) for topic in @props.category.topics
