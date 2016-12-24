@@ -9,6 +9,9 @@
 - https://material.uplabs.com/posts/material-design-chat
 - https://material.uplabs.com/posts/google-trends-live   filters
 
+# Design / organization / layout
+- countable.us
+
 # IDeas
 - change background color of page based on category. or just a bar somewhere
 
