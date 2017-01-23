@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Categories from './Categories';
+// import BaseComponent from 'libs/components/BaseComponent';
 // import CategoryForm from './CategoryForm';
 
 
@@ -26,7 +27,7 @@ export default class ActionHub extends React.Component {
 
   render() {
     return (
-      <Categories categories={this.state.categories} />
+      <div>Dummy</div>
     );
   }
 }

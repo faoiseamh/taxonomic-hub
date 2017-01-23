@@ -5,6 +5,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 export default class CategoryForm extends React.Component {
+  // static propTypes = {
+  //   actions: PropTypes.object.isRequired,
+  //   data: PropTypes.object.isRequired,
+  // };
 
   /**
    * @param props - Comes from your rails view.
@@ -35,10 +39,14 @@ export default class CategoryForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    $.post('/categories', { category: this.state }, (data) => {
-      this.props.handleNewCategory(data);
-      this.setState(this.baseState);
-    }, 'JSON');
+    // $.post('/categories', { category: this.state }, (data) => {
+    //   this.props.handleNewCategory(data);
+    //   this.setState(this.baseState);
+    // }, 'JSON');
+    const { actions } = this.props;
+    actions
+      .submitCategory(this.state)
+      .done(this.setState(this.baseState));
   }
 
   valid = () => {

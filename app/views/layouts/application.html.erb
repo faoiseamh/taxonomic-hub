@@ -7,8 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+
   <div class="content">
     <%= yield %>
   </div>
+
+<!-- This is a placeholder for ReactOnRails to know where to render the store props for
+     client side hydration -->
+<%= redux_store_hydration_data %>
+
 </body>
 </html>

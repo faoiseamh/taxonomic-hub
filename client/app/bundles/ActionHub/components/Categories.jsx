@@ -1,4 +1,5 @@
 import React from 'react';
+// import React, { PropTypes } from 'react';
 import CategoryForm from './CategoryForm';
 
 // AppBar = require('material-ui/AppBar').default;
@@ -22,6 +23,10 @@ export default class Categories extends React.Component {
   // updateCategories = (categories) => {
   //   this.setState({ categories });
   // };
+  // static propTypes = {
+  //   actions: PropTypes.object.isRequired,
+  //   data: PropTypes.object.isRequired,
+  // };
 
   /**
    * @param props - Comes from your rails view.
@@ -41,8 +46,10 @@ export default class Categories extends React.Component {
     this.setState({ categories: categories });
   };
 
-  renderCategories() {
-    var categories = this.state.categories;
+  renderCategories(categories) {
+    if (categories == undefined) {
+      categories = []
+    }
     return categories.map((category) => {
       return(
         <TableRow key={category.id}>
@@ -54,13 +61,21 @@ export default class Categories extends React.Component {
   }
 
   render() {
+    const { actions, data } = this.props;
+    console.log("here comes");
+    console.log(data);
+    console.log(data.get('$$categories'));
     return (
       <div>
         <Card>
           <CardHeader title="Categories" />
           <CardMedia>
             <div className="text-center">
-              <CategoryForm handleNewCategory={this.addCategory} />
+              <CategoryForm
+                handleNewCategory={this.addCategory}
+                data={data}
+                actions={actions}
+              />
             </div>
             <Divider style={{marginBottom: 10, marginTop: 10}} />
             <Table>
@@ -71,7 +86,7 @@ export default class Categories extends React.Component {
                 </TableRow>
               </TableHeader>
               <TableBody displayRowCheckbox={false}>
-                {this.renderCategories()}
+                {this.renderCategories(data.get('$$categories'))}
               </TableBody>
             </Table>
           </CardMedia>

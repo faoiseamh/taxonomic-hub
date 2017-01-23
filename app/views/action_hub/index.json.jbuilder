@@ -1,3 +1,1 @@
-json.categories(@categories) do |category|
-  json.partial! 'categories/category', category: category
-end
+json.categories(categories, partial: "categories/category", as: :category)

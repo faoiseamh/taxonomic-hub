@@ -1,1 +1,1 @@
-<%= react_component("ActionHubApp", props: render(template: '/action_hub/index.json.jbuilder'), prerender: false) %>
+<%= react_component("ActionHubApp", props: render(template: 'action_hub/index.json.jbuilder', locals: { categories: @categories })) %>
