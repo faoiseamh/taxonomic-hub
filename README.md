@@ -15,6 +15,14 @@ gem install bundler
 brew install mysql
 ~~~~
 
+- Add a user and database to mysql. Give the user full access to the database. I'd recommend using Sequel Pro or similar on OSX, or just the msyql cli client.
+~~~~
+user: action_hub
+password: gsvrY3T%7x0w
+database: action_hub
+~~~~
+
+
 - in checkout, run bundle install to install all of the gems
 ~~~~
 bundle install
