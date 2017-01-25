@@ -7,6 +7,11 @@ This is an app that consists of a Rails backend that serves as an API and helps 
 - [Redux](https://github.com/reactjs/redux)
 - [React-Router](https://github.com/ReactTraining/react-router)
 
+## Requirements
+- Ruby 2.3.3+
+- Node 6.x
+- MySQL (although could swap dev to use sqlite3 / postgres if needed)
+
 # Setup
 - Install rvm from https://rvm.io/
 - Install ruby 2.3.3
