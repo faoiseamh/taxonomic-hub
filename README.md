@@ -28,6 +28,7 @@ This is an app that consists of a Rails backend that serves as an API and helps 
         - **routes** - react router routes. This maps paths to the components that will be rendered for them
         - **startup** - the main entry point for client and server apps. Server app is a mirror of client app and used for rendering the first page on the server so search engines which do not execute javascript can still index the site. These register components and wrap the routes in a redux store and a material-ui theme provider (just other "components" that must enclose all of our content to enable redux and material-ui functionality)
         - **store** - redux stores. Where the state lives.
+
 # Setup
 - Install rvm from https://rvm.io/
 - Install ruby 2.3.3
