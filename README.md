@@ -95,6 +95,8 @@ If you are using sublime text, the following packages will make development nice
 - SublimeLinter-contrib-eslint
 - Babel
 
+Once you run npm install, it will setup the eslint node package (javascript linting javascript!). You can check for errors using ctrl+~ in sublime. When you save a jsx file you should get linting output (try adding a syntax error to see). You can also configure sublime linter to show errors on save which I do to enforce rigor. See [sublime linter config](http://www.sublimelinter.com/en/latest/) for more. I haven't fixed all the linting errors in the project yet so you'll definitely hit some on less-used components.
+
 ### Other recommendations
 - AllAutocomplete
 - BeautifyRuby
