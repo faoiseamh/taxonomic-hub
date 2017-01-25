@@ -1,0 +1,16 @@
+<div class="comment">
+  <p id="notice"><%= notice %></p>
+
+  <p class="js-comment-author">
+    <strong>Author:</strong>
+    <%= @comment.author %>
+  </p>
+
+  <p class="js-comment-text">
+    <strong>Text:</strong>
+    <%= @comment.text %>
+  </p>
+</div>
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %>

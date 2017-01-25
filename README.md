@@ -1,8 +1,17 @@
+# Overview
+This is an app that consists of a Rails backend that serves as an API and helps to initially render the page. After initial page load, a single page javascript app takes over using React as a view layer, Redux to manage a global state, and React Router to handle the page routing. This React stack is also used on the backend to render the initial page for search engine indexing.
+
+## Core Technologies
+- [Rails](https://github.com/rails/rails)
+- [React](https://github.com/facebook/react)
+- [Redux](https://github.com/reactjs/redux)
+- [React-Router](https://github.com/ReactTraining/react-router)
+
 # Setup
 - Install rvm from https://rvm.io/
-- Install ruby 2.2.5
+- Install ruby 2.3.3
 ~~~~
-rvm install ruby-2.2.5
+rvm install ruby-2.3.3
 ~~~~
 
 - Install bundler gem
@@ -47,21 +56,18 @@ npm install
 
 - Bootstrap your database
 ~~~~
-rake db:migrate
+rake db:reset
 ~~~~
-
 
 - You should now be ready to run the app
 ~~~~
 ./start
 ~~~~
 
-- Connect to local server at http://localhost:3000
-- Test prototype page at http://localhost:3000/categories
+- Connect to local server at http://localhost:5000
 
-# Todo / misc notes (incomplete)
-- Add sublime ignores for all the node dirs
-- Reimplement categories in JSX + redux: https://medium.com/@rajaraodv/a-guide-for-building-a-react-redux-crud-app-7fe0b8943d0f#.hr4uzpb8x
-
-
-https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367#.40nk5bmqv
+# Contributing
+- Fork repo
+- Branch for your feature
+- Squash down to a logical number of commits prior to sending pull request
+- Send pull request to master branch
