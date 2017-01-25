@@ -1,2 +1,16 @@
-web: rails s -p 3000
-client: sh -c 'rm app/assets/webpack/* || true && cd client && npm run build:development'
+# Basic procfile for dev work.
+# Development is faster if you pick one of the other Procfiles if you don't need
+# the processes to create the test files. Thus, run the `Procfile.hot` one instead
+
+# Development rails requires both rails and rails-assets
+# (and rails-server-assets if server rendering)
+rails: REACT_ON_RAILS_ENV=HOT rails s -b 0.0.0.0
+
+# Run the hot reload server for client development
+hot-assets: sh -c 'rm app/assets/webpack/* || true && HOT_RAILS_PORT=3500 npm run hot-assets'
+
+# Render static client assets
+rails-static-client-assets: sh -c 'npm run build:dev:client'
+
+# Render static client assets. Remove if not server rendering
+rails-static-server-assets: sh -c 'npm run build:dev:server'

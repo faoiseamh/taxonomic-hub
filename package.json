@@ -1,19 +1,42 @@
 {
-  "name": "react-webpack-rails-tutorial",
-  "version": "0.0.1",
-  "private": true,
+  "name": "action-hub",
+  "version": "0.1.0",
+  "description": "Action Hub Rails + React app",
+  "main": "server-express.js",
   "engines": {
-    "node": "5.10.0",
-    "npm": "3.5.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^6.1.2",
-    "eslint": "^3.12.2",
-    "eslint-plugin-react": "^6.8.0"
+    "node": "7.2.0",
+    "npm": "4.0.2"
   },
   "scripts": {
     "postinstall": "cd client && npm install",
-    "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
-    "test": "rspec"
-  }
+    "test": "rspec && npm run test:client && npm run lint",
+    "test:client": "(cd client && npm run test --silent)",
+    "lint": "(cd client && npm run lint --silent)",
+    "build:clean": "rm app/assets/webpack/*",
+    "build:production": "(cd client && npm run build:production --silent)",
+    "build:production:client": "(cd client && npm run build:production:client --silent)",
+    "build:production:server": "(cd client && npm run build:production:server --silent)",
+    "build:client": "(cd client && npm run build:client --silent)",
+    "build:server": "(cd client && npm run build:server --silent)",
+    "build:dev:client": "(cd client && npm run build:dev:client --silent)",
+    "build:dev:server": "(cd client && npm run build:dev:server --silent)",
+    "hot-assets": "(cd client && npm run hot-assets)",
+    "start": "(cd client && npm run start --silent)"
+  },
+  "repository": {
+    "url": "https://github.com/faoiseamh/action-hub.git",
+    "type": "git"
+  },
+  "author": "faoiseamh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/faoiseamh/action-hub/issues"
+  },
+  "homepage": "https://github.com/faoiseamh/action-hub",
+  "dependencies": {},
+  "devDependencies": {},
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ]
 }

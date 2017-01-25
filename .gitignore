@@ -12,12 +12,24 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*
-!/log/.keep
+/log/*.log
 /tmp
-# React on Rails
-npm-debug.log*
+/public/assets
+.env
 node_modules
+npm-debug.log*
+/coverage
+
+# Ignore bundle dependencies
+vendor/ruby
+
+# RVM gemset
+.ruby-gemset
 
 # Generated js bundles
-/app/assets/webpack/*
+/app/assets/webpack/
+
+# Rubymine/IntelliJ
+.idea
+
+spec/examples.txt
