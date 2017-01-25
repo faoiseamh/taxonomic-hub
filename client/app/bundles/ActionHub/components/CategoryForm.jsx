@@ -46,7 +46,11 @@ export default class CategoryForm extends React.Component {
     const { actions } = this.props;
     actions
       .submitCategory(this.state)
-      .done(this.setState(this.baseState));
+      .done(this.reset);
+  }
+
+  reset = () => {
+    this.setState(this.baseState);
   }
 
   valid = () => {

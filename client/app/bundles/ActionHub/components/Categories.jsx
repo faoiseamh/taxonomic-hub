@@ -62,9 +62,6 @@ export default class Categories extends React.Component {
 
   render() {
     const { actions, data } = this.props;
-    console.log("here comes");
-    console.log(data);
-    console.log(data.get('$$categories'));
     return (
       <div>
         <Card>
