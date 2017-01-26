@@ -7,7 +7,7 @@ import NavigationBar from '../components/NavigationBar/NavigationBar';
 
 function stateToProps(state) {
   // Which part of the Redux global state does our component want to receive as props?
-  if (state.$$commentsStore) {
+  if (state.$$categoriesStore) {
     return {
       pathname: state.railsContext.pathname,
     };
@@ -17,7 +17,6 @@ function stateToProps(state) {
 
 class NavigationBarContainer extends BaseComponent {
   static propTypes = {
-    commentsCount: PropTypes.number.isRequired,
     pathname: PropTypes.string.isRequired,
   };
 

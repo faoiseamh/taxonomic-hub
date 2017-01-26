@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
 import ReactOnRails from 'react-on-rails';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import routes from '../routes/routes';
@@ -31,11 +32,10 @@ export default (_props, railsContext) => {
   if (error || redirectLocation) {
     return { error, redirectLocation };
   }
-
   // Important that you don't do this if you are redirecting or have an error.
   return (
     <Provider store={store}>
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme({}, { userAgent: _props.userAgent })}>
         <RouterContext {...routeProps} />
       </MuiThemeProvider>
     </Provider>

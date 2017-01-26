@@ -40,7 +40,6 @@ const NavigationBar = (props) => {
 };
 
 NavigationBar.propTypes = {
-  commentsCount: PropTypes.number,
   pathname: PropTypes.string.isRequired,
 };
 

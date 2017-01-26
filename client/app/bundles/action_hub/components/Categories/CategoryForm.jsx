@@ -63,6 +63,7 @@ export default class CategoryForm extends React.Component {
         <div className='form-group'>
           <TextField
             name='title'
+            id='categoryFormTitle'
             hintText='a concise title for category'
             floatingLabelText="Title"
             inputStyle={{ backgroundColor: this.state.color }}

@@ -23,18 +23,7 @@ class PagesController < ApplicationController
     # end
 
     redux_store("routerCategoriesStore", props: categories_json_string)
-    puts "categories_json_string"
-    puts categories_json_string
     render_html
-  end
-
-  # Declaring no_router and simple to indicate we have views for them
-  def no_router
-    redux_store("categoriesStore", props: categories_json_string)
-    render_html
-  end
-
-  def simple
   end
 
   private

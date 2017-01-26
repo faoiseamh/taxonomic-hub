@@ -4,20 +4,10 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 // AppBar = require('material-ui/AppBar').default;
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
+import { List, ListItem } from 'material-ui/List';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 import CategoryForm from './CategoryForm';
-
-// RaisedButton = require('material-ui/RaisedButton/RaisedButton').default;
-// TextField = require('material-ui/TextField').default;
-// Table = require('material-ui/Table').Table;
-// TableBody = require('material-ui/Table').TableBody;
-// TableHeader = require('material-ui/Table').TableHeader;
-// TableHeaderColumn = require('material-ui/Table').TableHeaderColumn;
-// TableRow = require('material-ui/Table').TableRow;
-// TableRowColumn = require('material-ui/Table').TableRowColumn;
-// List = require('material-ui/List').List;
-// ListItem = require('material-ui/List').ListItem;
 
 
 export default class Categories extends BaseComponent {
@@ -25,15 +15,34 @@ export default class Categories extends BaseComponent {
     const { actions, data } = this.props;
 
     const $$categories = data.get('$$categories');
-    const categoryNodes = $$categories.map(($$category, index) =>
-      <TableRow
-        key={$$category.get('id') || index}
-        style={{ backgroundColor: $$category.get('color') }}
-      >
-        <TableRowColumn>{$$category.get('title')}</TableRowColumn>
-        <TableRowColumn>{$$category.get('topics').length}</TableRowColumn>
-      </TableRow>,
-    );
+    // TODO: Figure out best way to sort data in redux -- in reducer or here? Why doesn't this work?
+    // const $$categories = data.get('$$categories').sort((a, b) => {
+    //   if (a.get('title') < b.get('title')) {
+    //     return -1;
+    //   }
+    //   if (a.get('title') > b.get('title')) {
+    //     return 1;
+    //   }
+    //   return 0;
+    // });
+    const categoryNodes = $$categories.map(($$category, index) => {
+      const topicNodes = $$category.get('topics').map(($$topic, topicIndex) =>
+        <ListItem primaryText={$$topic.get('title')} key={$$topic.get('id') || topicIndex} />,
+      );
+      return (
+        <TableRow
+          key={$$category.get('id') || index}
+          style={{ backgroundColor: $$category.get('color') }}
+        >
+          <TableRowColumn>{$$category.get('title')}</TableRowColumn>
+          <TableRowColumn>
+            <List>
+              {topicNodes}
+            </List>
+          </TableRowColumn>
+        </TableRow>
+      );
+    });
 
     return (
       <div>
@@ -46,7 +55,14 @@ export default class Categories extends BaseComponent {
                 actions={actions}
               />
             </div>
-            <Divider style={{ marginBottom: 10, marginTop: 10 }} />
+            {
+              // HACK: Wrap in divs to avoid the MUI prepareStyles warning:
+              // "You cannot call prepareStyles() on the same style object more than once"
+              // See https://github.com/callemall/material-ui/issues/4239
+            }
+            <div>
+              <Divider style={{ marginBottom: 10, marginTop: 10 }} />
+            </div>
             <Table>
               <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                 <TableRow>
