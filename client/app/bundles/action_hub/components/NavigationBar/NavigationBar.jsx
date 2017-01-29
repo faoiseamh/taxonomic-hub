@@ -2,8 +2,9 @@
 // eslint-disable new-cap
 
 import classNames from 'classnames';
-import _ from 'lodash';
+import _ from 'lodash';// eslint-disable-line no-unused-vars
 import React, { PropTypes } from 'react';
+import { IndexLink, Link } from 'react-router';
 
 import * as paths from '../../constants/paths';
 
@@ -29,9 +30,20 @@ const NavigationBar = (props) => {
         </div>
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
-            <li className={classNames({ active: (pathname === paths.ROUTER_PATH) })}>
-              <a href={paths.ROUTER_PATH}>Home</a>
+            <li>
+              <IndexLink to={paths.ROUTER_PATH} activeClassName="active">Categories</IndexLink>
             </li>
+            <li>
+              <Link to="/react-router" activeClassName="active">
+                Test React Router ('/react-router')
+              </Link>
+            </li>
+            <li>
+              <Link to="/react-router/redirect" activeClassName="active">
+                Test Redirect
+              </Link>
+            </li>
+
           </ul>
         </div>
       </div>
