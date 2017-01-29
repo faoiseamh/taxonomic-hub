@@ -75,15 +75,21 @@ export default function topicsReducer($$state = $$initialState, action = null) {
       });
     }
 
-    case actionTypes.SET_IS_FETCHING_CATEGORIES: {
+    case actionTypes.SET_IS_FETCHING_TOPIC: {
+      return $$state.merge({
+        isFetchingTopic: true,
+      });
+    }
+
+    case actionTypes.SET_IS_FETCHING_TOPICS: {
       return $$state.merge({
         isFetchingTopics: true,
       });
     }
 
-    case actionTypes.SET_IS_SAVING_CATEGORY: {
+    case actionTypes.SET_IS_SAVING_TOPIC: {
       return $$state.merge({
-        isSavingTopics: true,
+        isSavingTopic: true,
       });
     }
 

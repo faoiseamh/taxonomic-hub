@@ -19,10 +19,10 @@ export function setIsSavingTopic() {
   };
 }
 
-export function fetchTopicSuccess(data) {
+export function fetchTopicSuccess(topic) {
   return {
     type: actionTypes.FETCH_TOPIC_SUCCESS,
-    topics: data.topics,
+    topic,
   };
 }
 

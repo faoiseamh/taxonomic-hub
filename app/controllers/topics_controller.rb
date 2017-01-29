@@ -8,7 +8,6 @@ class TopicsController < ApplicationController
   end
 
   def show
-    binding.pry
     respond_to do |format|
       format.json { render(partial: 'topics/topic', locals: { topic: @topic }) }
     end

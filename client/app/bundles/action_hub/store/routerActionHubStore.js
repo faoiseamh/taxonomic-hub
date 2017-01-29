@@ -9,20 +9,24 @@ import reducers, { initialStates } from '../reducers';
 export default (props, railsContext) => {
   const initialCategories = props.categories;
   const initialTopics = props.topics;
-  // console.log("initialStates is pete");
-  // console.log(initialStates);
-  // const { $$actionHubState } = initialStates;
   const { $$categoriesState, $$topicsState } = initialStates;
-  // const initialState = {};
   const initialState = {
-    $$categoriesState: $$categoriesState.merge({
-      $$categories: initialCategories,
-    }),
-    $$topicsState: $$topicsState.merge({
-      $$topics: initialTopics,
-    }),
+    $$categoriesState,
+    $$topicsState,
     railsContext,
   };
+
+  // Merge in initial values if they are defined
+  if (initialCategories) {
+    initialState.$$categoriesState = initialState.$$categoriesState.merge({
+      $$categories: initialCategories,
+    });
+  }
+  if (initialTopics) {
+    initialState.$$topicsState = initialState.$$topicsState.merge({
+      $$topics: initialTopics,
+    });
+  }
 
   // https://github.com/reactjs/react-router-redux
   const reducer = combineReducers({
