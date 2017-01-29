@@ -5,10 +5,12 @@ import reducers, { initialStates } from '../reducers';
 
 export default (props, railsContext) => {
   const initialCategories = props.categories;
+  const initialTopics = props.topics;
   const { $$actionHubState } = initialStates;
   const initialState = {
     $$actionHubStore: $$actionHubState.merge({
       $$categories: initialCategories,
+      $$topics: initialTopics,
     }),
     railsContext,
   };

@@ -6,7 +6,7 @@ import * as actionTypes from '../constants/categoriesConstants';
 
 export const $$initialState = Immutable.fromJS({
   $$categories: [],
-  fetchCategoryError: null,
+  fetchCategoriesError: null,
   submitCategoryError: null,
   isFetchingCategories: false,
   isSavingCategories: false,
@@ -19,14 +19,14 @@ export default function categoriesReducer($$state = $$initialState, action = nul
     case actionTypes.FETCH_CATEGORIES_SUCCESS: {
       return $$state.merge({
         $$categories: categories,
-        fetchCategoryError: null,
+        fetchCategoriesError: null,
         isFetchingCategories: false,
       });
     }
 
     case actionTypes.FETCH_CATEGORIES_FAILURE: {
       return $$state.merge({
-        fetchCategoryError: error,
+        fetchCategoriesError: error,
         isFetchingCategories: false,
       });
     }

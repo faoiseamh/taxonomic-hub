@@ -9,7 +9,7 @@ import * as TopicsActionCreators from '../actions/topicsActionCreators';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
-  return { data: state.$$TopicStore };
+  return { data: state.$$actionHubStore };
 }
 
 class RouterTopicContainer extends BaseComponent {
@@ -25,9 +25,10 @@ class RouterTopicContainer extends BaseComponent {
     const { dispatch, data } = this.props;
     const actions = bindActionCreators(TopicsActionCreators, dispatch);
     const locationState = this.props.location.state;
+    const { topicId } = this.props.params;
 
     return (
-      <TopicScreen {...{ actions, data, locationState }} />
+      <TopicScreen {...{ actions, data, locationState, topicId }} />
     );
   }
 }

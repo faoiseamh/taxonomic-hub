@@ -12,7 +12,10 @@ export default (
       component={RouterCategoriesContainer}
     />
 
-    <Route path="/topics/:topicId" component={RouterTopicContainer} />
+    <Route
+      path="/topics/:topicId"
+      component={RouterTopicContainer}
+    />
 
     <Route
       path="react-router"
