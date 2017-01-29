@@ -1,37 +1,27 @@
-import request from 'axios';
-import ReactOnRails from 'react-on-rails';
+import jQuery from 'jquery';
 
-const API_URL = 'comments.json';
+const API_URL = '/api/';
 
 export default {
 
-  /**
-   * Retrieve list of entities from server using AJAX call.
-   *
-   * @returns {Promise} - Result of ajax call.
-   */
-  fetchEntities() {
-    return request({
-      method: 'GET',
-      url: API_URL,
-      responseType: 'json',
-    });
+  fetchCategories() {
+    return this.get('categories');
   },
 
-  /**
-   * Submit new entity to server using AJAX call.
-   *
-   * @param {Object} entity - Request body to post.
-   * @returns {Promise} - Result of ajax call.
-   */
-  submitEntity(entity) {
-    return request({
-      method: 'POST',
-      url: API_URL,
-      responseType: 'json',
-      headers: ReactOnRails.authenticityHeaders(),
-      data: entity,
-    });
+  createCategory(category) {
+    return this.post('categories', { category });
+  },
+
+  get(path, data) {
+    return jQuery.get(this.makePath(path), data);
+  },
+
+  post(path, data) {
+    return jQuery.post(this.makePath(path), data);
+  },
+
+  makePath(path) {
+    return `${API_URL}${path}`;
   },
 
 };

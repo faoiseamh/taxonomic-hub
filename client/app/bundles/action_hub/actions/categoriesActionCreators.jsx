@@ -1,3 +1,4 @@
+import requestsManager from 'libs/requestsManager'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import * as actionTypes from '../constants/categoriesConstants';
 
 export function setIsFetchingCategory() {
@@ -44,7 +45,7 @@ export function fetchCategories() {
   return (dispatch) => {
     dispatch(setIsFetchingCategory());
     return (
-      $.get('/categories')
+      requestsManager.fetchCategories()
         .done(res => dispatch(fetchCategoriesSuccess(res)))
         .fail(error => dispatch(fetchCategoriesFailure(error)))
     );
@@ -55,7 +56,7 @@ export function submitCategory(category) {
   return (dispatch) => {
     dispatch(setIsSavingCategory());
     return (
-      $.post('/categories', { category: category })
+      requestsManager.createCategory(category)
         .done(res => dispatch(submitCategorySuccess(res)))
         .fail(error => dispatch(submitCategoryFailure(error)))
     );

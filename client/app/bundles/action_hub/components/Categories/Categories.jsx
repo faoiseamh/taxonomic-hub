@@ -6,6 +6,7 @@ import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import { Link } from 'react-router';
 
 import CategoryForm from './CategoryForm';
 
@@ -18,10 +19,19 @@ export default class Categories extends BaseComponent {
     const $$categories = data.get('$$categories');
     // Cannot sort $$categories directly because it is immutable
     const $$categoriesSorted = $$categories.sort((a, b) => a.get('title').localeCompare(b.get('title')));
+
     const categoryNodes = $$categoriesSorted.map(($$category, index) => {
       const topicNodes = $$category.get('topics').map(($$topic, topicIndex) =>
-        <ListItem primaryText={$$topic.get('title')} key={$$topic.get('id') || topicIndex} />,
+        <Link
+          key={$$topic.get('id') || topicIndex}
+          to={`/topics/${$$topic.get('id')}`}
+        >
+          <ListItem
+            primaryText={$$topic.get('title')}
+          />
+        </Link>,
       );
+
       return (
         <TableRow
           key={$$category.get('id') || index}
@@ -37,6 +47,7 @@ export default class Categories extends BaseComponent {
       );
     });
 
+    // Render the categories card containing table of categories
     return (
       <div>
         <Card>

@@ -4,11 +4,17 @@ Rails.application.routes.draw do
   # Serve websocket cable requests in-process
   # mount ActionCable.server => '/cable'
 
+
+  scope :api do
+    resources :categories
+    resources :topics
+  end
+
+
   root "pages#index"
 
   # React Router needs a wildcard
-  get "react-router(/*all)", to: "pages#index"
+  # get "react-router(/*all)", to: "pages#index"
+  get "*path", to: "pages#index"
 
-  resources :topics
-  resources :categories
 end
