@@ -9,10 +9,16 @@ import reducers, { initialStates } from '../reducers';
 export default (props, railsContext) => {
   const initialCategories = props.categories;
   const initialTopics = props.topics;
-  const { $$actionHubState } = initialStates;
+  // console.log("initialStates is pete");
+  // console.log(initialStates);
+  // const { $$actionHubState } = initialStates;
+  const { $$categoriesState, $$topicsState } = initialStates;
+  // const initialState = {};
   const initialState = {
-    $$actionHubStore: $$actionHubState.merge({
+    $$categoriesState: $$categoriesState.merge({
       $$categories: initialCategories,
+    }),
+    $$topicsState: $$topicsState.merge({
       $$topics: initialTopics,
     }),
     railsContext,

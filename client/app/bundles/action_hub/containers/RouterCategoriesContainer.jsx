@@ -9,7 +9,7 @@ import * as categoriesActionCreators from '../actions/categoriesActionCreators';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
-  return { data: state.$$actionHubStore };
+  return { data: state.$$categoriesState };
 }
 
 class RouterCategoriesContainer extends BaseComponent {
