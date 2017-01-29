@@ -1,14 +1,14 @@
 import * as actionTypes from '../constants/categoriesConstants';
 
-export function setIsFetching() {
+export function setIsFetchingCategory() {
   return {
-    type: actionTypes.SET_IS_FETCHING,
+    type: actionTypes.SET_IS_FETCHING_CATEGORIES,
   };
 }
 
-export function setIsSaving() {
+export function setIsSavingCategory() {
   return {
-    type: actionTypes.SET_IS_SAVING,
+    type: actionTypes.SET_IS_SAVING_CATEGORY,
   };
 }
 
@@ -42,7 +42,7 @@ export function submitCategoryFailure(error) {
 
 export function fetchCategories() {
   return (dispatch) => {
-    dispatch(setIsFetching());
+    dispatch(setIsFetchingCategory());
     return (
       $.get('/categories')
         .done(res => dispatch(fetchCategoriesSuccess(res)))
@@ -53,7 +53,7 @@ export function fetchCategories() {
 
 export function submitCategory(category) {
   return (dispatch) => {
-    dispatch(setIsSaving());
+    dispatch(setIsSavingCategory());
     return (
       $.post('/categories', { category: category })
         .done(res => dispatch(submitCategorySuccess(res)))

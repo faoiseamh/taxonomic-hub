@@ -1,8 +1,8 @@
 import ReactOnRails from 'react-on-rails';
 
 import RouterApp from './ClientRouterApp';
-import routerCategoriesStore from '../store/routerCategoriesStore';
-import categoriesStore from '../store/categoriesStore';
+import routerActionHubStore from '../store/routerActionHubStore';
+import actionHubStore from '../store/actionHubStore';
 import NavigationBarApp from './NavigationBarApp';
 
 ReactOnRails.setOptions({
@@ -15,6 +15,6 @@ ReactOnRails.register({
 });
 
 ReactOnRails.registerStore({
-  routerCategoriesStore,
-  categoriesStore,
+  routerActionHubStore,
+  actionHubStore,
 });

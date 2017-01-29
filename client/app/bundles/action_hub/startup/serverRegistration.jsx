@@ -3,8 +3,8 @@ import ReactOnRails from 'react-on-rails';
 
 import RouterApp from './ServerRouterApp';
 import NavigationBarApp from './NavigationBarApp';
-import routerCategoriesStore from '../store/routerCategoriesStore';
-import categoriesStore from '../store/categoriesStore';
+import routerActionHubStore from '../store/routerActionHubStore';
+import actionHubStore from '../store/actionHubStore';
 
 ReactOnRails.register(
   {
@@ -14,6 +14,6 @@ ReactOnRails.register(
 );
 
 ReactOnRails.registerStore({
-  routerCategoriesStore,
-  categoriesStore,
+  routerActionHubStore,
+  actionHubStore,
 });

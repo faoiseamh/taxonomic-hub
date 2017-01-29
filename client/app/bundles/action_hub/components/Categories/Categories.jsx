@@ -56,7 +56,7 @@ export default class Categories extends BaseComponent {
             <div>
               <Divider style={{ marginBottom: 10, marginTop: 10 }} />
             </div>
-            <Table>
+            <Table selectable={false}>
               <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                 <TableRow>
                   <TableHeaderColumn>Title</TableHeaderColumn>

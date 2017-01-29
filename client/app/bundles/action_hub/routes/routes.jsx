@@ -4,12 +4,16 @@ import Layout from '../layout/Layout';
 import TestReactRouter from '../components/TestReactRouter/TestReactRouter';
 import TestReactRouterRedirect from '../components/TestReactRouterRedirect/TestReactRouterRedirect';
 import RouterCategoriesContainer from '../containers/RouterCategoriesContainer';
+import RouterTopicContainer from '../containers/RouterTopicContainer';
 
 export default (
   <Route path="/" component={Layout}>
     <IndexRoute
       component={RouterCategoriesContainer}
     />
+
+    <Route path="/topics/:topicId" component={RouterTopicContainer} />
+
     <Route
       path="react-router"
       component={TestReactRouter}

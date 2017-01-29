@@ -1,13 +1,13 @@
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import loggerMiddleware from 'libs/middlewares/loggerMiddleware';
+import loggerMiddleware from 'libs/middlewares/loggerMiddleware'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import reducers, { initialStates } from '../reducers';
 
 export default (props, railsContext) => {
   const initialCategories = props.categories;
-  const { $$categoriesState } = initialStates;
+  const { $$actionHubState } = initialStates;
   const initialState = {
-    $$categoriesStore: $$categoriesState.merge({
+    $$actionHubStore: $$actionHubState.merge({
       $$categories: initialCategories,
     }),
     railsContext,

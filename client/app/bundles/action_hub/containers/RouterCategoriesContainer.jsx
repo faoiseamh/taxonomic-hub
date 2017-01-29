@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import BaseComponent from 'libs/components/BaseComponent';
+import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 
 import CategoriesScreen from '../components/CategoriesScreen/CategoriesScreen';
 import * as categoriesActionCreators from '../actions/categoriesActionCreators';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
-  return { data: state.$$categoriesStore };
+  return { data: state.$$actionHubStore };
 }
 
 class RouterCategoriesContainer extends BaseComponent {

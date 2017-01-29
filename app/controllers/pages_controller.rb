@@ -22,7 +22,7 @@ class PagesController < ApplicationController
     #   format.html
     # end
 
-    redux_store("routerCategoriesStore", props: categories_json_string)
+    redux_store("routerActionHubStore", props: categories_json_string)
     render_html
   end
 

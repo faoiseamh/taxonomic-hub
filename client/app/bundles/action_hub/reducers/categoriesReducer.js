@@ -8,27 +8,26 @@ export const $$initialState = Immutable.fromJS({
   $$categories: [],
   fetchCategoryError: null,
   submitCategoryError: null,
-  isFetching: false,
-  isSaving: false,
+  isFetchingCategories: false,
+  isSavingCategories: false,
 });
 
 export default function categoriesReducer($$state = $$initialState, action = null) {
   const { type, category, categories, error } = action;
 
   switch (type) {
-
     case actionTypes.FETCH_CATEGORIES_SUCCESS: {
       return $$state.merge({
         $$categories: categories,
         fetchCategoryError: null,
-        isFetching: false,
+        isFetchingCategories: false,
       });
     }
 
     case actionTypes.FETCH_CATEGORIES_FAILURE: {
       return $$state.merge({
         fetchCategoryError: error,
-        isFetching: false,
+        isFetchingCategories: false,
       });
     }
 
@@ -41,7 +40,7 @@ export default function categoriesReducer($$state = $$initialState, action = nul
           )
           .merge({
             submitCategoryError: null,
-            isSaving: false,
+            isSavingCategories: false,
           })
       ));
     }
@@ -49,19 +48,19 @@ export default function categoriesReducer($$state = $$initialState, action = nul
     case actionTypes.SUBMIT_CATEGORY_FAILURE: {
       return $$state.merge({
         submitCategoryError: error,
-        isSaving: false,
+        isSavingCategories: false,
       });
     }
 
-    case actionTypes.SET_IS_FETCHING: {
+    case actionTypes.SET_IS_FETCHING_CATEGORIES: {
       return $$state.merge({
-        isFetching: true,
+        isFetchingCategories: true,
       });
     }
 
-    case actionTypes.SET_IS_SAVING: {
+    case actionTypes.SET_IS_SAVING_CATEGORY: {
       return $$state.merge({
-        isSaving: true,
+        isSavingCategories: true,
       });
     }
 

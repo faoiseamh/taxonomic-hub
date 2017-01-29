@@ -19,7 +19,7 @@ export default (_props, railsContext) => {
   const { pathname } = railsContext;
   let store;
   if (pathname === paths.ROUTER_PATH) {
-    store = ReactOnRails.getStore('routerCategoriesStore', false);
+    store = ReactOnRails.getStore('routerActionHubStore', false);
   } else {
     return (
       <NavigationBar {...{ pathname }} />

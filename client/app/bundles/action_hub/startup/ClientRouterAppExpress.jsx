@@ -9,7 +9,7 @@ import routes from '../routes/routes';
 
 // Because of https://github.com/shakacode/react_on_rails/issues/504
 // we need to skip using a shared store for the express server startup.
-import createStore from '../store/routerCategoriesStore';
+import createStore from '../store/routerActionHubStore';
 
 const RouterAppExpress = (_props, _railsContext) => {
   // See comment above

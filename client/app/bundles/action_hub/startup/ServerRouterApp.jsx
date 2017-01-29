@@ -12,7 +12,7 @@ import routes from '../routes/routes';
 injectTapEventPlugin();
 
 export default (_props, railsContext) => {
-  const store = ReactOnRails.getStore('routerCategoriesStore');
+  const store = ReactOnRails.getStore('routerActionHubStore');
 
   let error;
   let redirectLocation;

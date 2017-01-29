@@ -114,6 +114,24 @@ Once you run npm install, it will setup the eslint node package (javascript lint
 - TrailingSpaces
 - Worksheet
 
+# References
+
+## Material UI
+- [Material UI Components](http://www.material-ui.com/#/components/table)
+
+## React Router
+- [React Router Basic Example](https://github.com/ReactTraining/react-router#whats-it-look-like)
+
+## Redux
+- [Redux Examples](http://redux.js.org/docs/introduction/Examples.html)
+
+# Future considerations
+## Relational data in redux
+It seems like we should have some ORM style relational model for data in redux. Possibly formalized models as well to get closer to MVC. The [redux-orm project](https://github.com/tommikaikkonen/redux-orm) looks interesting.
+
+## Testing
+Obviously we should have some integration tests at least. But... not ready for that yet.
+
 # Contributing
 - Fork repo
 - Branch for your feature

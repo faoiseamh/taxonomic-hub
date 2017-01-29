@@ -12,7 +12,7 @@ import routes from '../routes/routes';
 injectTapEventPlugin();
 
 export default (_props, _railsContext) => {
-  const store = ReactOnRails.getStore('routerCategoriesStore');
+  const store = ReactOnRails.getStore('routerActionHubStore');
 
   // Create an enhanced history that syncs navigation events with the store
   const history = syncHistoryWithStore(
