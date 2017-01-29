@@ -5,10 +5,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 export default class CategoryForm extends React.Component {
-  // static propTypes = {
-  //   actions: PropTypes.object.isRequired,
-  //   data: PropTypes.object.isRequired,
-  // };
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    title: PropTypes.string,
+    color: PropTypes.string,
+    topics: PropTypes.array,
+  };
 
   /**
    * @param props - Comes from your rails view.
@@ -21,18 +23,18 @@ export default class CategoryForm extends React.Component {
     this.state = {
       title: this.props.title ? this.props.title : '',
       color: this.props.color ? this.props.color : '',
-      topics: this.props.topics ? this.props.topics : []
+      topics: this.props.topics ? this.props.topics : [],
     };
     this.baseState = this.state;
   }
 
   handleColorChange = (color) => {
-    this.setState({color: color.hex});
+    this.setState({ color: color.hex });
   }
 
   handleChange = (e) => {
-    var name = e.target.name;
-    let stateChange = {};
+    const name = e.target.name;
+    const stateChange = {};
     stateChange[name] = e.target.value;
     this.setState(stateChange);
   }
@@ -53,25 +55,24 @@ export default class CategoryForm extends React.Component {
     this.setState(this.baseState);
   }
 
-  valid = () => {
-    return this.state.color && this.state.title;
-  }
+  valid = () =>
+    this.state.color && this.state.title;
 
   render() {
     return (
-      <form className='form-inline' onSubmit={this.handleSubmit}>
-        <div className='form-group'>
+      <form className="form-inline" onSubmit={this.handleSubmit}>
+        <div className="form-group">
           <TextField
-            name='title'
-            id='categoryFormTitle'
-            hintText='a concise title for category'
+            name="title"
+            id="categoryFormTitle"
+            hintText="a concise title for category"
             floatingLabelText="Title"
             inputStyle={{ backgroundColor: this.state.color }}
             onChange={this.handleChange}
             value={this.state.title}
           />
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <CirclePicker
             circleSpacing={10}
             onChangeComplete={this.handleColorChange}
@@ -79,9 +80,9 @@ export default class CategoryForm extends React.Component {
           />
         </div>
         <RaisedButton
-          label='Create category'
-          type='submit'
-          primary={true}
+          label="Create category"
+          type="submit"
+          primary
           disabled={!this.valid()}
         />
       </form>
