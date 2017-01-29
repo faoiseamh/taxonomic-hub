@@ -14,18 +14,11 @@ export default class Categories extends BaseComponent {
   render() {
     const { actions, data } = this.props;
 
-    const $$categories = data.get('$$categories');
     // TODO: Figure out best way to sort data in redux -- in reducer or here? Why doesn't this work?
-    // const $$categories = data.get('$$categories').sort((a, b) => {
-    //   if (a.get('title') < b.get('title')) {
-    //     return -1;
-    //   }
-    //   if (a.get('title') > b.get('title')) {
-    //     return 1;
-    //   }
-    //   return 0;
-    // });
-    const categoryNodes = $$categories.map(($$category, index) => {
+    const $$categories = data.get('$$categories');
+    // Cannot sort $$categories directly because it is immutable
+    const $$categoriesSorted = $$categories.sort((a, b) => a.get('title').localeCompare(b.get('title')));
+    const categoryNodes = $$categoriesSorted.map(($$category, index) => {
       const topicNodes = $$category.get('topics').map(($$topic, topicIndex) =>
         <ListItem primaryText={$$topic.get('title')} key={$$topic.get('id') || topicIndex} />,
       );

@@ -29,12 +29,12 @@ class PagesController < ApplicationController
   private
 
   def set_categories
-    @categories = Category.all.includes(:topics).order('title')
+    @categories = Category.all.includes(:topics)
   end
 
   def categories_json_string
     render_to_string(template: "/categories/index.json.jbuilder",
-                     locals: { categories: Category.all.includes(:topics).order('title') }, format: :json)
+                     locals: { categories: Category.all.includes(:topics) }, format: :json)
   end
 
   def render_html
