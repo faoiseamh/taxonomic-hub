@@ -11,5 +11,10 @@ module ActionHub
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Add node modules to asset pipeline
+    %w(quill).each do |node_module|
+      config.assets.paths << Rails.root.join("client", "node_modules", node_module, "dist")
+    end
   end
 end

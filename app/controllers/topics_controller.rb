@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :load_topic, only: [ :show ]
+  before_action :load_topic, only: [ :show, :update ]
 
   def index
     respond_to do |format|
@@ -14,10 +14,18 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Category.new(topic_params)
+    @topic = Topic.new(topic_params)
 
     if @topic.save
-      render partial: 'topics/topic', locals: { topic: @topic}
+      render partial: 'topics/topic', locals: { topic: @topic }
+    else
+      render json: @topic.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @topic.update(topic_params)
+      render partial: 'topics/topic', locals: { topic: @topic }
     else
       render json: @topic.errors, status: :unprocessable_entity
     end

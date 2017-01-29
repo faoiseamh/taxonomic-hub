@@ -26,6 +26,10 @@ export default {
     return this.post('topics', { topic });
   },
 
+  updateTopic(topic) {
+    return this.put(`topics/${topic.id}`, { topic });
+  },
+
 
   // Helpers
 
@@ -35,6 +39,13 @@ export default {
 
   post(path, data) {
     return jQuery.post(this.makePath(path), data);
+  },
+
+  put(path, data) {
+    return jQuery.ajax(this.makePath(path), {
+      method: 'PUT',
+      data,
+    });
   },
 
   makePath(path) {

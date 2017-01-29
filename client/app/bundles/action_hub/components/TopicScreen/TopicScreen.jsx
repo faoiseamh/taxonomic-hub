@@ -11,20 +11,29 @@ export default class TopicScreen extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    topicId: PropTypes.string.isRequired,
     locationState: PropTypes.object,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { topicId } = this.props;
     const { fetchTopic } = this.props.actions;
     fetchTopic(topicId);
   }
 
   render() {
-    const { data, actions } = this.props;
+    const { data, actions, topicId } = this.props;
 
-    if (data.get('isFetchingTopic')) {
-      return (<PageLoadingIndicator />);
+    // Show loading screen if load is in progress
+    if (data.$$topicsState.get('isFetchingTopic')) {
+      return this.constructor.loading();
+    }
+
+    // Try to fetch it
+    const topic = data.$$topicsState.get('$$topics').get(topicId);
+    if (!topic) {
+      // It might not exist yet because request is still going
+      return this.constructor.loading();
     }
 
     return (
@@ -32,10 +41,15 @@ export default class TopicScreen extends BaseComponent {
         <div>
           <Topic
             data={data}
+            topic={topic}
             actions={actions}
           />
         </div>
       </div>
     );
+  }
+
+  static loading() {
+    return (<PageLoadingIndicator />);
   }
 }

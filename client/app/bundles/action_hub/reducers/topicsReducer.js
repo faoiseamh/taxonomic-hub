@@ -5,7 +5,8 @@ import Immutable from 'immutable';
 import * as actionTypes from '../constants/topicsConstants';
 
 export const $$initialState = Immutable.fromJS({
-  $$topics: [],
+  $$topics: {},
+  // $$topicsByCategory: {},
   fetchTopicError: null,
   fetchTopicsError: null,
   submitTopicError: null,
@@ -23,7 +24,10 @@ export default function topicsReducer($$state = $$initialState, action = null) {
         state
           .updateIn(
             ['$$topics'],
-            $$topics => $$topics.unshift(Immutable.fromJS(topic)),
+            $$topics => Immutable.fromJS({
+              ...$$topics,
+              [topic.id]: topic,
+            }),
           )
           .merge({
             fetchTopicError: null,
@@ -59,7 +63,10 @@ export default function topicsReducer($$state = $$initialState, action = null) {
         state
           .updateIn(
             ['$$topics'],
-            $$topics => $$topics.unshift(Immutable.fromJS(topic)),
+            $$topics => Immutable.fromJS({
+              ...$$topics,
+              [topic.id]: topic,
+            }),
           )
           .merge({
             submitTopicError: null,
@@ -72,6 +79,12 @@ export default function topicsReducer($$state = $$initialState, action = null) {
       return $$state.merge({
         submitTopicError: error,
         isSavingTopics: false,
+      });
+    }
+
+    case actionTypes.CLEAR_SUBMIT_TOPIC_FAILURE: {
+      return $$state.merge({
+        submitTopicError: null,
       });
     }
 

@@ -49,15 +49,23 @@ export function fetchTopicsFailure(error) {
 
 export function submitTopicSuccess(topic) {
   return {
-    type: actionTypes.SUBMIT_TOPICS_SUCCESS,
+    type: actionTypes.SUBMIT_TOPIC_SUCCESS,
     topic,
   };
 }
 
 export function submitTopicFailure(error) {
   return {
-    type: actionTypes.SUBMIT_TOPICS_FAILURE,
+    type: actionTypes.SUBMIT_TOPIC_FAILURE,
     error,
+  };
+}
+
+export function clearSubmitTopicFailure() {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_SUBMIT_TOPIC_FAILURE,
+    });
   };
 }
 
@@ -88,6 +96,17 @@ export function submitTopic(topic) {
     dispatch(setIsSavingTopic());
     return (
       requestsManager.createTopic(topic)
+        .done(res => dispatch(submitTopicSuccess(res)))
+        .fail(error => dispatch(submitTopicFailure(error)))
+    );
+  };
+}
+
+export function updateTopic(topic) {
+  return (dispatch) => {
+    dispatch(setIsSavingTopic());
+    return (
+      requestsManager.updateTopic(topic)
         .done(res => dispatch(submitTopicSuccess(res)))
         .fail(error => dispatch(submitTopicFailure(error)))
     );

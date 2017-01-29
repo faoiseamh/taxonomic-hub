@@ -2,7 +2,7 @@
 This is an app that consists of a Rails backend that serves as an API and helps to initially render the page. After initial page load, a single page javascript app takes over using React as a view layer, Redux to manage a global state, and React Router to handle the page routing. This React stack is also used on the backend to render the initial page for search engine indexing.
 
 ## Core Technologies
-- [Rails](https://github.com/rails/rails)
+- [Rails 5.0](https://github.com/rails/rails)
 - [React](https://github.com/facebook/react)
 - [Redux](https://github.com/reactjs/redux)
 - [React-Router](https://github.com/ReactTraining/react-router)
@@ -113,11 +113,14 @@ Once you run npm install, it will setup the eslint node package (javascript lint
 - SideBarEnhancements
 - TrailingSpaces
 - Worksheet
+- [Dark Sidebar](https://gist.github.com/umpirsky/5842174)
 
-# References
+# References / resources
 
-## Material UI
+## Design
 - [Material UI Components](http://www.material-ui.com/#/components/table)
+- [Material UI Formsy Integration](https://github.com/mbrookes/formsy-material-ui)
+- [Material Icons](https://material.io/icons/)
 
 ## React Router
 - [React Router Basic Example](https://github.com/ReactTraining/react-router#whats-it-look-like)
@@ -125,9 +128,14 @@ Once you run npm install, it will setup the eslint node package (javascript lint
 ## Redux
 - [Redux Examples](http://redux.js.org/docs/introduction/Examples.html)
 
-# Future considerations
+## Other dependencies
+- [Formsy form validation engine](https://github.com/christianalfoni/formsy-react)
+
+# Considerations
 ## Relational data in redux
 It seems like we should have some ORM style relational model for data in redux. Possibly formalized models as well to get closer to MVC. The [redux-orm project](https://github.com/tommikaikkonen/redux-orm) looks interesting.
+
+Currently we are fetching and retrieving relational data based on an id parameter retrieved from the route (uri). For simplicity, I've left all of these as strings so we don't need to convert to integer in a variety of places. I'm not yet sure whether this is more confusing or not. This does allow for string-based ids later which may be necessary for offline temporary primary key generation.
 
 ## Testing
 Obviously we should have some integration tests at least. But... not ready for that yet.

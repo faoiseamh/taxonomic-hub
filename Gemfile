@@ -1,4 +1,3 @@
-#ruby=2.3.3
 source "https://rubygems.org"
 ruby "2.3.3"
 
@@ -47,6 +46,8 @@ gem "mini_racer"
 gem "autoprefixer-rails"
 
 gem "awesome_print"
+
+gem 'material_icons'
 
 # jquery as the JavaScript library has been moved under /client and managed by npm.
 # It is critical to not include any of the jquery gems when following this pattern or
