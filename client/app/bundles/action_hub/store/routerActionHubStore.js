@@ -9,7 +9,7 @@ import reducers, { initialStates } from '../reducers';
 export default (props, railsContext) => {
   const initialCategories = props.categories;
   const initialTopics = props.topics;
-  const initialCurrentUser = props.topics;
+  const initialCurrentUser = props.current_user;
   const { $$categoriesState, $$topicsState, $$usersState } = initialStates;
   const initialState = {
     $$categoriesState,

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
-import SignIn from '../Users/SignIn';
+import SignUp from '../Users/SignUp';
 
-import css from './UsersScreen.scss';
+import css from './SignUpScreen.scss';
 
-export default class UsersScreen extends BaseComponent {
+export default class SignUpScreen extends BaseComponent {
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
@@ -28,12 +28,12 @@ export default class UsersScreen extends BaseComponent {
     );
   }
 
-  renderSignIn() {
+  renderSignUp() {
     const { data, actions } = this.props;
     return (
       <div className="text-center">
         {this.renderNotification()}
-        <SignIn
+        <SignUp
           data={data}
           actions={actions}
         />
@@ -58,10 +58,6 @@ export default class UsersScreen extends BaseComponent {
 
     const $$currentUser = data.get('$$currentUser');
 
-    if ($$currentUser) {
-      return this.renderProfile();
-    }
-
-    return this.renderSignIn();
+    return this.renderSignUp();
   }
 }

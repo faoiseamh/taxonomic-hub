@@ -6,6 +6,7 @@ import TestReactRouterRedirect from '../components/TestReactRouterRedirect/TestR
 import RouterCategoriesContainer from '../containers/RouterCategoriesContainer';
 import RouterTopicContainer from '../containers/RouterTopicContainer';
 import RouterUsersContainer from '../containers/RouterUsersContainer';
+import RouterSignUpContainer from '../containers/RouterSignUpContainer';
 import * as paths from '../constants/paths';
 
 export default (
@@ -22,6 +23,10 @@ export default (
     <Route
       path={paths.USER_SIGN_IN_PATH}
       component={RouterUsersContainer}
+    />
+    <Route
+      path={paths.USER_SIGN_UP_PATH}
+      component={RouterSignUpContainer}
     />
 
     <Route

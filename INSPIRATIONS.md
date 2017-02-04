@@ -10,6 +10,10 @@
 - https://material.uplabs.com/posts/google-trends-live   filters
 - https://material.uplabs.com/posts/knowledge-base-app-wip-1-interface
 - https://material.uplabs.com/posts/knowledge-base-app-wip-2-interface
+- https://getmdl.io/templates/android-dot-com/index.html
+- https://getmdl.io/templates/dashboard/index.html
+- https://getmdl.io/showcase/index.html
+- https://www.google.com/get/sunroof/about/
 
 
 # IDeas

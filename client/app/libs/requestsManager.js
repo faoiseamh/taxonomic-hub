@@ -31,25 +31,36 @@ export default {
   },
 
   // Users requests
-
   signIn(user) {
-    return this.post('../users/sign_in', user);
+    return this.post('../users/sign_in', { user });
+  },
+  signUp(user) {
+    return this.post('../users', { user });
   },
 
 
   // Helpers
 
   get(path, data) {
-    return jQuery.get(this.makePath(path), data);
+    return jQuery.ajax(this.makePath(path), {
+      method: 'GET',
+      dataType: 'json',
+      data,
+    });
   },
 
   post(path, data) {
-    return jQuery.post(this.makePath(path), data);
+    return jQuery.ajax(this.makePath(path), {
+      method: 'POST',
+      dataType: 'json',
+      data,
+    });
   },
 
   put(path, data) {
     return jQuery.ajax(this.makePath(path), {
       method: 'PUT',
+      dataType: 'json',
       data,
     });
   },
