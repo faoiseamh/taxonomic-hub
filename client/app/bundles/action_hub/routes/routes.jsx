@@ -5,6 +5,8 @@ import TestReactRouter from '../components/TestReactRouter/TestReactRouter';
 import TestReactRouterRedirect from '../components/TestReactRouterRedirect/TestReactRouterRedirect';
 import RouterCategoriesContainer from '../containers/RouterCategoriesContainer';
 import RouterTopicContainer from '../containers/RouterTopicContainer';
+import RouterUsersContainer from '../containers/RouterUsersContainer';
+import * as paths from '../constants/paths';
 
 export default (
   <Route path="/" component={Layout}>
@@ -15,6 +17,11 @@ export default (
     <Route
       path="/topics/:topicId"
       component={RouterTopicContainer}
+    />
+
+    <Route
+      path={paths.USER_SIGN_IN_PATH}
+      component={RouterUsersContainer}
     />
 
     <Route

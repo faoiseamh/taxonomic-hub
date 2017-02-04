@@ -5,7 +5,6 @@ import NavigationBarContainer from '../containers/NavigationBarContainer';
 import './Layout.scss';
 
 export default class Layout extends BaseComponent {
-
   static propTypes = {
     children: PropTypes.object.isRequired,
   };
@@ -14,7 +13,7 @@ export default class Layout extends BaseComponent {
   render() {
     return (
       <div>
-        <NavigationBarContainer />
+        <NavigationBarContainer router={this.props.router} />
         <div className="container">
           <section>
             {this.props.children}

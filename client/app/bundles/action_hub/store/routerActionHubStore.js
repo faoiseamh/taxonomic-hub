@@ -9,10 +9,12 @@ import reducers, { initialStates } from '../reducers';
 export default (props, railsContext) => {
   const initialCategories = props.categories;
   const initialTopics = props.topics;
-  const { $$categoriesState, $$topicsState } = initialStates;
+  const initialCurrentUser = props.topics;
+  const { $$categoriesState, $$topicsState, $$usersState } = initialStates;
   const initialState = {
     $$categoriesState,
     $$topicsState,
+    $$usersState,
     railsContext,
   };
 
@@ -25,6 +27,11 @@ export default (props, railsContext) => {
   if (initialTopics) {
     initialState.$$topicsState = initialState.$$topicsState.merge({
       $$topics: initialTopics,
+    });
+  }
+  if (initialCurrentUser) {
+    initialState.$$usersState = initialState.$$usersState.merge({
+      $$currentUser: initialCurrentUser,
     });
   }
 

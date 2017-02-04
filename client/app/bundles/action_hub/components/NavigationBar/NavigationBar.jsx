@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 
-import { IndexLink } from 'react-router';
+import { IndexLink, Link } from 'react-router';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -23,6 +23,19 @@ export default class NavigationBar extends BaseComponent {
     };
   }
 
+  componentDidMount() {
+    // this.props.router.listenBefore(this.handleLocationChange);
+    this.props.router.listen(() => { this.handleLocationChange() });
+  }
+
+  componentWillUnmount() {
+    // this.props.router.removeChangeListener(this.handleLocationChange);
+  }
+
+  handleLocationChange() {
+    this.setState({ open: false });
+  }
+
   handleToggle() {
     this.setState({ open: !this.state.open });
   }
@@ -32,7 +45,7 @@ export default class NavigationBar extends BaseComponent {
       <div>
         <AppBar
           title="Action Hub"
-          iconElementRight={<FlatButton label="Login" />}
+          iconElementRight={<FlatButton containerElement={<Link to={paths.USER_SIGN_IN_PATH} activeClassName="active" />} label="Login" />}
           onLeftIconButtonTouchTap={() => { this.handleToggle(); }}
         />
         <Drawer
@@ -41,7 +54,7 @@ export default class NavigationBar extends BaseComponent {
           onRequestChange={(open) => this.setState({ open })}
         >
           <MenuItem
-            containerElement={<IndexLink to={paths.ROUTER_PATH} activeClassName="active"/>}
+            containerElement={<IndexLink to={paths.ROUTER_PATH} activeClassName="active" />}
           >
             Categories
           </MenuItem>

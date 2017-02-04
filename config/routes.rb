@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # Override devise get routes
+  scope :users do
+    get :sign_in, to: "pages#index"
+  end
+
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

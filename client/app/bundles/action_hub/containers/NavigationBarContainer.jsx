@@ -21,10 +21,10 @@ class NavigationBarContainer extends BaseComponent {
   };
 
   render() {
-    const { pathname } = this.props;
+    const { pathname, router } = this.props;
 
     return (
-      <NavigationBar {...{ pathname }} />
+      <NavigationBar {...{ pathname, router }} />
     );
   }
 }
