@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # Override devise get routes
   scope :users do
     get :sign_in, to: "pages#index"
+    get :sign_up, to: "pages#index"
   end
 
   devise_for :users

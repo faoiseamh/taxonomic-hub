@@ -31,9 +31,11 @@ export default {
   },
 
   // Users requests
-
   signIn(user) {
     return this.post('../users/sign_in', user);
+  },
+  signUp(user) {
+    return this.post('../users', user);
   },
 
 

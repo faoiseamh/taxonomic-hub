@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import theme from '../theme/ActionHubDefault';
 import routes from '../routes/routes';
 
 injectTapEventPlugin();
@@ -35,7 +36,7 @@ export default (_props, railsContext) => {
   // Important that you don't do this if you are redirecting or have an error.
   return (
     <Provider store={store}>
-      <MuiThemeProvider muiTheme={getMuiTheme({}, { userAgent: _props.userAgent })}>
+      <MuiThemeProvider muiTheme={getMuiTheme(theme, { userAgent: _props.userAgent })}>
         <RouterContext {...routeProps} />
       </MuiThemeProvider>
     </Provider>

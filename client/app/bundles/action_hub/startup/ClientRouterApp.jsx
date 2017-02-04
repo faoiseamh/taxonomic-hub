@@ -7,6 +7,7 @@ import { Router, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import theme from '../theme/ActionHubDefault';
 import routes from '../routes/routes';
 
 injectTapEventPlugin();
@@ -22,7 +23,7 @@ export default (_props, _railsContext) => {
 
   return (
     <Provider store={store}>
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={theme}>
         <Router history={history}>
           {routes}
         </Router>

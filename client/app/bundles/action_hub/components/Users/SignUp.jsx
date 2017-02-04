@@ -3,7 +3,6 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 import _ from 'lodash';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 import * as paths from '../../constants/paths';
@@ -44,7 +43,7 @@ export default class SignIn extends BaseComponent {
 
   submit(user) {
     const { actions } = this.props;
-    actions.signIn(user);
+    actions.signUp(user);
   }
   render() {
     // const { actions, data } = this.props;
@@ -66,15 +65,34 @@ export default class SignIn extends BaseComponent {
         />
         <br />
         <FormsyText
+          name="first_name"
+          hintText="optional"
+          floatingLabelText="First Name"
+        />
+        <br />
+        <FormsyText
+          name="last_name"
+          hintText="optional"
+          floatingLabelText="Last Name"
+        />
+        <br />
+        <FormsyText
           name="password"
           floatingLabelText="Password"
           type="password"
           required
         />
         <br />
+        <FormsyText
+          name="password_confirmation"
+          floatingLabelText="Re-type Password"
+          type="password"
+          required
+        />
+        <br />
         <br />
         <RaisedButton
-          label="Sign In"
+          label="Sign Up"
           type="submit"
           style={{ width: '200px' }}
           primary
@@ -82,8 +100,8 @@ export default class SignIn extends BaseComponent {
         />
         <br />
         <br />
-        <Link to={paths.USER_SIGN_UP_PATH} >
-          Sign Up
+        <Link to={paths.USER_SIGN_IN_PATH}>
+          Sign In
         </Link>
         <br />
       </Formsy.Form>
