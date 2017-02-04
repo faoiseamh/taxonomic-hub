@@ -25,7 +25,7 @@ export default class NavigationBar extends BaseComponent {
 
   componentDidMount() {
     // this.props.router.listenBefore(this.handleLocationChange);
-    this.props.router.listen(() => { this.handleLocationChange() });
+    this.props.router.listen(() => { this.handleLocationChange(); });
   }
 
   componentWillUnmount() {
@@ -45,7 +45,7 @@ export default class NavigationBar extends BaseComponent {
       <div>
         <AppBar
           title="Action Hub"
-          iconElementRight={<FlatButton containerElement={<Link to={paths.USER_SIGN_IN_PATH} activeClassName="active" />} label="Login" />}
+          iconElementRight={<FlatButton containerElement={<Link to={paths.USER_SIGN_IN_PATH} activeClassName="active" />} label="Sign In" />}
           onLeftIconButtonTouchTap={() => { this.handleToggle(); }}
         />
         <Drawer

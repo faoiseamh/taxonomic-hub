@@ -22,7 +22,7 @@ class PagesController < ApplicationController
     #   format.html
     # end
 
-    redux_store("routerActionHubStore", props: categories_json_string)
+    redux_store("routerActionHubStore", props: initial_data_json_string)
     render_html
   end
 
@@ -32,8 +32,8 @@ class PagesController < ApplicationController
     @categories = Category.all.includes(:topics)
   end
 
-  def categories_json_string
-    render_to_string(template: "/categories/index.json.jbuilder",
+  def initial_data_json_string
+    render_to_string(template: "initial_data.json.jbuilder",
                      locals: { categories: Category.all.includes(:topics) }, format: :json)
   end
 

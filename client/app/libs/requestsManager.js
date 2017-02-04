@@ -30,6 +30,12 @@ export default {
     return this.put(`topics/${topic.id}`, { topic });
   },
 
+  // Users requests
+
+  signIn(user) {
+    return this.post('../users/sign_in', user);
+  },
+
 
   // Helpers
 

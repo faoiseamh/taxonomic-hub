@@ -14,7 +14,7 @@ export default class Layout extends BaseComponent {
     return (
       <div>
         <NavigationBarContainer router={this.props.router} />
-        <div className="container">
+        <div className="container below-navbar">
           <section>
             {this.props.children}
           </section>
