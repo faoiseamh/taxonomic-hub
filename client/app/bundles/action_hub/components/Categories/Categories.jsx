@@ -10,7 +10,6 @@ import { Link } from 'react-router';
 
 import CategoryForm from './CategoryForm';
 
-
 export default class Categories extends BaseComponent {
   render() {
     const { actions, data } = this.props;
@@ -22,14 +21,11 @@ export default class Categories extends BaseComponent {
 
     const categoryNodes = $$categoriesSorted.map(($$category, index) => {
       const topicNodes = $$category.get('topics').map(($$topic, topicIndex) =>
-        <Link
+        <ListItem
           key={$$topic.get('id') || topicIndex}
-          to={`/topics/${$$topic.get('id')}`}
-        >
-          <ListItem
-            primaryText={$$topic.get('title')}
-          />
-        </Link>,
+          primaryText={$$topic.get('title')}
+          containerElement={<Link to={`/topics/${$$topic.get('id')}`}/>}
+        />,
       );
 
       return (
