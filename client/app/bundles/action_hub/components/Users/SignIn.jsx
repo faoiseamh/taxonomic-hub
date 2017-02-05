@@ -3,7 +3,6 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 import _ from 'lodash';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 import * as paths from '../../constants/paths';
@@ -62,6 +61,7 @@ export default class SignIn extends BaseComponent {
           floatingLabelText="E-mail Address"
           validations="isEmail"
           validationError="This is not a valid email"
+          fullWidth
           required
         />
         <br />
@@ -69,6 +69,7 @@ export default class SignIn extends BaseComponent {
           name="password"
           floatingLabelText="Password"
           type="password"
+          fullWidth
           required
         />
         <br />
@@ -76,9 +77,9 @@ export default class SignIn extends BaseComponent {
         <RaisedButton
           label="Sign In"
           type="submit"
-          style={{ width: '200px' }}
-          primary
           disabled={!this.state.canSubmit}
+          fullWidth
+          primary
         />
         <br />
         <br />

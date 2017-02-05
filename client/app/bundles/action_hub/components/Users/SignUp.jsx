@@ -61,6 +61,7 @@ export default class SignIn extends BaseComponent {
           floatingLabelText="E-mail Address"
           validations="isEmail"
           validationError="This is not a valid email"
+          fullWidth
           required
         />
         <br />
@@ -68,18 +69,21 @@ export default class SignIn extends BaseComponent {
           name="first_name"
           hintText="optional"
           floatingLabelText="First Name"
+          fullWidth
         />
         <br />
         <FormsyText
           name="last_name"
           hintText="optional"
           floatingLabelText="Last Name"
+          fullWidth
         />
         <br />
         <FormsyText
           name="password"
           floatingLabelText="Password"
           type="password"
+          fullWidth
           required
         />
         <br />
@@ -87,6 +91,7 @@ export default class SignIn extends BaseComponent {
           name="password_confirmation"
           floatingLabelText="Re-type Password"
           type="password"
+          fullWidth
           required
         />
         <br />
@@ -94,9 +99,9 @@ export default class SignIn extends BaseComponent {
         <RaisedButton
           label="Sign Up"
           type="submit"
-          style={{ width: '200px' }}
           primary
           disabled={!this.state.canSubmit}
+          fullWidth
         />
         <br />
         <br />

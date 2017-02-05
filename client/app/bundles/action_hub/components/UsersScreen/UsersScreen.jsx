@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
+import Profile from '../Users/Profile';
 import SignIn from '../Users/SignIn';
 
 import css from './UsersScreen.scss';
@@ -31,12 +32,14 @@ export default class UsersScreen extends BaseComponent {
   renderSignIn() {
     const { data, actions } = this.props;
     return (
-      <div className="text-center">
-        {this.renderNotification()}
-        <SignIn
-          data={data}
-          actions={actions}
-        />
+      <div className="row">
+        <div className="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12 text-center">
+          {this.renderNotification()}
+          <SignIn
+            data={data}
+            actions={actions}
+          />
+        </div>
       </div>
     );
   }
@@ -44,11 +47,14 @@ export default class UsersScreen extends BaseComponent {
   renderProfile() {
     const { data, actions } = this.props;
     return (
-      <div
-        data={data}
-        actions={actions}
-      >
-        Profile
+      <div className="row">
+        <div className="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12 text-center">
+          {this.renderNotification()}
+          <Profile
+            data={data}
+            actions={actions}
+          />
+        </div>
       </div>
     );
   }
