@@ -31,11 +31,14 @@ export default {
   },
 
   // Users requests
+  signUp(user) {
+    return this.post('../users', { user });
+  },
   signIn(user) {
     return this.post('../users/sign_in', { user });
   },
-  signUp(user) {
-    return this.post('../users', { user });
+  signOut(user) {
+    return this.delete('../users/sign_out', { user });
   },
 
 
@@ -60,6 +63,14 @@ export default {
   put(path, data) {
     return jQuery.ajax(this.makePath(path), {
       method: 'PUT',
+      dataType: 'json',
+      data,
+    });
+  },
+
+  delete(path, data) {
+    return jQuery.ajax(this.makePath(path), {
+      method: 'DELETE',
       dataType: 'json',
       data,
     });

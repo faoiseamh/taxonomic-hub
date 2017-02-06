@@ -1,17 +1,12 @@
 import React, { PropTypes } from 'react';
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
-import { renderErrorFromResponse } from 'libs/errorHelper'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import _ from 'lodash';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router';
-import * as paths from '../../constants/paths';
 
-
-export default class SignIn extends BaseComponent {
+export default class Profile extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
@@ -46,39 +41,12 @@ export default class SignIn extends BaseComponent {
 
   submit(user) {
     const { actions } = this.props;
-    actions.signUp(user);
+    actions.signIn(user);
   }
-
-  renderErrors() {
-    const { actions, data } = this.props;
-    const signUpError = renderErrorFromResponse(data.get('signUpError'));
-    const hasError = signUpError != null;
-
-    const dialogActions = [
-      <FlatButton
-        label="OK"
-        onTouchTap={actions.clearSignUpFailure}
-        keyboardFocused
-        primary
-      />,
-    ];
-    return (
-      <Dialog
-        title="Error"
-        actions={dialogActions}
-        modal={false}
-        open={hasError}
-        onRequestClose={actions.clearSignUpFailure}
-      >
-        <div>
-          {signUpError}
-        </div>
-      </Dialog>
-    );
-  }
-
   render() {
-    // const { actions, data } = this.props;
+    const { data } = this.props;
+
+    const $$currentUser = data.get('$$currentUser');
 
     return (
       <Formsy.Form
@@ -86,43 +54,49 @@ export default class SignIn extends BaseComponent {
         onValid={this.enableButton}
         onInvalid={this.disableButton}
       >
-        <h3 className="lead">Sign Up</h3>
-        {this.renderErrors()}
+        <h3 className="lead">Profile</h3>
         <FormsyText
           name="email"
           hintText="you@domain.com"
           floatingLabelText="E-mail Address"
           validations="isEmail"
           validationError="This is not a valid email"
+          value={$$currentUser.get('email')}
           fullWidth
           required
         />
         <br />
         <FormsyText
           name="first_name"
-          hintText="optional"
           floatingLabelText="First Name"
+          value={$$currentUser.get('first_name')}
           fullWidth
         />
         <br />
         <FormsyText
           name="last_name"
-          hintText="optional"
           floatingLabelText="Last Name"
+          value={$$currentUser.get('last_name')}
           fullWidth
         />
         <br />
         <FormsyText
           name="password"
-          floatingLabelText="Password"
+          floatingLabelText="New Password"
           type="password"
           fullWidth
-          required
         />
         <br />
         <FormsyText
           name="password_confirmation"
-          floatingLabelText="Re-type Password"
+          floatingLabelText="Re-type New Password"
+          type="password"
+          fullWidth
+        />
+        <br />
+        <FormsyText
+          name="current_password"
+          floatingLabelText="Current Password"
           type="password"
           fullWidth
           required
@@ -130,17 +104,13 @@ export default class SignIn extends BaseComponent {
         <br />
         <br />
         <RaisedButton
-          label="Sign Up"
+          label="Save Changes"
           type="submit"
+          fullWidth
           primary
           disabled={!this.state.canSubmit}
-          fullWidth
         />
         <br />
-        <br />
-        <Link to={paths.USER_SIGN_IN_PATH}>
-          Sign In
-        </Link>
         <br />
       </Formsy.Form>
     );

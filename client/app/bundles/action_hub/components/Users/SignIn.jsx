@@ -3,6 +3,8 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 import _ from 'lodash';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 import * as paths from '../../constants/paths';
@@ -45,8 +47,37 @@ export default class SignIn extends BaseComponent {
     const { actions } = this.props;
     actions.signIn(user);
   }
+
+  renderErrors() {
+    const { actions, data } = this.props;
+    const signInError = data.get('signInError');
+    const hasError = signInError != null;
+
+    const dialogActions = [
+      <FlatButton
+        label="OK"
+        onTouchTap={actions.clearSignInFailure}
+        keyboardFocused
+        primary
+      />,
+    ];
+    return (
+      <Dialog
+        title="Error signing in"
+        actions={dialogActions}
+        modal={false}
+        open={hasError}
+        onRequestClose={actions.clearSignInFailure}
+      >
+        <div>
+          {signInError}
+        </div>
+      </Dialog>
+    );
+  }
+
   render() {
-    // const { actions, data } = this.props;
+    const { data } = this.props;
 
     return (
       <Formsy.Form
@@ -54,7 +85,8 @@ export default class SignIn extends BaseComponent {
         onValid={this.enableButton}
         onInvalid={this.disableButton}
       >
-        <h3 className="lead">Sign Up</h3>
+        <h3 className="lead">Sign In</h3>
+        {this.renderErrors()}
         <FormsyText
           name="email"
           hintText="you@domain.com"
@@ -75,9 +107,9 @@ export default class SignIn extends BaseComponent {
         <br />
         <br />
         <RaisedButton
-          label="Sign In"
+          label={data.get('isSigningIn') ? 'Signing In...' : 'Sign In'}
           type="submit"
-          disabled={!this.state.canSubmit}
+          disabled={!this.state.canSubmit || data.get('isSigningIn')}
           fullWidth
           primary
         />

@@ -28,6 +28,10 @@ export default (
       path={paths.USER_SIGN_UP_PATH}
       component={RouterSignUpContainer}
     />
+    <Route
+      path={paths.USER_EDIT_PROFILE_PATH}
+      component={RouterUsersContainer}
+    />
 
     <Route
       path="react-router"

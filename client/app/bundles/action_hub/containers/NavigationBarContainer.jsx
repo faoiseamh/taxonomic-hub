@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 
 import NavigationBar from '../components/NavigationBar/NavigationBar';
+import * as usersActionCreators from '../actions/usersActionCreators';
 
 function stateToProps(state) {
   // Which part of the Redux global state does our component want to receive as props?
@@ -18,13 +20,15 @@ function stateToProps(state) {
 class NavigationBarContainer extends BaseComponent {
   static propTypes = {
     pathname: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
   };
 
   render() {
-    const { pathname, router } = this.props;
+    const { dispatch, data, pathname, router } = this.props;
+    const actions = bindActionCreators(usersActionCreators, dispatch);
 
     return (
-      <NavigationBar {...{ pathname, router }} />
+      <NavigationBar {...{ actions, data, pathname, router }} />
     );
   }
 }

@@ -4,9 +4,13 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 import { IndexLink, Link } from 'react-router';
 
 import AppBar from 'material-ui/AppBar';
+import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
+import FontIcon from 'material-ui/FontIcon';
 import FlatButton from 'material-ui/FlatButton';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import Popover from 'material-ui/Popover';
 
 import * as paths from '../../constants/paths';
 
@@ -20,6 +24,7 @@ export default class NavigationBar extends BaseComponent {
     super(props);
     this.state = {
       open: false,
+      userMenuOpen: false,
     };
   }
 
@@ -32,6 +37,7 @@ export default class NavigationBar extends BaseComponent {
     // this.props.router.removeChangeListener(this.handleLocationChange);
   }
 
+  // Close the nav drawer on a location change
   handleLocationChange() {
     this.setState({ open: false });
   }
@@ -40,12 +46,80 @@ export default class NavigationBar extends BaseComponent {
     this.setState({ open: !this.state.open });
   }
 
+  handleOpenUserMenu(e) {
+    this.setState({
+      userMenuOpen: !this.state.userMenuOpen,
+      userMenuOpenAnchorEl: e.currentTarget,
+    });
+  }
+
+  closeUserMenu() {
+    this.setState({
+      userMenuOpen: false,
+    });
+  }
+
+  logOut() {
+    this.closeUserMenu();
+    const { actions } = this.props;
+    actions.signOut();
+  }
+
+  renderUserButton() {
+    const { data } = this.props;
+    const $$currentUser = data.$$usersState.get('$$currentUser');
+
+    if ($$currentUser) {
+      let userMenuLabel = $$currentUser.get('first_name');
+      if (userMenuLabel === undefined || userMenuLabel == null) {
+        userMenuLabel = '';
+      }
+      return (
+        <div>
+          <FlatButton
+            onTouchTap={(e) => { this.handleOpenUserMenu(e); }}
+            label={userMenuLabel}
+            icon={<FontIcon className="material-icons">person</FontIcon>}
+          />
+          <Popover
+            open={this.state.userMenuOpen}
+            onRequestClose={() => { this.closeUserMenu(); }}
+            anchorEl={this.state.userMenuOpenAnchorEl}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+          >
+            <Menu>
+              <MenuItem
+                primaryText="Profile"
+                leftIcon={<FontIcon className="material-icons">person</FontIcon>}
+                containerElement={<Link to={paths.USER_EDIT_PROFILE_PATH} activeClassName="active" />}// eslint-disable-line jsx-a11y/anchor-has-content
+              />
+              <Divider />
+              <MenuItem
+                primaryText="Log Out"
+                leftIcon={<FontIcon className="material-icons">power_settings_new</FontIcon>}
+                onTouchTap={() => { this.logOut(); }}
+              />
+            </Menu>
+          </Popover>
+        </div>
+      );
+    }
+
+    return (
+      <FlatButton
+        containerElement={<Link to={paths.USER_SIGN_IN_PATH} activeClassName="active" />}// eslint-disable-line jsx-a11y/anchor-has-content
+        label="Sign In"
+      />
+    );
+  }
+
   render() {
     return (
       <div>
         <AppBar
           title="Action Hub"
-          iconElementRight={<FlatButton containerElement={<Link to={paths.USER_SIGN_IN_PATH} activeClassName="active" />} label="Sign In" />}
+          iconElementRight={this.renderUserButton()}
           onLeftIconButtonTouchTap={() => { this.handleToggle(); }}
         />
         <Drawer

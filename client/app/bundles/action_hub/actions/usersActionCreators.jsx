@@ -33,6 +33,14 @@ export function signUp(user) {
   };
 }
 
+export function clearSignUpFailure() {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_SIGN_UP_FAILURE,
+    });
+  };
+}
+
 // Sign In
 export function setIsSigningIn() {
   return {
@@ -62,5 +70,54 @@ export function signIn(user) {
         .done(res => dispatch(signInSuccess(res)))
         .fail(error => dispatch(signInFailure(error)))
     );
+  };
+}
+
+export function clearSignInFailure() {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_SIGN_IN_FAILURE,
+    });
+  };
+}
+
+
+// Sign out
+export function setIsSigningOut() {
+  return {
+    type: actionTypes.SET_IS_SIGNING_OUT,
+  };
+}
+
+export function signOutSuccess(user) {
+  return {
+    type: actionTypes.SIGN_OUT_SUCCESS,
+    user,
+  };
+}
+
+export function signOutFailure(error) {
+  return {
+    type: actionTypes.SIGN_OUT_FAILURE,
+    error,
+  };
+}
+
+export function signOut() {
+  return (dispatch) => {
+    dispatch(setIsSigningOut());
+    return (
+      requestsManager.signOut()
+        .done(res => dispatch(signOutSuccess(res)))
+        .fail(error => dispatch(signOutFailure(error)))
+    );
+  };
+}
+
+export function clearSignOutFailure() {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_SIGN_OUT_FAILURE,
+    });
   };
 }
