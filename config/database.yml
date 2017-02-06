@@ -4,3 +4,10 @@ development:
   username: action_hub
   password: gsvrY3T%7x0w
   host: localhost
+
+production:
+  adapter: mysql2
+  database: action_hub
+  username: ydhtoe020cz1svuo
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  host: ryvdxs57afyjk41z.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
