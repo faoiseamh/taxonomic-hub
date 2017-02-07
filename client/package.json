@@ -4,8 +4,8 @@
   "description": "Action Hub React Client App",
   "main": "server-express.js",
   "engines": {
-    "node": "7.2.0",
-    "npm": "4.0.2"
+    "node": "7.5.0",
+    "npm": "4.1.2"
   },
   "repository": {
     "type": "git",
