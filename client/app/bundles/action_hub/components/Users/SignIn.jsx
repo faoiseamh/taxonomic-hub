@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
+import { renderErrorFromResponse } from 'libs/errorHelper'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import _ from 'lodash';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
@@ -50,7 +51,7 @@ export default class SignIn extends BaseComponent {
 
   renderErrors() {
     const { actions, data } = this.props;
-    const signInError = data.get('signInError');
+    const signInError = renderErrorFromResponse(data.get('signInError'));
     const hasError = signInError != null;
 
     const dialogActions = [
