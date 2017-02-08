@@ -1,5 +1,7 @@
 import requestsManager from 'libs/requestsManager'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
+import { push } from 'react-router-redux';
 import * as actionTypes from '../constants/usersConstants';
+import * as paths from '../constants/paths';
 
 // Sign Up
 export function setIsSigningUp() {
@@ -62,12 +64,15 @@ export function signInFailure(error) {
   };
 }
 
-export function signIn(user) {
+export function signIn(user, redirect = paths.ROOT_PATH) {
   return (dispatch) => {
     dispatch(setIsSigningIn());
     return (
       requestsManager.signIn(user)
-        .done(res => dispatch(signInSuccess(res)))
+        .done(res => {
+          dispatch(signInSuccess(res));
+          dispatch(push(redirect));
+        })
         .fail(error => dispatch(signInFailure(error)))
     );
   };
@@ -108,7 +113,10 @@ export function signOut() {
     dispatch(setIsSigningOut());
     return (
       requestsManager.signOut()
-        .done(res => dispatch(signOutSuccess(res)))
+        .done(res => {
+          dispatch(signOutSuccess(res));
+          dispatch(push(paths.AFTER_SIGN_OUT_PATH));
+        })
         .fail(error => dispatch(signOutFailure(error)))
     );
   };

@@ -128,7 +128,7 @@ export default class NavigationBar extends BaseComponent {
           onRequestChange={(open) => this.setState({ open })}
         >
           <MenuItem
-            containerElement={<IndexLink to={paths.ROUTER_PATH} activeClassName="active" />}
+            containerElement={<IndexLink to={paths.ROOT_PATH} activeClassName="active" />}
           >
             Categories
           </MenuItem>

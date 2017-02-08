@@ -13,6 +13,7 @@ export default (props, railsContext) => {
       $$categories: initialCategories,
       $$topics: initialTopics,
       $$currentUser: initialCurrentUser,
+      isAuthenticated: initialCurrentUser && initialCurrentUser != null,
     }),
     railsContext,
   };

@@ -18,7 +18,7 @@ export default (_props, railsContext) => {
   // This is where we get the existing store.
   const { pathname } = railsContext;
   let store;
-  if (pathname === paths.ROUTER_PATH) {
+  if (pathname === paths.ROOT_PATH) {
     store = ReactOnRails.getStore('routerActionHubStore', false);
   } else {
     return (

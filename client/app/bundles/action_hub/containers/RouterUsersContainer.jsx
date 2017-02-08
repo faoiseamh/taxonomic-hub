@@ -24,10 +24,10 @@ class RouterUsersContainer extends BaseComponent {
   render() {
     const { dispatch, data } = this.props;
     const actions = bindActionCreators(usersActionCreators, dispatch);
-    const locationState = this.props.location.state;
+    const location = this.props.location;
 
     return (
-      <UsersScreen {...{ actions, data, locationState }} />
+      <UsersScreen {...{ actions, data, location }} />
     );
   }
 }

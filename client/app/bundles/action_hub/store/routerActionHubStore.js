@@ -1,5 +1,6 @@
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { routerMiddleware, routerReducer } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 
 import loggerMiddleware from 'libs/middlewares/loggerMiddleware'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
@@ -32,6 +33,7 @@ export default (props, railsContext) => {
   if (initialCurrentUser) {
     initialState.$$usersState = initialState.$$usersState.merge({
       $$currentUser: initialCurrentUser,
+      isAuthenticated: initialCurrentUser && initialCurrentUser != null,
     });
   }
 
@@ -42,8 +44,9 @@ export default (props, railsContext) => {
   });
 
   // Sync dispatched route actions to the history
+  const routerHistoryMiddleware = routerMiddleware(browserHistory);
   const finalCreateStore = compose(
-    applyMiddleware(thunkMiddleware, loggerMiddleware),
+    applyMiddleware(routerHistoryMiddleware, thunkMiddleware, loggerMiddleware),
   )(createStore);
 
   return finalCreateStore(reducer, initialState);

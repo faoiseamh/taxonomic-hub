@@ -7,30 +7,32 @@ import RouterCategoriesContainer from '../containers/RouterCategoriesContainer';
 import RouterTopicContainer from '../containers/RouterTopicContainer';
 import RouterUsersContainer from '../containers/RouterUsersContainer';
 import RouterSignUpContainer from '../containers/RouterSignUpContainer';
+import requireAuthentication from './requireAuthentication';
+import requireUnauthenticated from './requireUnauthenticated';
 import * as paths from '../constants/paths';
 
 export default (
   <Route path="/" component={Layout}>
     <IndexRoute
-      component={RouterCategoriesContainer}
+      component={requireAuthentication(RouterCategoriesContainer)}
     />
 
     <Route
       path="/topics/:topicId"
-      component={RouterTopicContainer}
+      component={requireAuthentication(RouterTopicContainer)}
     />
 
     <Route
       path={paths.USER_SIGN_IN_PATH}
-      component={RouterUsersContainer}
+      component={requireUnauthenticated(RouterUsersContainer, paths.ROOT_PATH)}
     />
     <Route
       path={paths.USER_SIGN_UP_PATH}
-      component={RouterSignUpContainer}
+      component={requireUnauthenticated(RouterSignUpContainer, paths.USER_EDIT_PROFILE_PATH)}
     />
     <Route
       path={paths.USER_EDIT_PROFILE_PATH}
-      component={RouterUsersContainer}
+      component={requireAuthentication(RouterUsersContainer)}
     />
 
     <Route

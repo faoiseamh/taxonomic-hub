@@ -15,6 +15,7 @@ export default class SignIn extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    location: PropTypes.object,
   };
 
   constructor(props) {
@@ -45,8 +46,10 @@ export default class SignIn extends BaseComponent {
   }
 
   submit(user) {
-    const { actions } = this.props;
-    actions.signIn(user);
+    const { actions, location } = this.props;
+    const redirectRoute = location.query.next || paths.USER_SIGN_IN_PATH;
+
+    actions.signIn(user, redirectRoute);
   }
 
   renderErrors() {

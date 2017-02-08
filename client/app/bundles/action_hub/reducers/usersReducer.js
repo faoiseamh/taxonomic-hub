@@ -6,6 +6,7 @@ import * as actionTypes from '../constants/usersConstants';
 
 export const $$initialState = Immutable.fromJS({
   $$currentUser: false,
+  isAuthenticated: false,
   isSigningUp: false,
   signUpError: null,
   isSigningIn: false,
@@ -23,6 +24,7 @@ export default function usersReducer($$state = $$initialState, action = null) {
     case actionTypes.SIGN_UP_SUCCESS: {
       return $$state.merge({
         $$currentUser: user,
+        isAuthenticated: true,
         signUpError: null,
         isSigningUp: false,
       });
@@ -45,6 +47,7 @@ export default function usersReducer($$state = $$initialState, action = null) {
     case actionTypes.SIGN_IN_SUCCESS: {
       return $$state.merge({
         $$currentUser: user,
+        isAuthenticated: true,
         signInError: null,
         isSigningIn: false,
       });
@@ -67,6 +70,7 @@ export default function usersReducer($$state = $$initialState, action = null) {
     case actionTypes.SIGN_OUT_SUCCESS: {
       return $$state.merge({
         $$currentUser: false,
+        isAuthenticated: false,
         signOutError: null,
         isSigningOut: false,
       });
