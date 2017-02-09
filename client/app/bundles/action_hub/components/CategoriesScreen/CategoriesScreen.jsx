@@ -8,19 +8,17 @@ export default class CategoriesScreen extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    getTopicsForCategory: PropTypes.func.isRequired,
     locationState: PropTypes.object,
   };
 
   render() {
-    const { data, actions } = this.props;
+    const { data, actions, $$categories, getTopicsForCategory } = this.props;
 
     return (
       <div>
         <div>
-          <Categories
-            data={data}
-            actions={actions}
-          />
+          <Categories {...{ actions, data, $$categories, getTopicsForCategory }} />
         </div>
       </div>
     );

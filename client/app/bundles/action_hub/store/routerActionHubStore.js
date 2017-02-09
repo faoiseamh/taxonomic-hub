@@ -3,6 +3,7 @@ import { routerMiddleware, routerReducer } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 
+import { arrayToObjectKeyedById } from 'libs/enumerableHelper'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import loggerMiddleware from 'libs/middlewares/loggerMiddleware'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 
 import reducers, { initialStates } from '../reducers';
@@ -28,18 +29,19 @@ export default (props, railsContext) => {
   // Merge in initial values if they are defined
   if (initialCategories) {
     initialState.$$categoriesState = initialState.$$categoriesState.merge({
-      $$categories: initialCategories,
+      $$categories: arrayToObjectKeyedById(initialCategories),
     });
   }
   if (initialTopics) {
     initialState.$$topicsState = initialState.$$topicsState.merge({
-      $$topics: initialTopics,
+      $$topics: arrayToObjectKeyedById(initialTopics),
     });
   }
   if (initialCategoryTopicRelationships) {
-    initialState.$$categoryTopicRelationshipsState = initialState.$$categoryTopicRelationshipsState.merge({
-      $$categoryTopicRelationships: initialCategoryTopicRelationships,
-    });
+    initialState.$$categoryTopicRelationshipsState =
+      initialState.$$categoryTopicRelationshipsState.merge({
+        $$categoryTopicRelationships: arrayToObjectKeyedById(initialCategoryTopicRelationships),
+      });
   }
 
   if (initialCurrentUser) {

@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 // import * as actionTypes from '../constants/categoryTopicRelationshipsConstants';
 
 export const $$initialState = Immutable.fromJS({
-  $$categoryTopicRelationships: [],
+  $$categoryTopicRelationships: {},
 });
 
 export default function categoryTopicRelationshipsReducer($$state = $$initialState, action = null) {

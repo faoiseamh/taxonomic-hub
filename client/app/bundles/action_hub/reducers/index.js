@@ -1,4 +1,4 @@
-import categoriesReducer, { $$initialState as $$categoriesState } from './categoriesReducer';
+import categoriesReducer, * as fromCategories from './categoriesReducer';
 import categoryTopicRelationshipsReducer, { $$initialState as $$categoryTopicRelationshipsState } from './categoryTopicRelationshipsReducer';
 import topicsReducer, { $$initialState as $$topicsState } from './topicsReducer';
 import usersReducer, { $$initialState as $$usersState } from './usersReducer';
@@ -14,7 +14,7 @@ export default {
 
 
 export const initialStates = {
-  $$categoriesState,
+  $$categoriesState: fromCategories.$$initialState,
   $$categoryTopicRelationshipsState,
   $$topicsState,
   $$usersState,

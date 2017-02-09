@@ -4,8 +4,14 @@ import Immutable from 'immutable';
 
 import * as actionTypes from '../constants/categoriesConstants';
 
+
+export function getCategories($$state) {
+  return $$state.get('$$categories').valueSeq();
+}
+
+
 export const $$initialState = Immutable.fromJS({
-  $$categories: [],
+  $$categories: {},
   fetchCategoriesError: null,
   submitCategoryError: null,
   isFetchingCategories: false,
@@ -36,7 +42,10 @@ export default function categoriesReducer($$state = $$initialState, action = nul
         state
           .updateIn(
             ['$$categories'],
-            $$categories => $$categories.unshift(Immutable.fromJS(category)),
+            $$categories => Immutable.fromJS({
+              ...$$categories,
+              [category.id]: category,
+            }),
           )
           .merge({
             submitCategoryError: null,

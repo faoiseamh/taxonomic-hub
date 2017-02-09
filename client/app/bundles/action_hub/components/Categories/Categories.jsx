@@ -12,19 +12,17 @@ import CategoryForm from './CategoryForm';
 
 export default class Categories extends BaseComponent {
   render() {
-    const { actions, data } = this.props;
+    const { actions, data, $$categories, getTopicsForCategory } = this.props;
 
-    // TODO: Figure out best way to sort data in redux -- in reducer or here? Why doesn't this work?
-    const $$categories = data.get('$$categories');
     // Cannot sort $$categories directly because it is immutable
     const $$categoriesSorted = $$categories.sort((a, b) => a.get('title').localeCompare(b.get('title')));
 
     const categoryNodes = $$categoriesSorted.map(($$category, index) => {
-      const topicNodes = $$category.get('topics').map(($$topic, topicIndex) =>
+      const topicNodes = getTopicsForCategory($$category.get('id')).map(($$topic, topicIndex) =>
         <ListItem
           key={$$topic.get('id') || topicIndex}
           primaryText={$$topic.get('title')}
-          containerElement={<Link to={`/topics/${$$topic.get('id')}`}/>}
+          containerElement={<Link to={`/topics/${$$topic.get('id')}`} />}
         />,
       );
 

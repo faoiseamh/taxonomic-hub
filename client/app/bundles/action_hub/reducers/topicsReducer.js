@@ -4,9 +4,12 @@ import Immutable from 'immutable';
 
 import * as actionTypes from '../constants/topicsConstants';
 
+export function getTopic(state, topicId) {
+  return state.get('$$topics').get(String(topicId));
+}
+
 export const $$initialState = Immutable.fromJS({
   $$topics: {},
-  // $$topicsByCategory: {},
   fetchTopicError: null,
   fetchTopicsError: null,
   submitTopicError: null,
