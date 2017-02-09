@@ -6,11 +6,13 @@ import reducers, { initialStates } from '../reducers';
 export default (props, railsContext) => {
   const initialCategories = props.categories;
   const initialTopics = props.topics;
+  const initialCategoryTopicRelationships = props.category_topic_relationships;
   const initialCurrentUser = props.current_user;
   const { $$actionHubState } = initialStates;
   const initialState = {
     $$actionHubStore: $$actionHubState.merge({
       $$categories: initialCategories,
+      $$categoryTopicRelationships: initialCategoryTopicRelationships,
       $$topics: initialTopics,
       $$currentUser: initialCurrentUser,
       isAuthenticated: initialCurrentUser && initialCurrentUser != null,

@@ -11,9 +11,15 @@ export default (props, railsContext) => {
   const initialCategories = props.categories;
   const initialTopics = props.topics;
   const initialCurrentUser = props.current_user;
-  const { $$categoriesState, $$topicsState, $$usersState } = initialStates;
+  const initialCategoryTopicRelationships = props.category_topic_relationships;
+  const {
+    $$categoriesState,
+    $$categoryTopicRelationshipsState,
+    $$topicsState,
+    $$usersState } = initialStates;
   const initialState = {
     $$categoriesState,
+    $$categoryTopicRelationshipsState,
     $$topicsState,
     $$usersState,
     railsContext,
@@ -30,6 +36,12 @@ export default (props, railsContext) => {
       $$topics: initialTopics,
     });
   }
+  if (initialCategoryTopicRelationships) {
+    initialState.$$categoryTopicRelationshipsState = initialState.$$categoryTopicRelationshipsState.merge({
+      $$categoryTopicRelationships: initialCategoryTopicRelationships,
+    });
+  }
+
   if (initialCurrentUser) {
     initialState.$$usersState = initialState.$$usersState.merge({
       $$currentUser: initialCurrentUser,
