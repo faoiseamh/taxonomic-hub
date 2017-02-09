@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   include ReactOnRails::Controller
-  before_action :set_categories
 
   def index
     # NOTE: The below notes apply if you want to set the value of the props in the controller, as
@@ -28,13 +27,13 @@ class PagesController < ApplicationController
 
   private
 
-  def set_categories
-    @categories = Category.all.includes(:topics)
-  end
-
   def initial_data_json_string
-    render_to_string(template: "initial_data.json.jbuilder",
-                     locals: { categories: Category.all.includes(:topics) }, format: :json)
+    render_to_string( template: "initial_data.json.jbuilder",
+                      locals: {
+                        categories: Category.all,
+                        topics: Topic.all,
+                        category_topic_relationships: CategoryTopicRelationship.all,
+                      }, format: :json)
   end
 
   def render_html

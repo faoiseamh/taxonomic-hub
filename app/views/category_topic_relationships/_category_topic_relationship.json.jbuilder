@@ -1,0 +1,1 @@
+json.extract! category_topic_relationship, :id, :category_id, :topic_id

@@ -1,3 +1,4 @@
 class Topic < ActiveRecord::Base
-  belongs_to :category
+  has_many :categories, through: :category_topic_relationships
+  has_many :category_topic_relationships
 end
