@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
 
 import { CirclePicker } from 'react-color';
-import RaisedButton from 'material-ui/RaisedButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import TextField from 'material-ui/TextField';
 
 export default class CategoryForm extends React.Component {
@@ -21,6 +24,7 @@ export default class CategoryForm extends React.Component {
     super(props);
 
     this.state = {
+      open: false,
       title: this.props.title ? this.props.title : '',
       color: this.props.color ? this.props.color : '',
       topics: this.props.topics ? this.props.topics : [],
@@ -32,6 +36,10 @@ export default class CategoryForm extends React.Component {
     this.setState({ color: color.hex });
   }
 
+  handleClose = () => {
+    this.setState({ open: false });
+  }
+
   handleChange = (e) => {
     const name = e.target.name;
     const stateChange = {};
@@ -41,14 +49,13 @@ export default class CategoryForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // $.post('/categories', { category: this.state }, (data) => {
-    //   this.props.handleNewCategory(data);
-    //   this.setState(this.baseState);
-    // }, 'JSON');
     const { actions } = this.props;
     actions
       .submitCategory(this.state)
-      .done(this.reset);
+      .done(() => {
+        this.reset();
+        this.handleClose();
+      });
   }
 
   reset = () => {
@@ -60,32 +67,56 @@ export default class CategoryForm extends React.Component {
 
   render() {
     return (
-      <form className="form-inline" onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <TextField
-            name="title"
-            id="categoryFormTitle"
-            hintText="a concise title for category"
-            floatingLabelText="Title"
-            inputStyle={{ backgroundColor: this.state.color }}
-            onChange={this.handleChange}
-            value={this.state.title}
-          />
-        </div>
-        <div className="form-group">
-          <CirclePicker
-            circleSpacing={10}
-            onChangeComplete={this.handleColorChange}
-            color={this.state.color}
-          />
-        </div>
-        <RaisedButton
-          label="Create category"
-          type="submit"
-          primary
-          disabled={!this.valid()}
-        />
-      </form>
+      <div>
+        <FloatingActionButton
+          onTouchTap={() => { this.setState({ open: true }); }}
+          className="floating-actions-menu"
+        >
+          <ContentAdd />
+        </FloatingActionButton>
+        <Dialog
+          title="Add Category"
+          actions={[
+            <FlatButton
+              label="Cancel"
+              primary
+              onTouchTap={this.handleClose}
+            />,
+            <FlatButton
+              label="Create category"
+              onTouchTap={this.handleSubmit}
+              primary
+              disabled={!this.valid()}
+            />,
+          ]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          <form className="text-center" onSubmit={this.handleSubmit}>
+            <div style={{ marginBottom: '25px' }}>
+              <TextField
+                name="title"
+                id="categoryFormTitle"
+                hintText="a concise title for category"
+                floatingLabelText="Title"
+                inputStyle={{ backgroundColor: this.state.color }}
+                onChange={this.handleChange}
+                value={this.state.title}
+              />
+            </div>
+            <div>
+              <div style={{ marginLeft: 'auto', marginRight: 'auto', display: 'inline-block' }}>
+                <CirclePicker
+                  circleSpacing={10}
+                  onChangeComplete={this.handleColorChange}
+                  color={this.state.color}
+                />
+              </div>
+            </div>
+          </form>
+        </Dialog>
+      </div>
     );
   }
 

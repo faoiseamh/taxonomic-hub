@@ -28,7 +28,7 @@ export default function topicsReducer($$state = $$initialState, action = null) {
           .updateIn(
             ['$$topics'],
             $$topics => Immutable.fromJS({
-              ...$$topics,
+              ...$$topics.toJS(),
               [topic.id]: topic,
             }),
           )
@@ -67,7 +67,7 @@ export default function topicsReducer($$state = $$initialState, action = null) {
           .updateIn(
             ['$$topics'],
             $$topics => Immutable.fromJS({
-              ...$$topics,
+              ...$$topics.toJS(),
               [topic.id]: topic,
             }),
           )

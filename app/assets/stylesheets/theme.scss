@@ -1,3 +1,9 @@
 .container.below-navbar {
   padding-top: 15px;
 }
+
+.floating-actions-menu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

@@ -8,11 +8,9 @@ import { List, ListItem } from 'material-ui/List';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import { Link } from 'react-router';
 
-import CategoryForm from './CategoryForm';
-
 export default class Categories extends BaseComponent {
   render() {
-    const { actions, data, $$categories, getTopicsForCategory } = this.props;
+    const { $$categories, getTopicsForCategory } = this.props;
 
     // Cannot sort $$categories directly because it is immutable
     const $$categoriesSorted = $$categories.sort((a, b) => a.get('title').localeCompare(b.get('title')));
@@ -47,12 +45,6 @@ export default class Categories extends BaseComponent {
         <Card>
           <CardHeader title="Categories" />
           <CardMedia>
-            <div className="text-center">
-              <CategoryForm
-                data={data}
-                actions={actions}
-              />
-            </div>
             {
               // HACK: Wrap in divs to avoid the MUI prepareStyles warning:
               // "You cannot call prepareStyles() on the same style object more than once"
