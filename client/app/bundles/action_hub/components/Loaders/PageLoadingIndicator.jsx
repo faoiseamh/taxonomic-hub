@@ -3,11 +3,18 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 
 import CircularProgress from 'material-ui/CircularProgress';
 
+const style = {
+  marginTop: '30px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  textAlign: 'center',
+};
+
 export default class PageLoadingIndicator extends BaseComponent {
 
   render() {
     return (
-      <CircularProgress size={80} thickness={5} />
+      <CircularProgress size={80} thickness={5} style={style} />
     );
   }
 }

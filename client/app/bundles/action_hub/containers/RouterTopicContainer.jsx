@@ -6,14 +6,14 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 
 import TopicScreen from '../components/TopicScreen/TopicScreen';
 import * as TopicsActionCreators from '../actions/topicsActionCreators';
+import * as query from '../reducers/queries';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
   return {
-    data: {
-      $$categoriesState: state.$$categoriesState,
-      $$topicsState: state.$$topicsState,
-    },
+    data: state.$$topicsState,
+    $$categories: query.getCategories(state),
+    getTopic: (topicId) => query.getTopic(state, topicId),
   };
 }
 
@@ -24,19 +24,18 @@ class RouterTopicContainer extends BaseComponent {
     location: PropTypes.shape({
       state: PropTypes.object,
     }).isRequired,
+    getTopic: PropTypes.func.isRequired,
   };
 
   render() {
-    const { dispatch, data } = this.props;
+    const { dispatch, data, getTopic, $$categories } = this.props;
     const actions = bindActionCreators(TopicsActionCreators, dispatch);
     const locationState = this.props.location.state;
     const { topicId } = this.props.routeParams;
-
-    // console.log("pete RouterTopicContainer");
-    // console.log(this.props);
+    const $$topic = getTopic(topicId);
 
     return (
-      <TopicScreen {...{ actions, data, locationState, topicId }} />
+      <TopicScreen {...{ actions, data, locationState, topicId, $$topic, $$categories }} />
     );
   }
 }

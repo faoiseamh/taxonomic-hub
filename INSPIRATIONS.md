@@ -14,7 +14,8 @@
 - https://getmdl.io/templates/dashboard/index.html
 - https://getmdl.io/showcase/index.html
 - https://www.google.com/get/sunroof/about/
-
+- https://fi.google.com/signup?did=pixel
+- https://developer.android.com/reference/android/app/Activity.html
 
 # IDeas
 - change background color of page based on category. or just a bar somewhere

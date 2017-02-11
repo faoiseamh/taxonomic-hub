@@ -15,7 +15,7 @@ export default class TopicForm extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
-    topic: PropTypes.object.isRequired,
+    $$topic: PropTypes.object.isRequired,
   };
 
 
@@ -48,7 +48,8 @@ export default class TopicForm extends BaseComponent {
   }
 
   isNewTopic() {
-    return this.props.topic.get('id') === undefined;
+    const { $$topic } = this.props;
+    return $$topic.get('id') === undefined;
   }
 
 
@@ -59,7 +60,7 @@ export default class TopicForm extends BaseComponent {
     } else {
       actions.updateTopic({
         ...topic,
-        id: this.props.topic.get('id'),
+        id: this.props.$$topic.get('id'),
         body: this.state.topicBody,
       });
     }
@@ -70,7 +71,7 @@ export default class TopicForm extends BaseComponent {
 
     let errorText = null;
     let errorTitle = null;
-    if (data.$$topicsState.get('submitTopicError') != null) {
+    if (data.get('submitTopicError') != null) {
       errorTitle = 'Error saving topic';
       // errorText = data.$$topicsState.get('submitTopicError');
       errorText = 'Oops, something went wrong saving the topic. Please try again in a moment.';
@@ -104,10 +105,11 @@ export default class TopicForm extends BaseComponent {
   }
 
   render() {
-    const { data, topic } = this.props;
+    const { $$topic, $$categories } = this.props;
 
     // Category select menu items
-    const $$categoriesSorted = data.$$categoriesState.get('$$categories').sort((a, b) => a.get('title').localeCompare(b.get('title')));
+    //data.$$categoriesState.get('$$categories').sort((a, b) => a.get('title').localeCompare(b.get('title')));
+    const $$categoriesSorted = $$categories;
     const categoryMenuItems = $$categoriesSorted.map(($$category, index) =>
       <MenuItem
         key={$$category.get('id') || index}
@@ -117,7 +119,7 @@ export default class TopicForm extends BaseComponent {
       />,
     );
 
-    this.state.topicBody = topic.get('body');
+    this.state.topicBody = $$topic.get('body');
 
     return (
       <div>
@@ -131,7 +133,7 @@ export default class TopicForm extends BaseComponent {
             name="title"
             hintText="a concise title for this topic"
             floatingLabelText="Title"
-            value={topic.get('title')}
+            value={$$topic.get('title')}
             required
           />
           <br />
@@ -140,7 +142,7 @@ export default class TopicForm extends BaseComponent {
             name="subtitle"
             hintText="a concise subtitle for this topic"
             floatingLabelText="Subtitle"
-            value={topic.get('subtitle')}
+            value={$$topic.get('subtitle')}
             required
           />
           <br />
@@ -148,7 +150,7 @@ export default class TopicForm extends BaseComponent {
           <FormsySelect
             name="category_id"
             floatingLabelText="Category"
-            value={topic.get('category_id')}
+            value={$$topic.get('category_id')}
             required
           >
             {categoryMenuItems}
