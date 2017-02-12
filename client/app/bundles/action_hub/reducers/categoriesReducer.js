@@ -9,6 +9,9 @@ export function getCategories($$state) {
   return $$state.get('$$categories').valueSeq();
 }
 
+export function getCategory($$state, categoryId) {
+  return $$state.get('$$categories').get(String(categoryId));
+}
 
 export const $$initialState = Immutable.fromJS({
   $$categories: {},

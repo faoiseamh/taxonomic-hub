@@ -4,17 +4,17 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 import _ from 'lodash';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
-import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+
+import TopicCategoryRelationshipMultiselect from './TopicCategoryRelationshipMultiselect';
 
 export default class TopicForm extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    $$categoryTopicRelationships: PropTypes.object.isRequired,
     $$topic: PropTypes.object.isRequired,
   };
 
@@ -22,14 +22,26 @@ export default class TopicForm extends BaseComponent {
   constructor(props) {
     super(props);
 
+    // why is this reduce returning the full object?? figure it out!
+    const selectedCategories = props.$$categoryTopicRelationships.reduce(
+      (categories, $$relationship) => {
+        categories.push($$relationship.get('category_id'));
+        return categories;
+      }, [],
+    );
+
     this.state = {
       canSubmit: false,
+      // TODO: This is duplicated from categoriesReducer. We should probably just pass JS directly
+      // into there / centralize this somehow.
+      selectedCategories,
     };
     this.baseState = this.state;
 
     _.bindAll(this, [
       'enableButton',
       'disableButton',
+      'handleCategoriesChange',
       'submit',
     ]);
   }
@@ -44,6 +56,14 @@ export default class TopicForm extends BaseComponent {
   disableButton() {
     this.setState({
       canSubmit: false,
+    });
+  }
+
+  handleCategoriesChange(categoryTopicRelationships) {
+    this.setState({
+      selectedCategories: categoryTopicRelationships.map(
+        (relationship) => relationship.category_id,
+      ),
     });
   }
 
@@ -62,6 +82,7 @@ export default class TopicForm extends BaseComponent {
         ...topic,
         id: this.props.$$topic.get('id'),
         body: this.state.topicBody,
+        categories: this.state.selectedCategories,
       });
     }
   }
@@ -105,19 +126,7 @@ export default class TopicForm extends BaseComponent {
   }
 
   render() {
-    const { $$topic, $$categories } = this.props;
-
-    // Category select menu items
-    //data.$$categoriesState.get('$$categories').sort((a, b) => a.get('title').localeCompare(b.get('title')));
-    const $$categoriesSorted = $$categories;
-    const categoryMenuItems = $$categoriesSorted.map(($$category, index) =>
-      <MenuItem
-        key={$$category.get('id') || index}
-        value={$$category.get('id')}
-        primaryText={$$category.get('title')}
-        leftIcon={<FontIcon className="material-icons" color={$$category.get('color')}>folder</FontIcon>}
-      />,
-    );
+    const { $$topic, $$categories, $$categoryTopicRelationships } = this.props;
 
     this.state.topicBody = $$topic.get('body');
 
@@ -147,14 +156,11 @@ export default class TopicForm extends BaseComponent {
           />
           <br />
 
-          <FormsySelect
-            name="category_id"
-            floatingLabelText="Category"
-            value={$$topic.get('category_id')}
-            required
-          >
-            {categoryMenuItems}
-          </FormsySelect>
+          <TopicCategoryRelationshipMultiselect
+            onChange={this.handleCategoriesChange}
+            $$categories={$$categories}
+            $$categoryTopicRelationships={$$categoryTopicRelationships}
+          />
           <br />
 
           <ReactQuill

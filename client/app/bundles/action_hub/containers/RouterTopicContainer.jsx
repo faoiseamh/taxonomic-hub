@@ -13,6 +13,8 @@ function select(state) {
   return {
     data: state.$$topicsState,
     $$categories: query.getCategories(state),
+    getCategoryTopicRelationshipsWithCategoryForTopic:
+      (topicId) => query.getCategoryTopicRelationshipsWithCategoryForTopic(state, topicId),
     getTopic: (topicId) => query.getTopic(state, topicId),
   };
 }
@@ -28,14 +30,32 @@ class RouterTopicContainer extends BaseComponent {
   };
 
   render() {
-    const { dispatch, data, getTopic, $$categories } = this.props;
+    const { dispatch,
+      data,
+      getCategoryTopicRelationshipsWithCategoryForTopic,
+      getTopic,
+      $$categories,
+    } = this.props;
     const actions = bindActionCreators(TopicsActionCreators, dispatch);
     const locationState = this.props.location.state;
     const { topicId } = this.props.routeParams;
     const $$topic = getTopic(topicId);
+    const $$categoryTopicRelationships = getCategoryTopicRelationshipsWithCategoryForTopic(topicId);
 
     return (
-      <TopicScreen {...{ actions, data, locationState, topicId, $$topic, $$categories }} />
+      <TopicScreen
+        {
+          ...{
+            actions,
+            data,
+            locationState,
+            topicId,
+            $$topic,
+            $$categories,
+            $$categoryTopicRelationships,
+          }
+        }
+      />
     );
   }
 }

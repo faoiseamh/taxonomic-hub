@@ -7,16 +7,17 @@ export default class Topic extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    $$categoryTopicRelationships: PropTypes.object.isRequired,
     $$topic: PropTypes.object.isRequired,
   };
 
   render() {
-    const { actions, data, $$topic, $$categories } = this.props;
+    const { actions, data, $$topic, $$categories, $$categoryTopicRelationships } = this.props;
 
     // TODO: Figure out best way to sort data in redux -- in reducer or here? Why doesn't this work?
     return (
       <div>
-        <TopicForm {...{ actions, data, $$topic, $$categories }} />
+        <TopicForm {...{ actions, data, $$topic, $$categories, $$categoryTopicRelationships }} />
       </div>
     );
   }

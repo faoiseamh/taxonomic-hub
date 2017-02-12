@@ -14,6 +14,7 @@ export default class TopicScreen extends BaseComponent {
     topicId: PropTypes.string.isRequired,
     $$categories: PropTypes.object,
     $$topic: PropTypes.object,
+    $$categoryTopicRelationships: PropTypes.object.isRequired,
     locationState: PropTypes.object,
   };
 
@@ -24,7 +25,7 @@ export default class TopicScreen extends BaseComponent {
   }
 
   render() {
-    const { data, actions, $$topic, $$categories } = this.props;
+    const { data, actions, $$topic, $$categories, $$categoryTopicRelationships } = this.props;
 
     // Show loading screen if load is in progress
     if (data.get('isFetchingTopic')) {
@@ -40,7 +41,7 @@ export default class TopicScreen extends BaseComponent {
     return (
       <div>
         <div>
-          <Topic {...{ actions, data, $$topic, $$categories }} />
+          <Topic {...{ actions, data, $$topic, $$categories, $$categoryTopicRelationships }} />
         </div>
       </div>
     );
