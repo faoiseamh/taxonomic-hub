@@ -5,17 +5,15 @@ import _ from 'lodash';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 import * as paths from '../../constants/paths';
 
 
-export default class SignIn extends BaseComponent {
+export default class ForgotPassword extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
-    location: PropTypes.object,
   };
 
   constructor(props) {
@@ -46,50 +44,39 @@ export default class SignIn extends BaseComponent {
   }
 
   submit(user) {
-    const { actions, location } = this.props;
-    const redirectRoute = location.query.next || paths.USER_SIGN_IN_PATH;
-
-    actions.signIn(user, redirectRoute);
+    const { actions } = this.props;
+    actions.forgotPassword(user);
   }
 
   renderErrors() {
     const { actions, data } = this.props;
-    const signInError = renderErrorFromResponse(data.get('signInError'));
-    const hasError = signInError != null;
+    const forgotPasswordError = renderErrorFromResponse(data.get('forgotPasswordError'));
+    const hasError = forgotPasswordError != null;
 
-    const dialogActions = [
-      <FlatButton
-        label="OK"
-        onTouchTap={actions.clearSignInFailure}
-        keyboardFocused
-        primary
-      />,
-    ];
     return (
       <Dialog
-        title="Error signing in"
-        actions={dialogActions}
+        title="Error"
         modal={false}
         open={hasError}
-        onRequestClose={actions.clearSignInFailure}
+        onRequestClose={actions.clearForgotPasswordFailure}
       >
         <div>
-          {signInError}
+          {forgotPasswordError}
         </div>
       </Dialog>
     );
   }
 
   render() {
-    const { data } = this.props;
+    // const { actions, data } = this.props;
 
     return (
       <Formsy.Form
         onValidSubmit={this.submit}
-        onValid={this.enableButton}
+        onValid={this.disableButton} // setting the state as disabled until implemented
         onInvalid={this.disableButton}
       >
-        <h3 className="lead">Sign In</h3>
+        <h3 className="lead">Forgot Password</h3>
         {this.renderErrors()}
         <FormsyText
           name="email"
@@ -101,31 +88,18 @@ export default class SignIn extends BaseComponent {
           required
         />
         <br />
-        <FormsyText
-          name="password"
-          floatingLabelText="Password"
-          type="password"
-          fullWidth
-          required
-        />
-        <br />
         <br />
         <RaisedButton
-          label={data.get('isSigningIn') ? 'Signing In...' : 'Sign In'}
+          label="Send Email"
           type="submit"
-          disabled={!this.state.canSubmit || data.get('isSigningIn')}
-          fullWidth
           primary
+          disabled={!this.state.canSubmit}
+          fullWidth
         />
         <br />
         <br />
-        <Link to={paths.USER_FORGOT_PASSWORD_PATH} >
-          Forgot Password?
-        </Link>
-        <br />
-        <br />
-        <Link to={paths.USER_SIGN_UP_PATH} >
-          Sign Up
+        <Link to={paths.USER_SIGN_IN_PATH}>
+          Sign In
         </Link>
         <br />
       </Formsy.Form>
