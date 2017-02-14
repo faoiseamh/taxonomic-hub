@@ -7,6 +7,7 @@ import RouterCategoriesContainer from '../containers/RouterCategoriesContainer';
 import RouterTopicContainer from '../containers/RouterTopicContainer';
 import RouterUsersContainer from '../containers/RouterUsersContainer';
 import RouterSignUpContainer from '../containers/RouterSignUpContainer';
+import RouterForgotPasswordContainer from '../containers/RouterForgotPasswordContainer';
 import requireAuthentication from './requireAuthentication';
 import requireUnauthenticated from './requireUnauthenticated';
 import * as paths from '../constants/paths';
@@ -29,6 +30,11 @@ export default (
     <Route
       path={paths.USER_SIGN_UP_PATH}
       component={requireUnauthenticated(RouterSignUpContainer, paths.USER_EDIT_PROFILE_PATH)}
+    />
+    <Route
+      path={paths.USER_FORGOT_PASSWORD_PATH}
+      component={requireUnauthenticated(RouterForgotPasswordContainer
+        , paths.USER_EDIT_PROFILE_PATH)}
     />
     <Route
       path={paths.USER_EDIT_PROFILE_PATH}
