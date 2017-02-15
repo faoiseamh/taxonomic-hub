@@ -53,48 +53,74 @@ export default class TopicCategoryRelationshipMultiselect extends BaseComponent 
   addRelationship($$category) {
     const relationship = {
       category_id: $$category.get('id'),
-      topic_id: $$category.get('id'),
       $$category: $$category.toJS(),
     };
-    this.setState({
-      categoryTopicRelationships: this.state.categoryTopicRelationships.concat([relationship]),
+    this.setState((prevState) => {
+      // Remove a matching element that might exist if it had previously been deleted
+      const newRelationships = this.constructor.removeRelationshipFromArray(
+        prevState.categoryTopicRelationships, relationship);
+      newRelationships.push(relationship);
+      return {
+        categoryTopicRelationships: newRelationships,
+      };
     }, this.handleChange);
+  }
+
+  // Returns an array of relationships that do not have _destroy flag set
+  getUndeletedRelationships() {
+    const { categoryTopicRelationships } = this.state;
+    return categoryTopicRelationships.filter((relationship) =>
+      !relationship._destroy, // eslint-disable-line no-underscore-dangle
+    );
   }
 
   // Call handleChange callback from properties, passing it the current relationships expressed by
   // id, category_id, and topic
   handleChange() {
     const { categoryTopicRelationships } = this.state;
-    const simplifiedRelationships = categoryTopicRelationships.map((categoryTopicRelationship) =>
+    const simplifiedRelationships = categoryTopicRelationships.map((relationship) =>
       ({
-        id: categoryTopicRelationship.id,
-        category_id: categoryTopicRelationship.category_id,
-        topic_id: categoryTopicRelationship.topic_id,
+        id: relationship.id,
+        category_id: relationship.category_id,
+        _destroy: relationship._destroy, // eslint-disable-line no-underscore-dangle
       }),
     );
     this.props.onChange(simplifiedRelationships);
   }
 
   handleRequestDelete(relationshipToDelete) {
-    // Remove an element from the array (immutably) so setState actually gets triggered.
-    this.setState((prevState) => ({
-      categoryTopicRelationships: prevState.categoryTopicRelationships.filter(
-        (categoryTopicRelationship) =>
-          !(
-            categoryTopicRelationship.category_id === relationshipToDelete.category_id &&
-            categoryTopicRelationship.topic_id === relationshipToDelete.topic_id
-          ),
-      ),
-    }), this.handleChange);
+    this.setState((prevState) => {
+      // Remove an element from the array (immutably) so setState actually gets triggered.
+      const newRelationships = this.constructor.removeRelationshipFromArray(
+        prevState.categoryTopicRelationships, relationshipToDelete);
+
+      // If the relationship being deleted had an id, add it back with the _destroy flag to
+      // tell backend to delete it.
+      if (relationshipToDelete.id) {
+        const newRelationship = relationshipToDelete;
+        newRelationship._destroy = true; // eslint-disable-line no-underscore-dangle
+        newRelationships.push(newRelationship);
+      }
+      return {
+        categoryTopicRelationships: newRelationships,
+      };
+    }, this.handleChange);
+  }
+
+  // Removes a relationship from the array based on the two foreign keys
+  static removeRelationshipFromArray(array, relationshipToDelete) {
+    return array.filter(
+      (categoryTopicRelationship) =>
+        categoryTopicRelationship.category_id !== relationshipToDelete.category_id,
+    );
   }
 
   // Build the add relationship menu
   renderAddMenu() {
     const { $$categories } = this.props;
-    const { categoryTopicRelationships } = this.state;
 
     // Convert to strings to be safe
-    const selectedCategoryIds = categoryTopicRelationships.map(
+    const selectedCategoryIds = this.getUndeletedRelationships().map(
       (relationship) => relationship.category_id,
     );
     // Only show categories that are not already associated with this topic
@@ -133,15 +159,13 @@ export default class TopicCategoryRelationshipMultiselect extends BaseComponent 
   }
 
   render() {
-    const { categoryTopicRelationships } = this.state;
-
-    const selectedCategoryNodes = categoryTopicRelationships.map(
+    const selectedCategoryNodes = this.getUndeletedRelationships().map(
       (categoryTopicRelationship) => {
         // TODO: The naming convention breaks down a bit here because the overall object has been
         // converted to pure JS so $$category property is no longer an Immutable object.
         const category = categoryTopicRelationship.$$category;
 
-        const chipKey = `${categoryTopicRelationship.id}-${categoryTopicRelationship.category_id}-${categoryTopicRelationship.topic_id}`;
+        const chipKey = `${categoryTopicRelationship.id}-${categoryTopicRelationship.category_id}`;
         return (
           <Chip
             key={chipKey}

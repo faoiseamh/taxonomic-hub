@@ -65,6 +65,7 @@ export default class TopicForm extends BaseComponent {
         (relationship) => ({
           id: relationship.id,
           category_id: relationship.category_id,
+          _destroy: relationship._destroy, // eslint-disable-line no-underscore-dangle
         }),
       ),
     });

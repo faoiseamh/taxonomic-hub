@@ -57,6 +57,7 @@ class TopicsController < ApplicationController
         category_topic_relationships_attributes: [
           :id,
           :category_id,
+          :_destroy,
         ]
       )
     end
