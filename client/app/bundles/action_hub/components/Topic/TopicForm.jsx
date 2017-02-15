@@ -60,6 +60,14 @@ export default class TopicForm extends BaseComponent {
     });
   }
 
+  getSubmitButtonText() {
+    const { data } = this.props;
+    if (this.isNewTopic()) {
+      return data.get('isSavingTopic') ? 'Creating Topic...' : 'Create Topic';
+    }
+    return data.get('isSavingTopic') ? 'Saving...' : 'Save';
+  }
+
   handleCategoriesChange(categoryTopicRelationships) {
     this.setState({
       selectedCategories: categoryTopicRelationships.map(
@@ -177,10 +185,10 @@ export default class TopicForm extends BaseComponent {
           <br />
 
           <RaisedButton
-            label={this.isNewTopic() ? 'Create Topic' : 'Save'}
+            label={this.getSubmitButtonText()}
             type="submit"
             primary
-            disabled={!this.state.canSubmit}
+            disabled={!this.state.canSubmit || data.get('isSavingTopic')}
           />
         </Formsy.Form>
         <Snackbar
