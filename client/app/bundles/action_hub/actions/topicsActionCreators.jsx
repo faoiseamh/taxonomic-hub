@@ -1,5 +1,6 @@
 import requestsManager from 'libs/requestsManager'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import * as actionTypes from '../constants/topicsConstants';
+import * as categoryTopicRelationshipActionTypes from '../constants/categoryTopicRelationshipsConstants';
 
 export function setIsFetchingTopic() {
   return {
@@ -47,24 +48,31 @@ export function fetchTopicsFailure(error) {
   };
 }
 
-export function submitTopicSuccess(topic) {
-  return {
-    type: actionTypes.SUBMIT_TOPIC_SUCCESS,
-    topic,
+export function saveTopicSuccess(topic, categoryTopicRelationships) {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.SAVE_TOPIC_SUCCESS,
+      topic,
+    });
+    dispatch({
+      type: categoryTopicRelationshipActionTypes.UPDATE_CATEGORY_TOPIC_RELATIONSHIPS_FOR_TOPIC,
+      topic,
+      categoryTopicRelationships,
+    });
   };
 }
 
-export function submitTopicFailure(error) {
+export function saveTopicFailure(error) {
   return {
-    type: actionTypes.SUBMIT_TOPIC_FAILURE,
+    type: actionTypes.SAVE_TOPIC_FAILURE,
     error,
   };
 }
 
-export function clearSubmitTopicFailure() {
+export function clearSaveTopicFailure() {
   return (dispatch) => {
     dispatch({
-      type: actionTypes.CLEAR_SUBMIT_TOPIC_FAILURE,
+      type: actionTypes.CLEAR_SAVE_TOPIC_FAILURE,
     });
   };
 }
@@ -91,24 +99,26 @@ export function fetchTopics() {
   };
 }
 
-export function submitTopic(topic) {
+export function createTopic(topic) {
   return (dispatch) => {
     dispatch(setIsSavingTopic());
     return (
       requestsManager.createTopic(topic)
-        .done(res => dispatch(submitTopicSuccess(res)))
-        .fail(error => dispatch(submitTopicFailure(error)))
+        .done(res => dispatch(saveTopicSuccess(res.topic, res.category_topic_relationships)))
+        .fail(error => dispatch(saveTopicFailure(error)))
     );
   };
 }
+
 
 export function updateTopic(topic) {
   return (dispatch) => {
     dispatch(setIsSavingTopic());
     return (
       requestsManager.updateTopic(topic)
-        .done(res => dispatch(submitTopicSuccess(res)))
-        .fail(error => dispatch(submitTopicFailure(error)))
+        .done(res => dispatch(saveTopicSuccess(res.topic, res.category_topic_relationships)))
+        .fail(error => dispatch(saveTopicFailure(error)))
     );
   };
 }
+

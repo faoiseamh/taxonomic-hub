@@ -12,10 +12,10 @@ export const $$initialState = Immutable.fromJS({
   $$topics: {},
   fetchTopicError: null,
   fetchTopicsError: null,
-  submitTopicError: null,
+  saveTopicError: null,
   isFetchingTopic: false,
   isFetchingTopics: false,
-  isSavingTopics: false,
+  isSavingTopic: false,
 });
 
 export default function topicsReducer($$state = $$initialState, action = null) {
@@ -61,7 +61,7 @@ export default function topicsReducer($$state = $$initialState, action = null) {
       });
     }
 
-    case actionTypes.SUBMIT_TOPIC_SUCCESS: {
+    case actionTypes.SAVE_TOPIC_SUCCESS: {
       return $$state.withMutations(state => (
         state
           .updateIn(
@@ -72,22 +72,22 @@ export default function topicsReducer($$state = $$initialState, action = null) {
             }),
           )
           .merge({
-            submitTopicError: null,
-            isSavingTopics: false,
+            saveTopicError: null,
+            isSavingTopic: false,
           })
       ));
     }
 
-    case actionTypes.SUBMIT_TOPIC_FAILURE: {
+    case actionTypes.SAVE_TOPIC_FAILURE: {
       return $$state.merge({
-        submitTopicError: error,
-        isSavingTopics: false,
+        saveTopicError: error,
+        isSavingTopic: false,
       });
     }
 
-    case actionTypes.CLEAR_SUBMIT_TOPIC_FAILURE: {
+    case actionTypes.CLEAR_SAVE_TOPIC_FAILURE: {
       return $$state.merge({
-        submitTopicError: null,
+        saveTopicError: null,
       });
     }
 

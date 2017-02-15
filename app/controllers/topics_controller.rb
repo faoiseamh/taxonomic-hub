@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
 
   def update
     if @topic.update(topic_params)
-      render partial: 'topics/topic', locals: { topic: @topic }
+      render template: 'topics/update', locals: { topic: @topic }
     else
       render json: @topic.errors, status: :unprocessable_entity
     end

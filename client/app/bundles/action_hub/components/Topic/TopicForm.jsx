@@ -80,7 +80,7 @@ export default class TopicForm extends BaseComponent {
   submit(topic) {
     const { actions } = this.props;
     if (this.isNewTopic()) {
-      actions.submitTopic(topic);
+      actions.createTopic(topic);
     } else {
       actions.updateTopic({
         ...topic,
@@ -96,9 +96,9 @@ export default class TopicForm extends BaseComponent {
 
     let errorText = null;
     let errorTitle = null;
-    if (data.get('submitTopicError') != null) {
+    if (data.get('saveTopicError') != null) {
       errorTitle = 'Error saving topic';
-      // errorText = data.$$topicsState.get('submitTopicError');
+      // errorText = data.$$topicsState.get('saveTopicError');
       errorText = 'Oops, something went wrong saving the topic. Please try again in a moment.';
     }
     const hasError = errorText != null;
