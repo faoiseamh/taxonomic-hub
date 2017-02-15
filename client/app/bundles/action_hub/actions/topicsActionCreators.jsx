@@ -48,6 +48,12 @@ export function fetchTopicsFailure(error) {
   };
 }
 
+export function hideTopicSavedNotice() {
+  return (dispatch) => dispatch({
+    type: actionTypes.HIDE_TOPIC_SAVED_NOTICE,
+  });
+}
+
 export function saveTopicSuccess(topic, categoryTopicRelationships) {
   return (dispatch) => {
     dispatch({

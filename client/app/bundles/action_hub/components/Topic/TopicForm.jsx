@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 
 import TopicCategoryRelationshipMultiselect from './TopicCategoryRelationshipMultiselect';
 
@@ -130,7 +131,7 @@ export default class TopicForm extends BaseComponent {
   }
 
   render() {
-    const { $$topic, $$categories, $$categoryTopicRelationships } = this.props;
+    const { actions, data, $$topic, $$categories, $$categoryTopicRelationships } = this.props;
 
     this.state.topicBody = $$topic.get('body');
 
@@ -182,6 +183,12 @@ export default class TopicForm extends BaseComponent {
             disabled={!this.state.canSubmit}
           />
         </Formsy.Form>
+        <Snackbar
+          open={data.get('isTopicSavedNoticeVisible')}
+          message="Topic was saved successfully"
+          autoHideDuration={4000}
+          onRequestClose={actions.hideTopicSavedNotice}
+        />
       </div>
     );
   }

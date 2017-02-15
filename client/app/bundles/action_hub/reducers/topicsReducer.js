@@ -16,6 +16,7 @@ export const $$initialState = Immutable.fromJS({
   isFetchingTopic: false,
   isFetchingTopics: false,
   isSavingTopic: false,
+  isTopicSavedNoticeVisible: false,
 });
 
 export default function topicsReducer($$state = $$initialState, action = null) {
@@ -74,6 +75,7 @@ export default function topicsReducer($$state = $$initialState, action = null) {
           .merge({
             saveTopicError: null,
             isSavingTopic: false,
+            isTopicSavedNoticeVisible: true,
           })
       ));
     }
@@ -82,6 +84,7 @@ export default function topicsReducer($$state = $$initialState, action = null) {
       return $$state.merge({
         saveTopicError: error,
         isSavingTopic: false,
+        isSavedNoticeVisible: false,
       });
     }
 
@@ -106,6 +109,12 @@ export default function topicsReducer($$state = $$initialState, action = null) {
     case actionTypes.SET_IS_SAVING_TOPIC: {
       return $$state.merge({
         isSavingTopic: true,
+      });
+    }
+
+    case actionTypes.HIDE_TOPIC_SAVED_NOTICE: {
+      return $$state.merge({
+        isTopicSavedNoticeVisible: false,
       });
     }
 
