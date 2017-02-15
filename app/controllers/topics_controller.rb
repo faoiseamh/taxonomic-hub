@@ -50,6 +50,14 @@ class TopicsController < ApplicationController
     end
 
     def topic_params
-      params.require(:topic).permit(:title, :subtitle, :body, :category_id)
+      params.require(:topic).permit(
+        :title,
+        :subtitle,
+        :body,
+        category_topic_relationships_attributes: [
+          :id,
+          :category_id,
+        ]
+      )
     end
 end

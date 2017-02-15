@@ -62,7 +62,10 @@ export default class TopicForm extends BaseComponent {
   handleCategoriesChange(categoryTopicRelationships) {
     this.setState({
       selectedCategories: categoryTopicRelationships.map(
-        (relationship) => relationship.category_id,
+        (relationship) => ({
+          id: relationship.id,
+          category_id: relationship.category_id,
+        }),
       ),
     });
   }
@@ -82,7 +85,7 @@ export default class TopicForm extends BaseComponent {
         ...topic,
         id: this.props.$$topic.get('id'),
         body: this.state.topicBody,
-        categories: this.state.selectedCategories,
+        category_topic_relationships_attributes: this.state.selectedCategories,
       });
     }
   }

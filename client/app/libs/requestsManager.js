@@ -27,7 +27,10 @@ export default {
   },
 
   updateTopic(topic) {
-    return this.put(`topics/${topic.id}`, { topic });
+    const topicId = topic.id;
+    const topicWithoutId = topic;
+    delete topicWithoutId.id;
+    return this.put(`topics/${topicId}`, { topic: topicWithoutId });
   },
 
   // Users requests
