@@ -19,6 +19,11 @@ export default (
     />
 
     <Route
+      path={paths.TOPIC_CREATE_PATH}
+      component={requireAuthentication(RouterTopicContainer)}
+    />
+
+    <Route
       path="/topics/:topicId"
       component={requireAuthentication(RouterTopicContainer)}
     />

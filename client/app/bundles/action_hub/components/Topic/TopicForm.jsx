@@ -173,6 +173,8 @@ export default class TopicForm extends BaseComponent {
             onChange={this.handleCategoriesChange}
             $$categories={$$categories}
             $$categoryTopicRelationships={$$categoryTopicRelationships}
+            name="categoryTopicRelationships"
+            required
           />
           <br />
 

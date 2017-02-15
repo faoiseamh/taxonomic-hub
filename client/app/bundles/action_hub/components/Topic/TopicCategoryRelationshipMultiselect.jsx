@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
+import { HOC } from 'formsy-react';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
@@ -31,7 +32,7 @@ const styles = {
   },
 };
 
-export default class TopicCategoryRelationshipMultiselect extends BaseComponent {
+class TopicCategoryRelationshipMultiselect extends BaseComponent {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     $$categories: PropTypes.object.isRequired,
@@ -48,6 +49,10 @@ export default class TopicCategoryRelationshipMultiselect extends BaseComponent 
     _.bindAll(this, [
       'handleChange',
     ]);
+  }
+
+  componentDidMount() {
+    this.setFormsyValue();
   }
 
   addRelationship($$category) {
@@ -86,7 +91,22 @@ export default class TopicCategoryRelationshipMultiselect extends BaseComponent 
       }),
     );
     this.props.onChange(simplifiedRelationships);
+    this.setFormsyValue();
   }
+
+  setFormsyValue() {
+    // Consider value for validation purposes to be the new state rather than the actions to be made
+    const newRelationshipsState = this.getUndeletedRelationships();
+    if (newRelationshipsState.length === 0) {
+      this.props.setValue(undefined);
+    } else {
+      this.props.setValue(newRelationshipsState);
+    }
+  }
+
+  // isDefaultRequiredValue() {
+  //   return this.getUndeletedRelationships().length === 0;
+  // }
 
   handleRequestDelete(relationshipToDelete) {
     this.setState((prevState) => {
@@ -191,8 +211,13 @@ export default class TopicCategoryRelationshipMultiselect extends BaseComponent 
         <div style={styles.wrapper}>
           {selectedCategoryNodes}
         </div>
+        <div className="text-danger">
+          {this.props.getErrorMessage()}
+        </div>
       </div>
     );
   }
 
 }
+
+export default HOC(TopicCategoryRelationshipMultiselect);

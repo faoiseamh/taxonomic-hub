@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import React, { PropTypes } from 'react';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
@@ -11,7 +12,7 @@ export default class TopicScreen extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
-    topicId: PropTypes.string.isRequired,
+    topicId: PropTypes.string,
     $$categories: PropTypes.object,
     $$topic: PropTypes.object,
     $$categoryTopicRelationships: PropTypes.object.isRequired,
@@ -21,11 +22,14 @@ export default class TopicScreen extends BaseComponent {
   componentWillMount() {
     const { topicId } = this.props;
     const { fetchTopic } = this.props.actions;
-    fetchTopic(topicId);
+    if (topicId) {
+      fetchTopic(topicId);
+    }
   }
 
   render() {
-    const { data, actions, $$topic, $$categories, $$categoryTopicRelationships } = this.props;
+    const { data, actions, topicId, $$categories, $$categoryTopicRelationships } = this.props;
+    let { $$topic } = this.props;
 
     // Show loading screen if load is in progress
     if (data.get('isFetchingTopic')) {
@@ -33,9 +37,14 @@ export default class TopicScreen extends BaseComponent {
     }
 
     // Try to fetch it
-    if (!$$topic) {
-      // It might not exist yet because request is still going
-      return this.constructor.loading();
+    if (topicId) {
+      if (!$$topic) {
+        // It might not exist yet because request is still going
+        return this.constructor.loading();
+      }
+    } else {
+      // Could set defaults here
+      $$topic = Immutable.fromJS({});
     }
 
     return (

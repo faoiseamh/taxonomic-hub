@@ -4,9 +4,12 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 // AppBar = require('material-ui/AppBar').default;
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import { Link } from 'react-router';
+import * as paths from '../../constants/paths';
 
 export default class Categories extends BaseComponent {
   render() {
@@ -23,6 +26,14 @@ export default class Categories extends BaseComponent {
           containerElement={<Link to={`/topics/${$$topic.get('id')}`} />}
         />,
       );
+      // Add topic button
+      // topicNodes.push(
+      //   <ListItem
+      //     key="add"
+      //     leftIcon={<FontIcon className="material-icons">add</FontIcon>}
+      //     primaryText="New Topic"
+      //   />,
+      // );
 
       return (
         <TableRow
@@ -33,6 +44,12 @@ export default class Categories extends BaseComponent {
           <TableRowColumn>
             <List>
               {topicNodes}
+              <IconButton
+                containerElement={<Link to={paths.TOPIC_CREATE_PATH} />}
+              >
+                <FontIcon className="material-icons">add</FontIcon>
+              </IconButton>
+
             </List>
           </TableRowColumn>
         </TableRow>
