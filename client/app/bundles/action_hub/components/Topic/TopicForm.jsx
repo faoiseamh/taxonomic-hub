@@ -116,7 +116,7 @@ export default class TopicForm extends BaseComponent {
       <FlatButton
         label="OK"
         primary
-        onTouchTap={actions.clearSubmitTopicFailure}
+        onTouchTap={actions.clearSaveTopicFailure}
       />,
     ];
     return (
@@ -125,7 +125,7 @@ export default class TopicForm extends BaseComponent {
         actions={dialogActions}
         modal={false}
         open={hasError}
-        onRequestClose={actions.clearSubmitTopicFailure}
+        onRequestClose={actions.clearSaveTopicFailure}
       >
         <div>
           {errorText}
