@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
     @topic = Topic.new(topic_params)
 
     if @topic.save
-      render partial: 'topics/topic', locals: { topic: @topic }
+      render template: 'topics/topic_and_relationships', locals: { topic: @topic }
     else
       render json: @topic.errors, status: :unprocessable_entity
     end
@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
 
   def update
     if @topic.update(topic_params)
-      render template: 'topics/update', locals: { topic: @topic }
+      render template: 'topics/topic_and_relationships', locals: { topic: @topic }
     else
       render json: @topic.errors, status: :unprocessable_entity
     end

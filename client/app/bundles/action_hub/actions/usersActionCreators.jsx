@@ -1,5 +1,5 @@
-import requestsManager from 'libs/requestsManager'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import { push } from 'react-router-redux';
+import requestsManager from 'libs/requestsManager'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import * as actionTypes from '../constants/usersConstants';
 import * as paths from '../constants/paths';
 

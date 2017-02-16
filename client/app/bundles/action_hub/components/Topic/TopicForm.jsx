@@ -33,6 +33,7 @@ export default class TopicForm extends BaseComponent {
 
     this.state = {
       canSubmit: false,
+      topicBody: this.props.$$topic ? this.props.$$topic.get('body') : "",
       // TODO: This is duplicated from categoriesReducer. We should probably just pass JS directly
       // into there / centralize this somehow.
       selectedCategories,
@@ -86,16 +87,19 @@ export default class TopicForm extends BaseComponent {
   }
 
 
-  submit(topic) {
+  submit(topicFormData) {
     const { actions } = this.props;
+    const topic = {
+      ...topicFormData,
+      body: this.state.topicBody,
+      category_topic_relationships_attributes: this.state.selectedCategories,
+    };
     if (this.isNewTopic()) {
       actions.createTopic(topic);
     } else {
       actions.updateTopic({
         ...topic,
         id: this.props.$$topic.get('id'),
-        body: this.state.topicBody,
-        category_topic_relationships_attributes: this.state.selectedCategories,
       });
     }
   }
@@ -140,8 +144,6 @@ export default class TopicForm extends BaseComponent {
 
   render() {
     const { actions, data, $$topic, $$categories, $$categoryTopicRelationships } = this.props;
-
-    this.state.topicBody = $$topic.get('body');
 
     return (
       <div>

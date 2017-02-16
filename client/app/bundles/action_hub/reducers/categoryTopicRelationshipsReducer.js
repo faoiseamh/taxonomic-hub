@@ -20,9 +20,9 @@ export default function categoryTopicRelationshipsReducer($$state = $$initialSta
             ['$$categoryTopicRelationships'],
             $$categoryTopicRelationships => {
               // Remove all relationships for this topic
-              let relationshipsArray = $$categoryTopicRelationships.valueSeq().toArray();
+              let relationshipsArray = $$categoryTopicRelationships.valueSeq().toJS();
               relationshipsArray = relationshipsArray.filter(
-                (relationship) => relationship.topic_id === topic.id,
+                (relationship) => relationship.topic_id !== topic.id,
               );
               // Add new relationships
               relationshipsArray = relationshipsArray.concat(categoryTopicRelationships);

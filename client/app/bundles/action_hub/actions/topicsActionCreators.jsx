@@ -1,6 +1,8 @@
+import { push } from 'react-router-redux';
 import requestsManager from 'libs/requestsManager'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import * as actionTypes from '../constants/topicsConstants';
 import * as categoryTopicRelationshipActionTypes from '../constants/categoryTopicRelationshipsConstants';
+import * as paths from '../constants/paths';
 
 export function setIsFetchingTopic() {
   return {
@@ -110,7 +112,10 @@ export function createTopic(topic) {
     dispatch(setIsSavingTopic());
     return (
       requestsManager.createTopic(topic)
-        .done(res => dispatch(saveTopicSuccess(res.topic, res.category_topic_relationships)))
+        .done(res => {
+          dispatch(saveTopicSuccess(res.topic, res.category_topic_relationships));
+          dispatch(push(paths.topicPath(res.topic.id)));
+        })
         .fail(error => dispatch(saveTopicFailure(error)))
     );
   };
