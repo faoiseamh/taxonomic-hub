@@ -28,7 +28,14 @@ export default class TopicScreen extends BaseComponent {
   }
 
   render() {
-    const { data, actions, topicId, $$categories, $$categoryTopicRelationships } = this.props;
+    const {
+      data,
+      actions,
+      location,
+      topicId,
+      $$categories,
+      $$categoryTopicRelationships,
+    } = this.props;
     let { $$topic } = this.props;
 
     // Show loading screen if load is in progress
@@ -50,7 +57,18 @@ export default class TopicScreen extends BaseComponent {
     return (
       <div>
         <div>
-          <Topic {...{ actions, data, $$topic, $$categories, $$categoryTopicRelationships }} />
+          <Topic
+            {
+              ...{
+                actions,
+                location,
+                data,
+                $$topic,
+                $$categories,
+                $$categoryTopicRelationships,
+              }
+            }
+          />
         </div>
       </div>
     );

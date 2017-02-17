@@ -23,7 +23,7 @@ export default class Categories extends BaseComponent {
         <ListItem
           key={$$topic.get('id') || topicIndex}
           primaryText={$$topic.get('title')}
-          containerElement={<Link to={`/topics/${$$topic.get('id')}`} />}
+          containerElement={<Link to={`/topics/${$$topic.get('id')}`} />} // eslint-disable-line jsx-a11y/anchor-has-content
         />,
       );
       // Add topic button
@@ -45,7 +45,9 @@ export default class Categories extends BaseComponent {
             <List>
               {topicNodes}
               <IconButton
-                containerElement={<Link to={paths.TOPIC_CREATE_PATH} />}
+                containerElement={
+                  <Link to={`${paths.TOPIC_CREATE_PATH}?category_id=${$$category.get('id')}`} /> // eslint-disable-line jsx-a11y/anchor-has-content
+              }
               >
                 <FontIcon className="material-icons">add</FontIcon>
               </IconButton>

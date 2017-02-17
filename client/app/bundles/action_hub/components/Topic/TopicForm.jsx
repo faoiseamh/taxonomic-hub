@@ -53,7 +53,6 @@ export default class TopicForm extends BaseComponent {
     ]);
   }
 
-
   showConfirmDelete() {
     this.setState({
       showConfirmDelete: true,
@@ -171,7 +170,18 @@ export default class TopicForm extends BaseComponent {
   }
 
   render() {
-    const { actions, data, $$topic, $$categories, $$categoryTopicRelationships } = this.props;
+    const {
+      actions,
+      data,
+      location,
+      $$topic,
+      $$categories,
+      $$categoryTopicRelationships,
+    } = this.props;
+    let initialCategoryId;
+    if (location.query && location.query.category_id) {
+      initialCategoryId = parseInt(location.query.category_id);
+    }
 
     return (
       <div>
@@ -200,6 +210,7 @@ export default class TopicForm extends BaseComponent {
           <br />
 
           <TopicCategoryRelationshipMultiselect
+            initialCategoryId={initialCategoryId}
             onChange={this.handleCategoriesChange}
             $$categories={$$categories}
             $$categoryTopicRelationships={$$categoryTopicRelationships}

@@ -32,6 +32,7 @@ class RouterTopicContainer extends BaseComponent {
   render() {
     const { dispatch,
       data,
+      location,
       getCategoryTopicRelationshipsWithCategoryForTopic,
       getTopic,
       $$categories,
@@ -48,6 +49,7 @@ class RouterTopicContainer extends BaseComponent {
           ...{
             actions,
             data,
+            location,
             locationState,
             topicId,
             $$topic,

@@ -35,6 +35,7 @@ const styles = {
 class TopicCategoryRelationshipMultiselect extends BaseComponent {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
+    initialCategoryId: PropTypes.number,
     $$categories: PropTypes.object.isRequired,
     $$categoryTopicRelationships: PropTypes.object.isRequired,
   };
@@ -52,6 +53,15 @@ class TopicCategoryRelationshipMultiselect extends BaseComponent {
   }
 
   componentDidMount() {
+    const { initialCategoryId, $$categories } = this.props;
+
+    if (initialCategoryId) {
+      const $$initialCategory = $$categories.find(
+        ($$category) => $$category.get('id') === initialCategoryId,
+      );
+      this.addRelationship($$initialCategory);
+    }
+
     this.setFormsyValue();
   }
 
