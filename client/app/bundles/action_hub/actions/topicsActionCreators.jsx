@@ -133,3 +133,49 @@ export function updateTopic(topic) {
   };
 }
 
+export function deleteTopicSuccess(topic) {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.DELETE_TOPIC_SUCCESS,
+      topic,
+    });
+    dispatch({
+      type: categoryTopicRelationshipActionTypes.DELETE_CATEGORY_TOPIC_RELATIONSHIPS_FOR_TOPIC,
+      topic,
+    });
+    dispatch(push(paths.ROOT_PATH));
+  };
+}
+
+export function deleteTopicFailure(error) {
+  return {
+    type: actionTypes.DELETE_TOPIC_FAILURE,
+    error,
+  };
+}
+
+export function clearDeleteTopicFailure() {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_DELETE_TOPIC_FAILURE,
+    });
+  };
+}
+
+export function setIsDeletingTopic() {
+  return {
+    type: actionTypes.SET_IS_DELETING_TOPIC,
+  };
+}
+
+export function deleteTopic(topic) {
+  return (dispatch) => {
+    dispatch(setIsDeletingTopic());
+    return (
+      requestsManager.deleteTopic(topic)
+        .done(() => dispatch(deleteTopicSuccess(topic)))
+        .fail(error => dispatch(deleteTopicFailure(error)))
+    );
+  };
+}
+

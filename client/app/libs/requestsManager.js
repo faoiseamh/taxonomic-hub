@@ -33,6 +33,10 @@ export default {
     return this.put(`topics/${topicId}`, { topic: topicWithoutId });
   },
 
+  deleteTopic(topic) {
+    return this.delete(`topics/${topic.id}`);
+  },
+
   // Users requests
   signUp(user) {
     return this.post('../users', { user });

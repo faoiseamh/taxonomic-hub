@@ -30,9 +30,9 @@ class PagesController < ApplicationController
   def initial_data_json_string
     render_to_string( template: "initial_data.json.jbuilder",
                       locals: {
-                        categories: Category.all,
-                        topics: Topic.all,
-                        category_topic_relationships: CategoryTopicRelationship.all,
+                        categories: Category.active,
+                        topics: Topic.active,
+                        category_topic_relationships: CategoryTopicRelationship.active,
                       }, format: :json)
   end
 

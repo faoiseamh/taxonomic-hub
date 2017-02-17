@@ -13,9 +13,11 @@ export const $$initialState = Immutable.fromJS({
   fetchTopicError: null,
   fetchTopicsError: null,
   saveTopicError: null,
+  deleteTopicError: null,
   isFetchingTopic: false,
   isFetchingTopics: false,
   isSavingTopic: false,
+  isDeletingTopic: false,
   isTopicSavedNoticeVisible: false,
 });
 
@@ -116,6 +118,40 @@ export default function topicsReducer($$state = $$initialState, action = null) {
       return $$state.merge({
         isTopicSavedNoticeVisible: false,
       });
+    }
+
+    // Delete
+    case actionTypes.SET_IS_DELETING_TOPIC: {
+      return $$state.merge({
+        isDeletingTopic: true,
+      });
+    }
+
+    case actionTypes.DELETE_TOPIC_FAILURE: {
+      return $$state.merge({
+        deleteTopicError: error,
+        isDeletingTopic: false,
+      });
+    }
+
+    case actionTypes.CLEAR_DELETE_TOPIC_FAILURE: {
+      return $$state.merge({
+        deleteTopicError: null,
+      });
+    }
+
+    case actionTypes.DELETE_TOPIC_SUCCESS: {
+      return $$state.withMutations(state => (
+        state
+          .updateIn(
+            ['$$topics'],
+            $$topics => $$topics.filter(($$topic) => $$topic.get('id') !== topic.id),
+          )
+          .merge({
+            deleteTopicError: null,
+            isDeletingTopic: false,
+          })
+      ));
     }
 
     default: {

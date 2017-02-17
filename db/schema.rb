@@ -10,31 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214224359) do
+ActiveRecord::Schema.define(version: 20170217024601) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",                null: false
-    t.string   "color",      limit: 7, null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.string   "title",                               null: false
+    t.string   "color",      limit: 7,                null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "is_active",            default: true, null: false
   end
 
   create_table "category_topic_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "category_id"
     t.integer  "topic_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_active",   default: true, null: false
     t.index ["category_id", "topic_id"], name: "index_category_topic_relationships_on_category_id_and_topic_id", unique: true, using: :btree
     t.index ["category_id"], name: "index_category_topic_relationships_on_category_id", using: :btree
     t.index ["topic_id"], name: "index_category_topic_relationships_on_topic_id", using: :btree
   end
 
   create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",                    null: false
-    t.string   "subtitle",                 null: false
-    t.text     "body",       limit: 65535, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "title",                                   null: false
+    t.string   "subtitle",                                null: false
+    t.text     "body",       limit: 65535,                null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "is_active",                default: true, null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

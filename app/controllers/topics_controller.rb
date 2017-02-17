@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :load_topic, only: [ :show, :update ]
+  before_action :load_topic, only: [ :show, :update, :destroy ]
 
   def index
     respond_to do |format|
@@ -31,22 +31,13 @@ class TopicsController < ApplicationController
     end
   end
 
+  def destroy
+    @topic.deactivate!
+  end
+
   private
     def load_topic
-      @topic = Topic.find(params[:id])
-    end
-
-    def topics_json_render_params
-      {
-        template: "/topics/index.json.jbuilder",
-        locals: {
-          topics: Category.all.includes(:topics)
-        }
-      }
-    end
-
-    def topics_json_string
-      render_to_string topics_json_render_params, format: :json
+      @topic = Topic.active.find(params[:id])
     end
 
     def topic_params

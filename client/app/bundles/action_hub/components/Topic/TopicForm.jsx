@@ -8,6 +8,7 @@ import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+import * as ButtonStyles from '../../theme/ButtonStyles';
 
 import TopicCategoryRelationshipMultiselect from './TopicCategoryRelationshipMultiselect';
 
@@ -33,7 +34,8 @@ export default class TopicForm extends BaseComponent {
 
     this.state = {
       canSubmit: false,
-      topicBody: this.props.$$topic ? this.props.$$topic.get('body') : "",
+      topicBody: this.props.$$topic ? this.props.$$topic.get('body') : '',
+      showConfirmDelete: false,
       // TODO: This is duplicated from categoriesReducer. We should probably just pass JS directly
       // into there / centralize this somehow.
       selectedCategories,
@@ -41,6 +43,9 @@ export default class TopicForm extends BaseComponent {
     this.baseState = this.state;
 
     _.bindAll(this, [
+      'showConfirmDelete',
+      'hideConfirmDelete',
+      'delete',
       'enableButton',
       'disableButton',
       'handleCategoriesChange',
@@ -48,6 +53,24 @@ export default class TopicForm extends BaseComponent {
     ]);
   }
 
+
+  showConfirmDelete() {
+    this.setState({
+      showConfirmDelete: true,
+    });
+  }
+
+  hideConfirmDelete() {
+    this.setState({
+      showConfirmDelete: false,
+    });
+  }
+
+  delete() {
+    const { actions, $$topic } = this.props;
+    this.hideConfirmDelete();
+    actions.deleteTopic($$topic.toJS());
+  }
 
   enableButton() {
     this.setState({
@@ -109,10 +132,15 @@ export default class TopicForm extends BaseComponent {
 
     let errorText = null;
     let errorTitle = null;
+    let clearAction = null;
     if (data.get('saveTopicError') != null) {
       errorTitle = 'Error saving topic';
-      // errorText = data.$$topicsState.get('saveTopicError');
       errorText = 'Oops, something went wrong saving the topic. Please try again in a moment.';
+      clearAction = actions.clearSaveTopicFailure;
+    } else if (data.get('deleteTopicError') != null) {
+      errorTitle = 'Error deleting topic';
+      errorText = 'Oops, something went wrong deleting the topic. Please try again in a moment.';
+      clearAction = actions.clearDeleteTopicFailure;
     }
     const hasError = errorText != null;
 
@@ -120,7 +148,7 @@ export default class TopicForm extends BaseComponent {
       <FlatButton
         label="OK"
         primary
-        onTouchTap={actions.clearSaveTopicFailure}
+        onTouchTap={clearAction}
       />,
     ];
     return (
@@ -129,7 +157,7 @@ export default class TopicForm extends BaseComponent {
         actions={dialogActions}
         modal={false}
         open={hasError}
-        onRequestClose={actions.clearSaveTopicFailure}
+        onRequestClose={clearAction}
       >
         <div>
           {errorText}
@@ -188,12 +216,46 @@ export default class TopicForm extends BaseComponent {
           <br />
           <br />
 
-          <RaisedButton
-            label={this.getSubmitButtonText()}
-            type="submit"
-            primary
-            disabled={!this.state.canSubmit || data.get('isSavingTopic')}
-          />
+          <div className="form-buttons-inline">
+            <RaisedButton
+              label={this.getSubmitButtonText()}
+              type="submit"
+              primary
+              disabled={!this.state.canSubmit || data.get('isSavingTopic')}
+            />
+
+            { this.isNewTopic() ? null :
+            <RaisedButton
+              label={data.get('isDeletingTopic') ? 'Deleting...' : 'Delete'}
+              backgroundColor={ButtonStyles.dangerBackgroundColor}
+              labelColor={ButtonStyles.dangerTextColor}
+              onClick={this.showConfirmDelete}
+              disabled={data.get('isDeletingTopic')}
+            />
+            }
+
+            <Dialog
+              title="Delete Topic"
+              actions={[
+                <FlatButton
+                  label="Cancel"
+                  onTouchTap={this.hideConfirmDelete}
+                />,
+                <FlatButton
+                  label="Delete Topic"
+                  labelStyle={{ color: ButtonStyles.dangerBackgroundColor }}
+                  onTouchTap={this.delete}
+                />,
+              ]}
+              modal={false}
+              open={this.state.showConfirmDelete}
+              onRequestClose={this.hideConfirmDelete}
+            >
+              Are you sure you want to delete this topic?
+            </Dialog>
+
+
+          </div>
         </Formsy.Form>
         <Snackbar
           open={data.get('isTopicSavedNoticeVisible')}
