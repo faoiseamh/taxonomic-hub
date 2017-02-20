@@ -8,6 +8,7 @@ export const getCategory = (state, categoryId) =>
 
 export const getTopic = (state, topicId) => fromTopics.getTopic(state.$$topicsState, topicId);
 
+// Returns an array of Topics for the given categoryId
 export function getTopicsForCategory(state, categoryId) {
   const relationships = this.getCategoryTopicRelationshipsForCategory(state, categoryId);
   return relationships.reduce((topics, $$categoryTopicRelationship) => {

@@ -62,3 +62,42 @@ export function submitCategory(category) {
     );
   };
 }
+
+// Delete
+export function setIsDeletingCategory() {
+  return {
+    type: actionTypes.SET_IS_DELETING_CATEGORY,
+  };
+}
+
+export function deleteCategorySuccess(category) {
+  return {
+    type: actionTypes.DELETE_CATEGORY_SUCCESS,
+    category,
+  };
+}
+
+export function deleteCategoryFailure(error) {
+  return {
+    type: actionTypes.DELETE_CATEGORY_FAILURE,
+    error,
+  };
+}
+
+export function clearDeleteCategoryFailure() {
+  return {
+    type: actionTypes.CLEAR_DELETE_CATEGORY_FAILURE,
+  };
+}
+
+export function deleteCategory(category) {
+  return (dispatch) => {
+    dispatch(setIsDeletingCategory());
+    return (
+      requestsManager.deleteCategory(category)
+        .done(() => dispatch(deleteCategorySuccess(category)))
+        .fail(error => dispatch(deleteCategoryFailure(error)))
+    );
+  };
+}
+

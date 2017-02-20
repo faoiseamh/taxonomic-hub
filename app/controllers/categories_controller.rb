@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :load_category, only: [ :destroy ]
+
   def index
     respond_to do |format|
       format.json { render categories_json_render_params }
@@ -13,6 +15,10 @@ class CategoriesController < ApplicationController
     else
       render json: @category.errors, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @category.deactivate!
   end
 
   private
@@ -31,5 +37,9 @@ class CategoriesController < ApplicationController
 
     def category_params
       params.require(:category).permit(:title, :color)
+    end
+
+    def load_category
+      @category = Category.find(params[:id] || params[:category_id])
     end
 end

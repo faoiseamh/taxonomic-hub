@@ -13,6 +13,11 @@ export default {
     return this.post('categories', { category });
   },
 
+  deleteCategory(category) {
+    return this.delete(`categories/${category.id}`);
+  },
+
+
   // Topic requests
   fetchTopic(topicId) {
     return this.get(`topics/${topicId}`);

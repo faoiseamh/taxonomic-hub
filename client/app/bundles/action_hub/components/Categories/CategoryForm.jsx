@@ -1,18 +1,21 @@
 import React, { PropTypes } from 'react';
 
+import _ from 'lodash';
 import { CirclePicker } from 'react-color';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
+import * as ButtonStyles from '../../theme/ButtonStyles';
 
 export default class CategoryForm extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
-    title: PropTypes.string,
-    color: PropTypes.string,
+    data: PropTypes.object.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
     topics: PropTypes.array,
+    $$category: PropTypes.object,
   };
 
   /**
@@ -24,30 +27,84 @@ export default class CategoryForm extends React.Component {
     super(props);
 
     this.state = {
-      open: false,
-      title: this.props.title ? this.props.title : '',
-      color: this.props.color ? this.props.color : '',
-      topics: this.props.topics ? this.props.topics : [],
+      title: '',
+      color: '',
+      deleteWarningOpen: false,
     };
     this.baseState = this.state;
+
+    _.bindAll(this, [
+      'delete',
+      'handleChange',
+      'handleClose',
+      'handleColorChange',
+      'hideDeleteWarning',
+    ]);
   }
 
-  handleColorChange = (color) => {
+  componentWillReceiveProps(nextProps) {
+    const { $$category } = nextProps;
+
+    // TODO: Consider adding check to see if current category is undefined or different id?
+    if ($$category && $$category !== this.props.$$category) {
+      this.setState({
+        title: $$category.get('title'),
+        color: $$category.get('color'),
+      });
+    } else if (!$$category && this.props.$$category) {
+      this.reset();
+    }
+  }
+
+  getActionButtons() {
+    const { data } = this.props;
+
+    const buttons = [
+      <FlatButton
+        label="Cancel"
+        onTouchTap={this.handleClose}
+      />,
+    ];
+
+    // Add delete button for existing categories
+    if (!this.isNewCategory()) {
+      buttons.push(
+        <FlatButton
+          label={data.get('isDeletingCategory') ? 'Deleting...' : 'Delete'}
+          labelStyle={{ color: ButtonStyles.dangerBackgroundColor }}
+          onTouchTap={this.delete}
+          disabled={data.get('isDeletingCategory')}
+        />,
+      );
+    }
+
+    buttons.push(
+      <FlatButton
+        label={this.isNewCategory() ? 'Create Category' : 'Save'}
+        onTouchTap={this.handleSubmit}
+        primary
+        disabled={!this.valid()}
+      />,
+    );
+    return buttons;
+  }
+
+  handleColorChange(color) {
     this.setState({ color: color.hex });
   }
 
-  handleClose = () => {
-    this.setState({ open: false });
+  handleClose() {
+    this.props.handleClose();
   }
 
-  handleChange = (e) => {
+  handleChange(e) {
     const name = e.target.name;
     const stateChange = {};
     stateChange[name] = e.target.value;
     this.setState(stateChange);
   }
 
-  handleSubmit = (e) => {
+  handleSubmit(e) {
     e.preventDefault();
     const { actions } = this.props;
     actions
@@ -58,39 +115,50 @@ export default class CategoryForm extends React.Component {
       });
   }
 
-  reset = () => {
+  hideDeleteWarning() {
+    this.setState({
+      deleteWarningOpen: false,
+    });
+  }
+
+  delete() {
+    const { actions, $$category } = this.props;
+    if (this.props.topics.length > 0) {
+      this.setState({
+        deleteWarningOpen: true,
+      });
+      return;
+    }
+
+    actions
+      .deleteCategory($$category.toJS())
+      .done(() => {
+        this.reset();
+        this.handleClose();
+      });
+  }
+
+  isNewCategory() {
+    return !this.props.$$category;
+  }
+
+  reset() {
     this.setState(this.baseState);
   }
 
-  valid = () =>
-    this.state.color && this.state.title;
+  valid() {
+    return this.state.color && this.state.title;
+  }
 
   render() {
+    const { actions, data } = this.props;
     return (
       <div>
-        <FloatingActionButton
-          onTouchTap={() => { this.setState({ open: true }); }}
-          className="floating-actions-menu"
-        >
-          <ContentAdd />
-        </FloatingActionButton>
         <Dialog
-          title="Add Category"
-          actions={[
-            <FlatButton
-              label="Cancel"
-              primary
-              onTouchTap={this.handleClose}
-            />,
-            <FlatButton
-              label="Create category"
-              onTouchTap={this.handleSubmit}
-              primary
-              disabled={!this.valid()}
-            />,
-          ]}
+          title={this.isNewCategory() ? 'Add Category' : 'Edit Category'}
+          actions={this.getActionButtons()}
           modal={false}
-          open={this.state.open}
+          open={this.props.open}
           onRequestClose={this.handleClose}
         >
           <form className="text-center" onSubmit={this.handleSubmit}>
@@ -116,6 +184,18 @@ export default class CategoryForm extends React.Component {
             </div>
           </form>
         </Dialog>
+        <Snackbar
+          open={this.state.deleteWarningOpen}
+          message="Remove all topics from this category before deleting."
+          autoHideDuration={4000}
+          onRequestClose={this.hideDeleteWarning}
+        />
+        <Snackbar
+          open={data.get('deleteCategoryError') != null}
+          message="Something went wrong deleting this category."
+          autoHideDuration={4000}
+          onRequestClose={actions.clearDeleteCategoryFailure}
+        />
       </div>
     );
   }

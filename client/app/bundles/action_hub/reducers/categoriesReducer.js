@@ -19,6 +19,8 @@ export const $$initialState = Immutable.fromJS({
   submitCategoryError: null,
   isFetchingCategories: false,
   isSavingCategories: false,
+  isDeletingCategory: false,
+  deleteCategoryError: null,
 });
 
 export default function categoriesReducer($$state = $$initialState, action = null) {
@@ -77,6 +79,40 @@ export default function categoriesReducer($$state = $$initialState, action = nul
       return $$state.merge({
         isSavingCategories: true,
       });
+    }
+
+    // Delete
+    case actionTypes.SET_IS_DELETING_CATEGORY: {
+      return $$state.merge({
+        isDeletingCategory: true,
+      });
+    }
+
+    case actionTypes.DELETE_CATEGORY_FAILURE: {
+      return $$state.merge({
+        deleteCategoryError: error,
+        isDeletingCategory: false,
+      });
+    }
+
+    case actionTypes.CLEAR_DELETE_CATEGORY_FAILURE: {
+      return $$state.merge({
+        deleteCategoryError: null,
+      });
+    }
+
+    case actionTypes.DELETE_CATEGORY_SUCCESS: {
+      return $$state.withMutations(state => (
+        state
+          .updateIn(
+            ['$$categories'],
+            $$categories => $$categories.filter(($$category) => $$category.get('id') !== category.id),
+          )
+          .merge({
+            deleteCategoryError: null,
+            isDeletingCategory: false,
+          })
+      ));
     }
 
     default: {
