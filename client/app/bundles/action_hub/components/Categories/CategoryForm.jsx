@@ -35,6 +35,7 @@ export default class CategoryForm extends React.Component {
 
     _.bindAll(this, [
       'delete',
+      'submit',
       'handleChange',
       'handleClose',
       'handleColorChange',
@@ -81,7 +82,7 @@ export default class CategoryForm extends React.Component {
     buttons.push(
       <FlatButton
         label={this.isNewCategory() ? 'Create Category' : 'Save'}
-        onTouchTap={this.handleSubmit}
+        onTouchTap={this.submit}
         primary
         disabled={!this.valid()}
       />,
@@ -104,7 +105,7 @@ export default class CategoryForm extends React.Component {
     this.setState(stateChange);
   }
 
-  handleSubmit(e) {
+  submit(e) {
     e.preventDefault();
     const { actions } = this.props;
     actions
@@ -161,7 +162,7 @@ export default class CategoryForm extends React.Component {
           open={this.props.open}
           onRequestClose={this.handleClose}
         >
-          <form className="text-center" onSubmit={this.handleSubmit}>
+          <form className="text-center" onSubmit={this.submit}>
             <div style={{ marginBottom: '25px' }}>
               <TextField
                 name="title"
