@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :load_category, only: [ :destroy ]
+  before_action :load_category, only: [ :update, :destroy ]
 
   def index
     respond_to do |format|
@@ -16,6 +16,15 @@ class CategoriesController < ApplicationController
       render json: @category.errors, status: :unprocessable_entity
     end
   end
+
+  def update
+    if @category.update(category_params)
+      render template: 'categories/_category', locals: { category: @category }
+    else
+      render json: @category.errors, status: :unprocessable_entity
+    end
+  end
+
 
   def destroy
     @category.deactivate!

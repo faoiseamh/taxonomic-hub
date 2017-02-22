@@ -63,6 +63,17 @@ export function submitCategory(category) {
   };
 }
 
+export function saveCategory(category) {
+  return (dispatch) => {
+    dispatch(setIsSavingCategory());
+    return (
+      requestsManager.updateCategory(category)
+        .done(res => dispatch(submitCategorySuccess(res)))
+        .fail(error => dispatch(submitCategoryFailure(error)))
+    );
+  };
+}
+
 // Delete
 export function setIsDeletingCategory() {
   return {

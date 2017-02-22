@@ -108,8 +108,21 @@ export default class CategoryForm extends React.Component {
   submit(e) {
     e.preventDefault();
     const { actions } = this.props;
+
+    if (this.isNewCategory()) {
+      actions
+        .submitCategory(this.state)
+        .done(() => {
+          this.reset();
+          this.handleClose();
+        });
+      return;
+    }
     actions
-      .submitCategory(this.state)
+      .saveCategory({
+        ...this.state,
+        id: this.props.$$category.get('id'),
+      })
       .done(() => {
         this.reset();
         this.handleClose();

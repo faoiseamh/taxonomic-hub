@@ -13,6 +13,13 @@ export default {
     return this.post('categories', { category });
   },
 
+  updateCategory(category) {
+    const categoryId = category.id;
+    const categoryWithoutId = category;
+    delete categoryWithoutId.id;
+    return this.put(`categories/${categoryId}`, { category: categoryWithoutId });
+  },
+
   deleteCategory(category) {
     return this.delete(`categories/${category.id}`);
   },
