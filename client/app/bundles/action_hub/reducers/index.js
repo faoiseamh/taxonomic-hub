@@ -1,6 +1,7 @@
 import categoriesReducer, * as fromCategories from './categoriesReducer';
 import categoryTopicRelationshipsReducer, { $$initialState as $$categoryTopicRelationshipsState } from './categoryTopicRelationshipsReducer';
 import eventsReducer, { $$initialState as $$eventsState } from './eventsReducer';
+import eventTopicRelationshipsReducer, { $$initialState as $$eventTopicRelationshipsState } from './eventTopicRelationshipsReducer';
 import topicsReducer, { $$initialState as $$topicsState } from './topicsReducer';
 import usersReducer, { $$initialState as $$usersState } from './usersReducer';
 import railsContextReducer, { initialState as railsContextState } from './railsContextReducer';
@@ -8,8 +9,9 @@ import railsContextReducer, { initialState as railsContextState } from './railsC
 export default {
   $$categoriesState: categoriesReducer,
   $$categoryTopicRelationshipsState: categoryTopicRelationshipsReducer,
-  $$eventsState: eventsReducer,
   $$topicsState: topicsReducer,
+  $$eventsState: eventsReducer,
+  $$eventTopicRelationshipsState: eventTopicRelationshipsReducer,
   $$usersState: usersReducer,
   railsContext: railsContextReducer,
 };
@@ -18,8 +20,9 @@ export default {
 export const initialStates = {
   $$categoriesState: fromCategories.$$initialState,
   $$categoryTopicRelationshipsState,
-  $$eventsState,
   $$topicsState,
+  $$eventsState,
+  $$eventTopicRelationshipsState,
   $$usersState,
   railsContextState,
 };

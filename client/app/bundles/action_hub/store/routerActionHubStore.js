@@ -10,18 +10,24 @@ import reducers, { initialStates } from '../reducers';
 
 export default (props, railsContext) => {
   const initialCategories = props.categories;
-  const initialTopics = props.topics;
-  const initialCurrentUser = props.current_user;
   const initialCategoryTopicRelationships = props.category_topic_relationships;
+  const initialTopics = props.topics;
+  const initialEvents = props.events;
+  const initialEventTopicRelationships = props.event_topic_relationships;
+  const initialCurrentUser = props.current_user;
   const {
     $$categoriesState,
     $$categoryTopicRelationshipsState,
     $$topicsState,
+    $$eventsState,
+    $$eventTopicRelationshipsState,
     $$usersState } = initialStates;
   const initialState = {
     $$categoriesState,
     $$categoryTopicRelationshipsState,
     $$topicsState,
+    $$eventsState,
+    $$eventTopicRelationshipsState,
     $$usersState,
     railsContext,
   };
@@ -32,15 +38,30 @@ export default (props, railsContext) => {
       $$categories: arrayToObjectKeyedById(initialCategories),
     });
   }
+  if (initialCategoryTopicRelationships) {
+    initialState.$$categoryTopicRelationshipsState =
+      initialState.$$categoryTopicRelationshipsState.merge({
+        $$categoryTopicRelationships: arrayToObjectKeyedById(initialCategoryTopicRelationships),
+      });
+  }
+
+  // Topics
   if (initialTopics) {
     initialState.$$topicsState = initialState.$$topicsState.merge({
       $$topics: arrayToObjectKeyedById(initialTopics),
     });
   }
-  if (initialCategoryTopicRelationships) {
-    initialState.$$categoryTopicRelationshipsState =
-      initialState.$$categoryTopicRelationshipsState.merge({
-        $$categoryTopicRelationships: arrayToObjectKeyedById(initialCategoryTopicRelationships),
+
+  // Events and relationships
+  if (initialEvents) {
+    initialState.$$eventsState = initialState.$$eventsState.merge({
+      $$events: arrayToObjectKeyedById(initialEvents),
+    });
+  }
+  if (initialEventTopicRelationships) {
+    initialState.$$eventTopicRelationshipsState =
+      initialState.$$eventTopicRelationshipsState.merge({
+        $$eventTopicRelationships: arrayToObjectKeyedById(initialEventTopicRelationships),
       });
   }
 

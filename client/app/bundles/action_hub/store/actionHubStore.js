@@ -7,6 +7,8 @@ export default (props, railsContext) => {
   const initialCategories = props.categories;
   const initialTopics = props.topics;
   const initialCategoryTopicRelationships = props.category_topic_relationships;
+  const initialEvents = props.events;
+  const initialEventTopicRelationships = props.event_topic_relationships;
   const initialCurrentUser = props.current_user;
   const { $$actionHubState } = initialStates;
   const initialState = {
@@ -14,6 +16,8 @@ export default (props, railsContext) => {
       $$categories: initialCategories,
       $$categoryTopicRelationships: initialCategoryTopicRelationships,
       $$topics: initialTopics,
+      $$events: initialEvents,
+      $$eventTopicRelationships: initialEventTopicRelationships,
       $$currentUser: initialCurrentUser,
       isAuthenticated: initialCurrentUser && initialCurrentUser != null,
     }),

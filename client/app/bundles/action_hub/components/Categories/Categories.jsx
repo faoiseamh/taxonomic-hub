@@ -2,7 +2,6 @@ import React from 'react';
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 
 import _ from 'lodash';
-// AppBar = require('material-ui/AppBar').default;
 import Avatar from 'material-ui/Avatar';
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import ContentAdd from 'material-ui/svg-icons/content/add';

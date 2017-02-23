@@ -41,3 +41,4 @@ class RouterEventsContainer extends BaseComponent {
 
 // Don't forget to actually use connect!
 export default connect(select)(RouterEventsContainer);
+
