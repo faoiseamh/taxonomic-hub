@@ -32,7 +32,9 @@ class PagesController < ApplicationController
                       locals: {
                         categories: Category.active,
                         topics: Topic.active,
+                        events: Event.active,
                         category_topic_relationships: CategoryTopicRelationship.active,
+                        event_topic_relationships: EventTopicRelationship.active,
                       }, format: :json)
   end
 

@@ -1,4 +1,6 @@
-class Event < ApplicationRecord
+class Event < ActiveRecord::Base
+  include ActiveStateHelper
+
   belongs_to :created_by, class_name: "User"
   has_many :topics, -> { where is_active: true }, through: :event_topic_relationships
   has_many :event_topic_relationships, -> { where is_active: true }
