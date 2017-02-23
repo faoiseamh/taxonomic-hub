@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217024601) do
+ActiveRecord::Schema.define(version: 20170223212753) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title",                               null: false
@@ -29,6 +29,30 @@ ActiveRecord::Schema.define(version: 20170217024601) do
     t.index ["category_id", "topic_id"], name: "index_category_topic_relationships_on_category_id_and_topic_id", unique: true, using: :btree
     t.index ["category_id"], name: "index_category_topic_relationships_on_category_id", using: :btree
     t.index ["topic_id"], name: "index_category_topic_relationships_on_topic_id", using: :btree
+  end
+
+  create_table "event_topic_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "event_id"
+    t.integer  "topic_id"
+    t.boolean  "is_active",  default: true, null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["event_id"], name: "index_event_topic_relationships_on_event_id", using: :btree
+    t.index ["topic_id"], name: "index_event_topic_relationships_on_topic_id", using: :btree
+  end
+
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title",                                      null: false
+    t.datetime "date"
+    t.float    "location_lat",  limit: 24
+    t.float    "location_lon",  limit: 24
+    t.string   "location_name"
+    t.text     "body",          limit: 65535
+    t.integer  "created_by_id"
+    t.boolean  "is_active",                   default: true, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.index ["created_by_id"], name: "index_events_on_created_by_id", using: :btree
   end
 
   create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -61,4 +85,6 @@ ActiveRecord::Schema.define(version: 20170217024601) do
 
   add_foreign_key "category_topic_relationships", "categories"
   add_foreign_key "category_topic_relationships", "topics"
+  add_foreign_key "event_topic_relationships", "events"
+  add_foreign_key "event_topic_relationships", "topics"
 end
