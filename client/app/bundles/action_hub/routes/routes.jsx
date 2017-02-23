@@ -4,6 +4,7 @@ import Layout from '../layout/Layout';
 import TestReactRouter from '../components/TestReactRouter/TestReactRouter';
 import TestReactRouterRedirect from '../components/TestReactRouterRedirect/TestReactRouterRedirect';
 import RouterCategoriesContainer from '../containers/RouterCategoriesContainer';
+import RouterEventsContainer from '../containers/RouterEventsContainer';
 import RouterTopicContainer from '../containers/RouterTopicContainer';
 import RouterUsersContainer from '../containers/RouterUsersContainer';
 import RouterSignUpContainer from '../containers/RouterSignUpContainer';
@@ -19,10 +20,14 @@ export default (
     />
 
     <Route
+      path={paths.EVENTS_PATH}
+      component={requireAuthentication(RouterEventsContainer)}
+    />
+
+    <Route
       path={paths.TOPIC_CREATE_PATH}
       component={requireAuthentication(RouterTopicContainer)}
     />
-
     <Route
       path="/topics/:topicId"
       component={requireAuthentication(RouterTopicContainer)}
