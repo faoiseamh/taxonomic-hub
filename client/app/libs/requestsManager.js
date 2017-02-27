@@ -59,6 +59,9 @@ export default {
   signOut(user) {
     return this.delete('../users/sign_out', { user });
   },
+  resetPassword(user) {
+    return this.post('../users/password', { user });
+  },
 
 
   // Helpers

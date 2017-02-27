@@ -6,6 +6,7 @@ import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import * as paths from '../../constants/paths';
 
@@ -14,6 +15,7 @@ export default class ForgotPassword extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    location: PropTypes.object,
   };
 
   constructor(props) {
@@ -45,35 +47,47 @@ export default class ForgotPassword extends BaseComponent {
 
   submit(user) {
     const { actions } = this.props;
-    actions.forgotPassword(user);
+    actions.resetPassword(user);
   }
 
   renderErrors() {
     const { actions, data } = this.props;
-    const forgotPasswordError = renderErrorFromResponse(data.get('forgotPasswordError'));
+    const forgotPasswordError = renderErrorFromResponse(data.get('resetPasswordError'));
     const hasError = forgotPasswordError != null;
-
+    const dialogActions = [
+      <FlatButton
+        label="OK"
+        onTouchTap={actions.clearResetPasswordFailure}
+        keyboardFocused
+        primary
+      />,
+    ];
     return (
+
       <Dialog
-        title="Error"
+        actions={dialogActions}
+        title="Failed to send email"
         modal={false}
         open={hasError}
-        onRequestClose={actions.clearForgotPasswordFailure}
+        onRequestClose={actions.clearResetPasswordFailure}
       >
         <div>
           {forgotPasswordError}
+          <br />
+          <br />
+          <Link to={paths.USER_SIGN_UP_PATH} onClick={actions.clearResetPasswordFailure}>
+            Sign Up
+          </Link>
         </div>
       </Dialog>
     );
   }
 
   render() {
-    // const { actions, data } = this.props;
-
     return (
       <Formsy.Form
         onValidSubmit={this.submit}
-        onValid={this.disableButton} // setting the state as disabled until implemented
+        onValid={this.enableButton}
         onInvalid={this.disableButton}
       >
         <h3 className="lead">Forgot Password</h3>
