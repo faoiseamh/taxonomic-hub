@@ -131,9 +131,9 @@ export function clearSignOutFailure() {
 }
 
 // Reset Password
-export function setIsResettingPassword() {
+export function setIsSendingResetEmail() {
   return {
-    type: actionTypes.SET_IS_RESETTING_PASSWORD,
+    type: actionTypes.SET_IS_SENDING_RESET_EMAIL,
   };
 }
 
@@ -153,7 +153,7 @@ export function resetPasswordFailure(error) {
 
 export function resetPassword(user) {
   return (dispatch) => {
-    dispatch(setIsResettingPassword());
+    dispatch(setIsSendingResetEmail());
     return (
       requestsManager.resetPassword(user)
         .done(res => {

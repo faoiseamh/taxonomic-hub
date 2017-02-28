@@ -84,6 +84,7 @@ export default class ForgotPassword extends BaseComponent {
   }
 
   render() {
+    const { data } = this.props;
     return (
       <Formsy.Form
         onValidSubmit={this.submit}
@@ -107,7 +108,7 @@ export default class ForgotPassword extends BaseComponent {
           label="Send Email"
           type="submit"
           primary
-          disabled={!this.state.canSubmit}
+          disabled={!this.state.canSubmit || data.get('isSendingResetPasswordEmail')}
           fullWidth
         />
         <br />
