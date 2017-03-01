@@ -1,0 +1,59 @@
+// Overall page structural elements
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+.content-container {
+  &.below-navbar {
+    // padding-top: 15px;
+  }
+}
+
+.floating-actions-menu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.form-buttons-inline {
+  >div {
+    margin-left: 12px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+section {
+  &.highlight {
+    background-color: #00BCD4 !important;
+    color: white;
+    padding: 50px 0 54px 0;
+
+    h2 {
+      color: white;
+      font-size: 36px;
+      font-weight: 300;
+      margin-bottom: 0
+    }
+    p {
+      color: white;
+      font-size: 18px;
+      line-height: 26px;
+      margin: 5px auto 0 auto;
+      max-width: 610px
+    }
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  section {
+    &.switching {
+      p {
+        font-size:16px
+      }
+    }
+  }
+}
+

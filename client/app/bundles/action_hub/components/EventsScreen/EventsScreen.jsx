@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import EventList from '../Events/EventList';
+import EventSearch from '../Events/EventSearch';
 
 export default class EventsScreen extends BaseComponent {
 
@@ -18,6 +19,7 @@ export default class EventsScreen extends BaseComponent {
 
     return (
       <div>
+        <EventSearch />
         <EventList
           {...{ actions, data, getTopicsForEvent, $$events }}
         />

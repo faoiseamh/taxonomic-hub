@@ -1,18 +1,1 @@
-.container.below-navbar {
-  padding-top: 15px;
-}
-
-.floating-actions-menu {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-
-.form-buttons-inline {
-  >div {
-    margin-left: 12px;
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-}
+// Moved to client/app/assets/styles/theme.scss

@@ -22,7 +22,7 @@ class Layout extends BaseComponent {
     return (
       <div>
         <NavigationBarContainer router={this.props.router} data={data} />
-        <div className="container below-navbar">
+        <div className="content-container below-navbar">
           <section>
             {this.props.children}
           </section>
