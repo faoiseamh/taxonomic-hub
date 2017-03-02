@@ -1,7 +1,7 @@
 {
   "name": "action-hub",
   "version": "0.1.1",
-  "description": "Action Hub React Client App",
+  "description": "The Current React Client App",
   "main": "server-express.js",
   "engines": {
     "node": "7.5.0",

@@ -118,7 +118,7 @@ export default class NavigationBar extends BaseComponent {
     return (
       <div>
         <AppBar
-          title="Action Hub"
+          title="The Current"
           iconElementRight={this.renderUserButton()}
           onLeftIconButtonTouchTap={() => { this.handleToggle(); }}
         />
