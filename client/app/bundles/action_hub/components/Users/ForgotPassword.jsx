@@ -52,8 +52,8 @@ export default class ForgotPassword extends BaseComponent {
 
   renderErrors() {
     const { actions, data } = this.props;
-    const forgotPasswordError = renderErrorFromResponse(data.get('resetPasswordError'));
-    const hasError = forgotPasswordError != null;
+    const resetPasswordError = renderErrorFromResponse(data.get('resetPasswordError'));
+    const hasError = resetPasswordError != null;
     const dialogActions = [
       <FlatButton
         label="OK"
@@ -72,10 +72,10 @@ export default class ForgotPassword extends BaseComponent {
         onRequestClose={actions.clearResetPasswordFailure}
       >
         <div>
-          {forgotPasswordError}
+          {resetPasswordError}
           <br />
           <br />
-          <Link to={paths.USER_SIGN_UP_PATH} onClick={actions.clearResetPasswordFailure}>
+          <Link to={paths.USER_SIGN_UP_PATH}>
             Sign Up
           </Link>
         </div>
@@ -119,5 +119,10 @@ export default class ForgotPassword extends BaseComponent {
         <br />
       </Formsy.Form>
     );
+  }
+
+  componentWillUnmount() {
+    const { actions } = this.props;
+    actions.clearResetPasswordFailure();
   }
 }
