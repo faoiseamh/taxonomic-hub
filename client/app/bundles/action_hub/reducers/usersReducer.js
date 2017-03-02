@@ -13,6 +13,8 @@ export const $$initialState = Immutable.fromJS({
   signInError: null,
   isSigningOut: false,
   signOutError: null,
+  resetPasswordError: null,
+  isSendingResetPasswordEmail: false,
 });
 
 export default function usersReducer($$state = $$initialState, action = null) {
@@ -88,6 +90,42 @@ export default function usersReducer($$state = $$initialState, action = null) {
         signOutError: null,
       });
     }
+
+    // Reset Password
+    case actionTypes.RESET_PASSWORD_SUCCESS: {
+      return $$state.merge({
+        resetPasswordError: null,
+        isSendingResetPasswordEmail: false,
+        resetEmailSent: true,
+      });
+    }
+
+    case actionTypes.SET_IS_SENDING_RESET_EMAIL: {
+      return $$state.merge({
+        isSendingResetPasswordEmail: true,
+      });
+    }
+
+    case actionTypes.RESET_PASSWORD_FAILURE: {
+      return $$state.merge({
+        resetPasswordError: error,
+        isSendingResetPasswordEmail: false,
+        resetEmailSent: false,
+      });
+    }
+
+    case actionTypes.CLEAR_RESET_PASSWORD_FAILURE: {
+      return $$state.merge({
+        resetPasswordError: null,
+      });
+    }
+
+    case actionTypes.CLEAR_RESET_PASSWORD_EMAIL_SENT: {
+      return $$state.merge({
+        resetEmailSent: false,
+      });
+    }
+
 
     default: {
       return $$state;

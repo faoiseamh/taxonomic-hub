@@ -129,3 +129,53 @@ export function clearSignOutFailure() {
     });
   };
 }
+
+// Reset Password
+export function setIsSendingResetEmail() {
+  return {
+    type: actionTypes.SET_IS_SENDING_RESET_EMAIL,
+  };
+}
+
+export function resetPasswordSuccess(user) {
+  return {
+    type: actionTypes.RESET_PASSWORD_SUCCESS,
+    user,
+  };
+}
+
+export function resetPasswordFailure(error) {
+  return {
+    type: actionTypes.RESET_PASSWORD_FAILURE,
+    error,
+  };
+}
+
+export function resetPassword(user) {
+  return (dispatch) => {
+    dispatch(setIsSendingResetEmail());
+    return (
+      requestsManager.resetPassword(user)
+        .done(res => {
+          dispatch(resetPasswordSuccess(res));
+        })
+        .fail(error => dispatch(resetPasswordFailure(error)))
+    );
+  };
+}
+
+export function clearResetPasswordFailure() {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_RESET_PASSWORD_FAILURE,
+    });
+  };
+}
+
+export function clearResetPasswordEmailSent() {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_RESET_PASSWORD_EMAIL_SENT,
+    });
+  };
+}
