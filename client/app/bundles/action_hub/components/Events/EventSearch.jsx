@@ -6,6 +6,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import Zipcodes from 'zipcodes';
 import * as TextFieldStyles from '../../theme/TextFieldStyles';
+import * as ButtonStyles from '../../theme/ButtonStyles';
 
 // TODO: Figure out the best approach for composition of styles
 const zipcodeAutocompleteStyle = _.merge(TextFieldStyles.ExtraLarge, TextFieldStyles.White, TextFieldStyles.Centered);
@@ -59,10 +60,11 @@ export default class EventSearch extends BaseComponent {
           />
         </div>
         <br />
+        <br />
         <RaisedButton
-          label={this.getSubmitButtonText()}
-          primary
-          disabled={!this.state.canSubmit || data.get('isSavingTopic')}
+          label="Search"
+          backgroundColor={ButtonStyles.whiteCyan.backgroundColor}
+          labelColor={ButtonStyles.whiteCyan.labelColor}
         />
 
       </section>
