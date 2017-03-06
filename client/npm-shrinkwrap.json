@@ -6463,6 +6463,11 @@
           "resolved": "https://registry.npmjs.org/camelcase/-/camelcase-3.0.0.tgz"
         }
       }
+    },
+    "zipcodes": {
+      "version": "2.1.0",
+      "from": "zipcodes@>=2.1.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/zipcodes/-/zipcodes-2.1.0.tgz"
     }
   }
 }
