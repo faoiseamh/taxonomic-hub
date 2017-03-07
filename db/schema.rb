@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223212753) do
+ActiveRecord::Schema.define(version: 20170307173347) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title",                               null: false
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 20170223212753) do
 
   create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title",                                   null: false
-    t.string   "subtitle",                                null: false
-    t.text     "body",       limit: 65535,                null: false
+    t.string   "subtitle"
+    t.text     "body",       limit: 65535
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.boolean  "is_active",                default: true, null: false

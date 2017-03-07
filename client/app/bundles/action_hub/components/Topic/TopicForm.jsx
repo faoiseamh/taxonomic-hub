@@ -205,7 +205,6 @@ export default class TopicForm extends BaseComponent {
             hintText="a concise subtitle for this topic"
             floatingLabelText="Subtitle"
             value={$$topic.get('subtitle')}
-            required
           />
           <br />
 
