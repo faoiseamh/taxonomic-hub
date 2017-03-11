@@ -55,21 +55,19 @@ export default class TopicScreen extends BaseComponent {
     }
 
     return (
-      <div>
-        <div>
-          <Topic
-            {
-              ...{
-                actions,
-                location,
-                data,
-                $$topic,
-                $$categories,
-                $$categoryTopicRelationships,
-              }
+      <div className="container">
+        <Topic
+          {
+            ...{
+              actions,
+              location,
+              data,
+              $$topic,
+              $$categories,
+              $$categoryTopicRelationships,
             }
-          />
-        </div>
+          }
+        />
       </div>
     );
   }
