@@ -51,6 +51,7 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     brakeman (3.4.1)
+    bugsnag (5.2.0)
     builder (3.2.2)
     bundler-audit (0.5.0)
       bundler (~> 1.2)
@@ -315,6 +316,7 @@ DEPENDENCIES
   autoprefixer-rails
   awesome_print
   brakeman
+  bugsnag
   bundler-audit
   capybara
   capybara-screenshot
