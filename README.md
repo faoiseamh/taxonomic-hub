@@ -88,6 +88,23 @@ rake db:reset
 
 - Connect to local server at http://localhost:5000
 
+## QT Installation
+QT is needed for capybara and on OSX qt 5.5 is the last version that is installed with QtWebKit. You also need to have xcode install prior to installing the gem so qt can build.
+
+~~~~
+brew install qt55
+~~~~
+
+You may also need to unlink whatever qt you had previously and link qt55
+
+~~~~
+brew unlink qt5
+brew unlink qt
+brew link qt55 --force
+~~~~
+
+
+
 ## Sublime Text Setup
 If you are using sublime text, the following packages will make development nice and easy
 
