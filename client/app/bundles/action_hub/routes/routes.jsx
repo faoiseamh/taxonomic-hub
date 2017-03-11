@@ -5,6 +5,7 @@ import TestReactRouter from '../components/TestReactRouter/TestReactRouter';
 import TestReactRouterRedirect from '../components/TestReactRouterRedirect/TestReactRouterRedirect';
 import RouterCategoriesContainer from '../containers/RouterCategoriesContainer';
 import RouterEventsContainer from '../containers/RouterEventsContainer';
+import RouterEventContainer from '../containers/RouterEventContainer';
 import RouterTopicContainer from '../containers/RouterTopicContainer';
 import RouterUsersContainer from '../containers/RouterUsersContainer';
 import RouterSignUpContainer from '../containers/RouterSignUpContainer';
@@ -21,7 +22,11 @@ export default (
 
     <Route
       path={paths.EVENTS_PATH}
-      component={requireAuthentication(RouterEventsContainer)}
+      component={RouterEventsContainer}
+    />
+    <Route
+      path="/events/:eventId"
+      component={RouterEventContainer}
     />
 
     <Route

@@ -20,12 +20,19 @@ export default class EventList extends BaseComponent {
     };
   }
 
+  goToEvent($$event) {
+    const { goToEvent } = this.props.actions;
+    console.log("going there");
+    goToEvent($$event.get('id'));
+  }
+
   render() {
     const { $$events } = this.props;
 
     const eventNodes = $$events.map(($$event) =>
       <Card
         key={$$event.get('id')}
+        onClick={() => { this.goToEvent($$event); }}
         style={styles.eventCard}
       >
         <CardTitle
