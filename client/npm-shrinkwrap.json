@@ -5193,14 +5193,14 @@
       "dev": true
     },
     "quill": {
-      "version": "1.2.0",
-      "from": "quill@>=1.1.5 <2.0.0",
-      "resolved": "https://registry.npmjs.org/quill/-/quill-1.2.0.tgz",
+      "version": "1.2.2",
+      "from": "quill@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/quill/-/quill-1.2.2.tgz",
       "dependencies": {
         "clone": {
-          "version": "2.1.0",
+          "version": "2.1.1",
           "from": "clone@>=2.1.0 <2.2.0",
-          "resolved": "https://registry.npmjs.org/clone/-/clone-2.1.0.tgz"
+          "resolved": "https://registry.npmjs.org/clone/-/clone-2.1.1.tgz"
         }
       }
     },
@@ -5323,9 +5323,9 @@
       "dev": true
     },
     "react-quill": {
-      "version": "2.0.2",
-      "from": "alexkrolick/react-quill#v2.0.2",
-      "resolved": "git://github.com/alexkrolick/react-quill.git#28bb55150a81f658cee7852287f6e1d5ab8b3f89"
+      "version": "1.0.0-beta-3",
+      "from": "zenoamaro/react-quill#v1.0.0-beta-3",
+      "resolved": "git://github.com/zenoamaro/react-quill.git#1d54a22248b2c9ddedf588ed9c2a3aa197a7526d"
     },
     "react-redux": {
       "version": "4.4.6",
