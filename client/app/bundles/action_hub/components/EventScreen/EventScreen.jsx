@@ -10,15 +10,16 @@ export default class EventScreen extends BaseComponent {
     data: PropTypes.object.isRequired,
     $$event: PropTypes.object.isRequired,
     topics: PropTypes.array.isRequired,
+    getCategoriesForTopic: PropTypes.func.isRequired,
     locationState: PropTypes.object,
   };
 
   render() {
-    const { data, actions, $$event, topics } = this.props;
+    const { data, actions, $$event, topics, getCategoriesForTopic } = this.props;
 
     return (
       <Event
-        {...{ data, actions, $$event, topics }}
+        {...{ data, actions, $$event, topics, getCategoriesForTopic }}
       />
     );
   }

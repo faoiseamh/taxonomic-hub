@@ -15,8 +15,13 @@ import requireUnauthenticated from './requireUnauthenticated';
 import * as paths from '../constants/paths';
 
 export default (
-  <Route path="/" component={Layout}>
+  <Route path={paths.ROOT_PATH} component={Layout}>
     <IndexRoute
+      component={RouterEventsContainer}
+    />
+
+    <Route
+      path={paths.CATEGORIES_PATH}
       component={requireAuthentication(RouterCategoriesContainer)}
     />
 

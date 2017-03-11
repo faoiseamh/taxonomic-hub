@@ -9,6 +9,7 @@ import * as formatConstants from '../../constants/formatConstants';
 const styles = {
   eventCard: {
     margin: 10,
+    cursor: 'pointer',
   },
 };
 

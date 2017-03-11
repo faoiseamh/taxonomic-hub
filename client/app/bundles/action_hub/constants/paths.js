@@ -1,5 +1,7 @@
 export const ROOT_PATH = '/';
-export const CATEGORIES_PATH = '/';
+
+// Categories
+export const CATEGORIES_PATH = '/categories';
 
 // Users
 export const USER_SIGN_IN_PATH = '/users/sign_in';
