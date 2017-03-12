@@ -5324,8 +5324,8 @@
     },
     "react-quill": {
       "version": "1.0.0-beta-3",
-      "from": "zenoamaro/react-quill#v1.0.0-beta-3",
-      "resolved": "git://github.com/zenoamaro/react-quill.git#1d54a22248b2c9ddedf588ed9c2a3aa197a7526d"
+      "from": "react-quill@1.0.0-beta-3",
+      "resolved": "https://registry.npmjs.org/react-quill/-/react-quill-1.0.0-beta-3.tgz"
     },
     "react-redux": {
       "version": "4.4.6",
