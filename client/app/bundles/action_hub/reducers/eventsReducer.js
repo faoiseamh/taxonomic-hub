@@ -15,6 +15,9 @@ export function getEvent($$state, eventId) {
 
 export const $$initialState = Immutable.fromJS({
   $$events: {},
+  saveEventError: null,
+  isEventSavedNoticeVisible: false,
+  isSavingEvent: false,
 });
 
 export default function eventsReducer($$state = $$initialState, action = null) {

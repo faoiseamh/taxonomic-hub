@@ -4,7 +4,11 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import { Link } from 'react-router';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as formatConstants from '../../constants/formatConstants';
+import * as paths from '../../constants/paths';
 
 const styles = {
   eventCard: {
@@ -19,6 +23,7 @@ export default class EventList extends BaseComponent {
     this.state = {
     };
   }
+
 
   render() {
     const { $$events } = this.props;
@@ -41,6 +46,14 @@ export default class EventList extends BaseComponent {
     return (
       <div>
         {eventNodes}
+        <FloatingActionButton
+          containerElement={
+            <Link to={`${paths.EVENT_CREATE_PATH}`} /> // eslint-disable-line jsx-a11y/anchor-has-content
+          }
+          className="floating-actions-menu"
+        >
+          <ContentAdd />
+        </FloatingActionButton>
       </div>
     );
   }

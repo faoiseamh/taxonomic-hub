@@ -14,3 +14,4 @@ export const topicPath = (topicId) => `/topics/${topicId}`;
 
 // Events
 export const EVENTS_PATH = '/events';
+export const EVENT_CREATE_PATH = '/events/create';
