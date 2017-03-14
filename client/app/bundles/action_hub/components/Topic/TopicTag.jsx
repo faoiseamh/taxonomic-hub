@@ -52,7 +52,6 @@ class TopicTag extends Component {
     };
 
     const color = categories[0].get('color');
-    const textColor = '#ffffff';
 
     // <Avatar
     //   size={32}
