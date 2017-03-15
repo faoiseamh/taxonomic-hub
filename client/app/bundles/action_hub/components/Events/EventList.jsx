@@ -13,6 +13,7 @@ import * as paths from '../../constants/paths';
 const styles = {
   eventCard: {
     margin: 10,
+    cursor: 'pointer',
   },
 };
 
@@ -24,6 +25,10 @@ export default class EventList extends BaseComponent {
     };
   }
 
+  goToEvent($$event) {
+    const { goToEvent } = this.props.actions;
+    goToEvent($$event.get('id'));
+  }
 
   render() {
     const { $$events } = this.props;
@@ -31,6 +36,7 @@ export default class EventList extends BaseComponent {
     const eventNodes = $$events.map(($$event) =>
       <Card
         key={$$event.get('id')}
+        onClick={() => { this.goToEvent($$event); }}
         style={styles.eventCard}
       >
         <CardTitle

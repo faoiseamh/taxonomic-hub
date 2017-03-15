@@ -15,14 +15,23 @@ import requireUnauthenticated from './requireUnauthenticated';
 import * as paths from '../constants/paths';
 
 export default (
-  <Route path="/" component={Layout}>
+  <Route path={paths.ROOT_PATH} component={Layout}>
     <IndexRoute
+      component={RouterEventsContainer}
+    />
+
+    <Route
+      path={paths.CATEGORIES_PATH}
       component={requireAuthentication(RouterCategoriesContainer)}
     />
 
     <Route
       path={paths.EVENTS_PATH}
-      component={requireAuthentication(RouterEventsContainer)}
+      component={RouterEventsContainer}
+    />
+    <Route
+      path="/events/:eventId"
+      component={RouterEventContainer}
     />
     <Route
       path={paths.EVENT_CREATE_PATH}
