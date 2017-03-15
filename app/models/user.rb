@@ -5,6 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :favorites
-  has_many :events, through: :favorites
+  has_many :events, -> { where is_active: true }, through: :favorites
 
 end

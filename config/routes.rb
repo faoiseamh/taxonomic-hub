@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   scope :api do
     resources :categories
     resources :topics
+    resources :event_favorites
   end
 
 
