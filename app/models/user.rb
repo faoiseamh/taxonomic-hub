@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :favorites
-  has_many :events, -> { where is_active: true }, through: :favorites
+  has_many :event_favorites
+  has_many :events, -> { where is_active: true }, through: :event_favorites
 
 end

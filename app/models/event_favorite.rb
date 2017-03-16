@@ -1,4 +1,4 @@
 class EventFavorite < ApplicationRecord
-  belongs_to :user
-  belongs_to :event
+  belongs_to :user, -> { where is_active: true }
+  belongs_to :event, -> { where is_active: true }
 end

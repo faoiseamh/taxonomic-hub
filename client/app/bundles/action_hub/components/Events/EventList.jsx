@@ -4,6 +4,7 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton'
 import * as formatConstants from '../../constants/formatConstants';
 
 const styles = {
@@ -17,12 +18,35 @@ export default class EventList extends BaseComponent {
     super(props);
 
     this.state = {
+      favorite: true,
     };
+
+    this.addFavorite = this.addFavorite.bind(this);
+    this.deleteFavorite = this.deleteFavorite.bind(this);
+  }
+
+  componentDidMount() {
+
+  }
+
+  addFavorite() {
+    this.setState({favorite: true})
+  }
+
+  deleteFavorite() {
+    this.setState({favorite: false})
   }
 
   render() {
-    const { $$events } = this.props;
+    let favorite;
 
+    if (this.state.favorite) {
+      favorite = <FlatButton label="-Favorite" onClick={this.deleteFavorite}/>
+    } else {
+      favorite = <FlatButton label="+Favorite" onClick={this.addFavorite}/>
+    }
+
+    const { $$events } = this.props;
     const eventNodes = $$events.map(($$event) =>
       <Card
         key={$$event.get('id')}
@@ -35,6 +59,9 @@ export default class EventList extends BaseComponent {
         <CardText>
           {$$event.get('body')}
         </CardText>
+        <CardActions>
+          {favorite}
+        </CardActions>
       </Card>,
     );
 
