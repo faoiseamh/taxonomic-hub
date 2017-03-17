@@ -1,14 +1,15 @@
 import dateFormat from 'dateformat';
 import React from 'react';
-import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
+import _ from 'lodash';
 
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
+import { Card, CardTitle, CardText } from 'material-ui/Card';
+import Dialog from 'material-ui/Dialog';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import { Link } from 'react-router';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as formatConstants from '../../constants/formatConstants';
-import * as paths from '../../constants/paths';
+
+import EventFormDialog from '../Event/EventFormDialog';
 
 const styles = {
   eventCard: {
@@ -22,12 +23,28 @@ export default class EventList extends BaseComponent {
     super(props);
 
     this.state = {
+      creationFormOpen: false,
     };
+
+    _.bindAll(this, [
+      'handleCloseCreationForm',
+      'renderCreationDialog',
+      'showCreationForm',
+    ]);
   }
+
+  handleCloseCreationForm() {
+    this.setState({ creationFormOpen: false });
+  }
+
 
   goToEvent($$event) {
     const { goToEvent } = this.props.actions;
     goToEvent($$event.get('id'));
+  }
+
+  showCreationForm() {
+    this.setState({ creationFormOpen: true });
   }
 
   render() {
@@ -52,15 +69,29 @@ export default class EventList extends BaseComponent {
     return (
       <div>
         {eventNodes}
+
         <FloatingActionButton
-          containerElement={
-            <Link to={`${paths.EVENT_CREATE_PATH}`} /> // eslint-disable-line jsx-a11y/anchor-has-content
-          }
           className="floating-actions-menu"
+          onClick={this.showCreationForm}
         >
           <ContentAdd />
         </FloatingActionButton>
+
+        {this.renderCreationDialog()}
+
       </div>
+    );
+  }
+
+  renderCreationDialog() {
+    const { data, actions } = this.props;
+    return (
+      <EventFormDialog
+        data={data}
+        actions={actions}
+        open={this.state.creationFormOpen}
+        handleRequestClose={this.handleCloseCreationForm}
+      />
     );
   }
 }

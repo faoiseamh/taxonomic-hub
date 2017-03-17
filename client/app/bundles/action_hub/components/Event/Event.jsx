@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import EventHeader from './EventHeader';
-import EventForm from './EventForm';
 
 export default class Event extends BaseComponent {
 

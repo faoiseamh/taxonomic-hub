@@ -10,10 +10,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import * as ButtonStyles from '../../theme/ButtonStyles';
 
-export default class EventForm extends BaseComponent {
+export default class EventFormDialog extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    open: PropTypes.bool.isRequired,
+    handleRequestClose: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -22,15 +24,42 @@ export default class EventForm extends BaseComponent {
     this.state = {
       canSubmit: false,
       eventBody: '',
+      open: props.open,
+
+      // Event fields
+      title: null,
+      body: null,
+      location_name: null,
     };
     this.baseState = this.state;
 
     _.bindAll(this, [
       'enableButton',
       'disableButton',
+      'handleClose',
+      'reset',
       'submit',
     ]);
   }
+
+  componentWillReceiveProps(nextProps) {
+    // Open is being changed via props
+    if (this.state.open !== nextProps.open) {
+      this.setState({ open: nextProps.open });
+      if (!nextProps.open) {
+        this.reset();
+      }
+    }
+  }
+
+  reset() {
+    this.setState(this.baseState);
+  }
+
+  handleClose() {
+    this.props.handleRequestClose();
+  }
+
 
   enableButton() {
     this.setState({
@@ -103,48 +132,61 @@ export default class EventForm extends BaseComponent {
       data,
     } = this.props;
 
+    const buttons = [
+      <FlatButton
+        label="Cancel"
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label={this.getSubmitButtonText()}
+        type="submit"
+        primary
+        disabled={!this.state.canSubmit || data.get('isSavingEvent')}
+      />,
+    ];
+
     return (
       <div>
         {this.renderErrors()}
-        <Formsy.Form
-          onValidSubmit={this.submit}
-          onValid={this.enableButton}
-          onInvalid={this.disableButton}
+        <Dialog
+          title="Add Event"
+          actions={buttons}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
         >
-          <FormsyText
-            name="title"
-            hintText="a concise title for this event"
-            floatingLabelText="Title"
-            required
-          />
-          <br />
-
-          <FormsyText
-            name="location name"
-            hintText="a concise location for this event"
-            floatingLabelText="Location Name"
-          />
-          <br />
-
-          <br />
-
-          <ReactQuill
-            theme="snow"
-            onChange={(text) => this.onEditorChange(text)}
-            defaultValue={this.state.eventBody}
-          />
-          <br />
-          <br />
-
-          <div className="form-buttons-inline">
-            <RaisedButton
-              label={this.getSubmitButtonText()}
-              type="submit"
-              primary
-              disabled={!this.state.canSubmit || data.get('isSavingEvent')}
+          <Formsy.Form
+            onValidSubmit={this.submit}
+            onValid={this.enableButton}
+            onInvalid={this.disableButton}
+          >
+            <FormsyText
+              name="title"
+              hintText="a concise title for this event"
+              floatingLabelText="Title"
+              value={this.state.title}
+              required
             />
-          </div>
-        </Formsy.Form>
+            <br />
+
+            <FormsyText
+              name="location_name"
+              hintText="a concise location for this event"
+              floatingLabelText="Location Name"
+              value={this.state.location_name}
+            />
+            <br />
+
+            <br />
+
+            <ReactQuill
+              theme="snow"
+              onChange={(text) => this.onEditorChange(text)}
+              defaultValue={this.state.eventBody}
+              value={this.state.body}
+            />
+          </Formsy.Form>
+        </Dialog>
         {/* <Snackbar
           open={data.get('isEventSavedNoticeVisible')}
           message="Event was saved successfully"
