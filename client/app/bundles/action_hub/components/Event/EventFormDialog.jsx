@@ -6,9 +6,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import RaisedButton from 'material-ui/RaisedButton';
-import Snackbar from 'material-ui/Snackbar';
-import * as ButtonStyles from '../../theme/ButtonStyles';
 
 export default class EventFormDialog extends BaseComponent {
   static propTypes = {
@@ -37,6 +34,7 @@ export default class EventFormDialog extends BaseComponent {
       'enableButton',
       'disableButton',
       'handleClose',
+      'handleFormSubmit',
       'reset',
       'submit',
     ]);
@@ -78,7 +76,13 @@ export default class EventFormDialog extends BaseComponent {
     return data.get('isSavingEvent') ? 'Creating Event...' : 'Create Event';
   }
 
-  submit(eventFormData) {
+  // Submit formsy form
+  submit() {
+    this.form.submit()
+  }
+
+  // Handle the formsy submit
+  handleFormSubmit(eventFormData) {
     const { actions } = this.props;
     const event = {
       ...eventFormData,
@@ -128,7 +132,6 @@ export default class EventFormDialog extends BaseComponent {
 
   render() {
     const {
-      actions,
       data,
     } = this.props;
 
@@ -140,6 +143,7 @@ export default class EventFormDialog extends BaseComponent {
       <FlatButton
         label={this.getSubmitButtonText()}
         type="submit"
+        onTouchTap={this.submit}
         primary
         disabled={!this.state.canSubmit || data.get('isSavingEvent')}
       />,
@@ -156,9 +160,12 @@ export default class EventFormDialog extends BaseComponent {
           onRequestClose={this.handleClose}
         >
           <Formsy.Form
-            onValidSubmit={this.submit}
+            onValidSubmit={this.handleFormSubmit}
             onValid={this.enableButton}
             onInvalid={this.disableButton}
+            ref={(form) => {
+              this.form = form;
+            }}
           >
             <FormsyText
               name="title"
