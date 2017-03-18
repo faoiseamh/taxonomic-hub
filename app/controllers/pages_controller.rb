@@ -28,7 +28,7 @@ class PagesController < ApplicationController
   private
 
   def initial_data_json_string
-    event_favorites = current_user.nil? ? [] : current_user.events
+    event_favorites = current_user.nil? ? [] : current_user.event_favorites
 
     render_to_string( template: "initial_data.json.jbuilder",
                       locals: {
@@ -37,7 +37,7 @@ class PagesController < ApplicationController
                         events: Event.active,
                         category_topic_relationships: CategoryTopicRelationship.active,
                         event_topic_relationships: EventTopicRelationship.active,
-                        event_favorites: event_favorites
+                        event_favorites: event_favorites,
                       }, format: :json)
   end
 
