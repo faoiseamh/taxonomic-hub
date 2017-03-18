@@ -30,40 +30,43 @@ export default class EventList extends BaseComponent {
   }
 
   addFavorite() {
-    this.setState({favorite: true})
+
   }
 
   deleteFavorite() {
-    this.setState({favorite: false})
+    
   }
 
   render() {
+    const { $$events, getEventFavoritesForEvent } = this.props;
+
     let favorite;
 
-    if (this.state.favorite) {
-      favorite = <FlatButton label="-Favorite" onClick={this.deleteFavorite}/>
-    } else {
-      favorite = <FlatButton label="+Favorite" onClick={this.addFavorite}/>
-    }
+    const eventNodes = $$events.map(($$event) => {
+      if (getEventFavoritesForEvent($$event.get("id")).length > 0 ) {
+        favorite = <FlatButton label="-Favorite" onClick={this.deleteFavorite}/>;
+      } else {
+        favorite = <FlatButton label="+Favorite" onClick={this.addFavorite}/>;
+      }
 
-    const { $$events } = this.props;
-    const eventNodes = $$events.map(($$event) =>
-      <Card
-        key={$$event.get('id')}
-        style={styles.eventCard}
-      >
-        <CardTitle
-          title={$$event.get('title')}
-          subtitle={dateFormat(Date.parse($$event.get('date')), formatConstants.verbose)}
-        />
-        <CardText>
-          {$$event.get('body')}
-        </CardText>
-        <CardActions>
-          {favorite}
-        </CardActions>
-      </Card>,
-    );
+      return (
+        <Card
+          key={$$event.get('id')}
+          style={styles.eventCard}
+        >
+          <CardTitle
+            title={$$event.get('title')}
+            subtitle={dateFormat(Date.parse($$event.get('date')), formatConstants.verbose)}
+          />
+          <CardText>
+            {$$event.get('body')}
+          </CardText>
+          <CardActions>
+            {favorite}
+          </CardActions>
+        </Card>
+      );
+    });
 
     return (
       <div>
