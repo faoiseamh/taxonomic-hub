@@ -16,9 +16,9 @@
 - https://www.google.com/get/sunroof/about/
 - https://fi.google.com/signup?did=pixel
 - https://developer.android.com/reference/android/app/Activity.html
+- https://www.uplabs.com/posts/job-vacancy-manage-cv
 
 # IDeas
 - change background color of page based on category. or just a bar somewhere
-
-
 https://www.airbnb.com/#_=_
+
