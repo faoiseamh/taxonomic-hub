@@ -1,5 +1,7 @@
 export const ROOT_PATH = '/';
-export const CATEGORIES_PATH = '/';
+
+// Categories
+export const CATEGORIES_PATH = '/categories';
 
 // Users
 export const USER_SIGN_IN_PATH = '/users/sign_in';
@@ -14,3 +16,5 @@ export const topicPath = (topicId) => `/topics/${topicId}`;
 
 // Events
 export const EVENTS_PATH = '/events';
+export const EVENT_CREATE_PATH = '/events/create';
+export const eventPath = (eventId) => `/events/${eventId}`;
