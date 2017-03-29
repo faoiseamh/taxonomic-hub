@@ -49,6 +49,16 @@ export default {
     return this.delete(`topics/${topic.id}`);
   },
 
+  // EventFavorites requests
+
+  createEventFavorite(eventId) {
+    return this.post('event_favorites', { eventId });
+  },
+
+  deleteEventFavorite(event) {
+    return this.delete(`event_favorites/${event.id}`);
+  },
+
   // Users requests
   signUp(user) {
     return this.post('../users', { user });
