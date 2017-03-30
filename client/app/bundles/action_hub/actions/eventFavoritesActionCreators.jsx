@@ -40,6 +40,7 @@ export function fetchEventFavoritesFailure(error) {
   };
 }
 
+// Create
 export function createEventFavoriteSuccess(eventFavorite) {
   return {
     type: actionTypes.CREATE_EVENT_FAVORITE_SUCCESS,
@@ -61,6 +62,43 @@ export function createEventFavorite(eventFavorite) {
       requestsManager.createEventFavorite(eventFavorite)
         .done(res => dispatch(createEventFavoriteSuccess(res)))
         .fail(error => dispatch(createEventFavoriteFailure(error)))
+    );
+  };
+}
+
+// Delete
+export function setIsDeletingEventFavorite() {
+  return {
+    type: actionTypes.SET_IS_DELETING_EVENT_FAVORITE,
+  };
+}
+
+export function deleteEventFavoriteSuccess(eventFavorite) {
+  return {
+    type: actionTypes.DELETE_EVENT_FAVORITE_SUCCESS,
+    eventFavorite,
+  };
+}
+export function deleteEventFavoriteFailure(error) {
+  return {
+    type: actionTypes.DELETE_EVENT_FAVORITE_FAILURE,
+    error,
+  };
+}
+
+export function clearDeleteEventFavoriteFailure() {
+  return {
+    type: actionTypes.CLEAR_DELETE_EVENT_FAVORITE_FAILURE,
+  };
+}
+
+export function deleteEventFavorite(eventFavorite) {
+  return (dispatch) => {
+    dispatch(setIsDeletingEventFavorite());
+    return (
+      requestsManager.deleteEventFavorite(eventFavorite)
+        .done((deletedEventFavorite) => dispatch(deleteEventFavoriteSuccess(deletedEventFavorite)))
+        .fail(error => dispatch(deleteEventFavoriteFailure(error)))
     );
   };
 }

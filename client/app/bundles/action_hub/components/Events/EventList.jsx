@@ -57,8 +57,12 @@ export default class EventList extends BaseComponent {
     });
   }
 
-  deleteFavorite() {
+  deleteFavorite($$event) {
+    const { eventFavoriteActions } = this.props;
 
+    eventFavoriteActions.deleteEventFavorite({
+      event_id: $$event.get('id'),
+    });
   }
 
   render() {
@@ -67,10 +71,10 @@ export default class EventList extends BaseComponent {
     let favorite;
 
     const eventNodes = $$events.map(($$event) => {
-      if (getEventFavoritesForEvent($$event.get("id")).length > 0 ) {
-        favorite = <FlatButton label="-Favorite" onClick={this.deleteFavorite}/>;
+      if (getEventFavoritesForEvent($$event.get('id')).length > 0) {
+        favorite = <FlatButton label="-Favorite" onClick={() => this.deleteFavorite($$event)} />;
       } else {
-        favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)}/>;
+        favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)} />;
       }
 
       return (

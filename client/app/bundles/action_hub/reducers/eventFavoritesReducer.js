@@ -8,12 +8,15 @@ export const $$initialState = Immutable.fromJS({
   $$eventFavorites: {},
   isSavingEventFavorites: false,
   submitEventFavoritesError: null,
+  isDeletingEvent: false,
+  deleteEventError: null,
 });
 
 export default function eventFavoritesReducer($$state = $$initialState, action = null) {
-  const { type, eventFavorite } = action;
+  const { type, eventFavorite, error } = action;
 
   switch (type) {
+    // Create
     case actionTypes.SET_IS_SAVING_EVENT_FAVORITES: {
       return $$state.merge({
         isSavingEventFavorites: true,
@@ -35,6 +38,41 @@ export default function eventFavoritesReducer($$state = $$initialState, action =
           .merge({
             submitEventFavoritesError: null,
             isSavingEventFavorites: false,
+          })
+      ));
+    }
+
+    // Delete
+
+    case actionTypes.SET_IS_DELETING_EVENT_FAVORITE: {
+      return $$state.merge({
+        isDeletingEvent: true,
+      });
+    }
+
+    case actionTypes.DELETE_EVENT_FAVORITE_FAILURE: {
+      return $$state.merge({
+        deleteEventError: error,
+        isDeletingEvent: false,
+      });
+    }
+
+    case actionTypes.CLEAR_DELETE_EVENT_FAVORITE_FAILURE: {
+      return $$state.merge({
+        deleteEventError: null,
+      });
+    }
+
+    case actionTypes.DELETE_EVENT_FAVORITE_SUCCESS: {
+      return $$state.withMutations(state => (
+        state
+          .updateIn(
+            ['$$eventFavorites'],
+            $$eventsFavorites => $$eventsFavorites.filter(($$eventFavorite) => $$eventFavorite.get('id') !== eventFavorite.id),
+          )
+          .merge({
+            deleteEventFavoriteError: null,
+            isDeletingEventFavorite: false,
           })
       ));
     }
