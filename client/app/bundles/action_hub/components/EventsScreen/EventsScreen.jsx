@@ -8,6 +8,7 @@ export default class EventsScreen extends BaseComponent {
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
+    eventFavoriteActions: PropTypes.object.isRequired,
     $$events: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
     getTopicsForEvent: PropTypes.func.isRequired,
@@ -16,13 +17,13 @@ export default class EventsScreen extends BaseComponent {
   };
 
   render() {
-    const { data, actions, $$events, getTopicsForEvent, getEventFavoritesForEvent } = this.props;
+    const { data, actions, eventFavoriteActions, $$events, getTopicsForEvent, getEventFavoritesForEvent } = this.props;
 
     return (
       <div>
         <EventSearch />
         <EventList
-          {...{ actions, data, getTopicsForEvent, getEventFavoritesForEvent, $$events }}
+          {...{ actions, eventFavoriteActions, data, getTopicsForEvent, getEventFavoritesForEvent, $$events }}
         />
       </div>
     );

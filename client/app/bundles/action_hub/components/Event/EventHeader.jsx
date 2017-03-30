@@ -14,10 +14,11 @@ export default class EventScreen extends BaseComponent {
     $$event: PropTypes.object.isRequired,
     topics: PropTypes.array.isRequired,
     getCategoriesForTopic: PropTypes.func.isRequired,
+    eventFavoriteActions: PropTypes.object.isRequired,
   };
 
   render() {
-    const { $$event, topics, getCategoriesForTopic } = this.props;
+    const { $$event, topics, getCategoriesForTopic, eventFavoriteActions } = this.props;
     const topicTagNodes = topics.map(($$topic) => {
       const categories = getCategoriesForTopic($$topic.get('id'));
       return (

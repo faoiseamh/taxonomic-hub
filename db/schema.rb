@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20170316024228) do
   end
 
   create_table "event_favorites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
+    t.integer  "user_id",                   null: false
+    t.integer  "event_id",                  null: false
     t.boolean  "is_active",  default: true, null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false

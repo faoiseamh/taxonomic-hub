@@ -49,8 +49,12 @@ export default class EventList extends BaseComponent {
     this.setState({ creationFormOpen: true });
   }
 
-  addFavorite() {
+  addFavorite($$event) {
+    const { eventFavoriteActions } = this.props;
 
+    eventFavoriteActions.createEventFavorite({
+      event_id: $$event.get('id'),
+    });
   }
 
   deleteFavorite() {
@@ -66,7 +70,7 @@ export default class EventList extends BaseComponent {
       if (getEventFavoritesForEvent($$event.get("id")).length > 0 ) {
         favorite = <FlatButton label="-Favorite" onClick={this.deleteFavorite}/>;
       } else {
-        favorite = <FlatButton label="+Favorite" onClick={this.addFavorite}/>;
+        favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)}/>;
       }
 
       return (

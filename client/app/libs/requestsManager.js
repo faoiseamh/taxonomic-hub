@@ -76,8 +76,8 @@ export default {
 
   // EventFavorites requests
 
-  createEventFavorite(eventId) {
-    return this.post('event_favorites', { eventId });
+  createEventFavorite(eventFavorite) {
+    return this.post('event_favorites', { event_favorite: eventFavorite });
   },
 
   deleteEventFavorite(event) {

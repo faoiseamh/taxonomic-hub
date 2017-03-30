@@ -43,9 +43,6 @@ export default function categoriesReducer($$state = $$initialState, action = nul
     }
 
     case actionTypes.SUBMIT_CATEGORY_SUCCESS: {
-      // This merges category into $$categories object (keyed by id). Since we know this is a new
-      // category, a more performant simple insertion would probably be better. Retaining this
-      // code for updates / mutations later.
       return $$state.withMutations(state => (
         state
           .updateIn(

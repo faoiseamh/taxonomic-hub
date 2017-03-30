@@ -7,6 +7,7 @@ import * as query from '../reducers/queries';
 
 import EventsScreen from '../components/EventsScreen/EventsScreen';
 import * as eventsActionCreators from '../actions/eventsActionCreators';
+import * as eventFavoritesActionCreators from '../actions/eventFavoritesActionCreators';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
@@ -33,10 +34,11 @@ class RouterEventsContainer extends BaseComponent {
   render() {
     const { dispatch, data, $$events, getTopicsForEvent, getEventFavoritesForEvent } = this.props;
     const actions = bindActionCreators(eventsActionCreators, dispatch);
+    const eventFavoriteActions = bindActionCreators(eventFavoritesActionCreators, dispatch);
     const locationState = this.props.location.state;
 
     return (
-      <EventsScreen {...{ actions, data, locationState, $$events, getTopicsForEvent, getEventFavoritesForEvent }} />
+      <EventsScreen {...{ actions, eventFavoriteActions, data, locationState, $$events, getTopicsForEvent, getEventFavoritesForEvent }} />
     );
   }
 }
