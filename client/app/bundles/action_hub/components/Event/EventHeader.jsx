@@ -2,6 +2,7 @@ import dateFormat from 'dateformat';
 import React, { PropTypes } from 'react';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
+import FlatButton from 'material-ui/FlatButton';
 import FullPageTearSheet from '../Misc/FullPageTearSheet';
 import TopicTag from '../Topic/TopicTag';
 import * as formatConstants from '../../constants/formatConstants';
@@ -17,8 +18,24 @@ export default class EventScreen extends BaseComponent {
     eventFavoriteActions: PropTypes.object.isRequired,
   };
 
+  addFavorite($$event) {
+    const { eventFavoriteActions } = this.props;
+
+    eventFavoriteActions.createEventFavorite({
+      event_id: $$event.get('id'),
+    });
+  }
+
+  deleteFavorite($$event) {
+    const { eventFavoriteActions } = this.props;
+
+    eventFavoriteActions.deleteEventFavorite({
+      event_id: $$event.get('id'),
+    });
+  }
+
   render() {
-    const { $$event, topics, getCategoriesForTopic, eventFavoriteActions } = this.props;
+    const { $$event, topics, getCategoriesForTopic, getEventFavoritesForEvent } = this.props;
     const topicTagNodes = topics.map(($$topic) => {
       const categories = getCategoriesForTopic($$topic.get('id'));
       return (
@@ -29,6 +46,14 @@ export default class EventScreen extends BaseComponent {
         />
       );
     });
+
+    let favorite;
+
+    if (getEventFavoritesForEvent($$event.get('id')).length > 0) {
+      favorite = <FlatButton label="-Favorite" onClick={() => this.deleteFavorite($$event)} />;
+    } else {
+      favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)} />;
+    }
 
     return (
       <FullPageTearSheet>
@@ -41,6 +66,9 @@ export default class EventScreen extends BaseComponent {
           </div>
           <div className="tags-container">
             {topicTagNodes}
+          </div>
+          <div>
+            {favorite}
           </div>
         </div>
       </FullPageTearSheet>

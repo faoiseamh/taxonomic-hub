@@ -11,11 +11,12 @@ export default class Event extends BaseComponent {
     $$event: PropTypes.object.isRequired,
     topics: PropTypes.array.isRequired,
     getCategoriesForTopic: PropTypes.func.isRequired,
-    eventFavoriteActions: PropTypes.object.isRequired
+    eventFavoriteActions: PropTypes.object.isRequired,
+    getEventFavoritesForEvent: PropTypes.func.isRequired,
   };
 
   render() {
-    const { data, actions, $$event, topics, getCategoriesForTopic, eventFavoriteActions } = this.props;
+    const { data, actions, $$event, topics, getCategoriesForTopic, eventFavoriteActions, getEventFavoritesForEvent } = this.props;
 
     // return (
     //   <EventForm
@@ -31,7 +32,7 @@ export default class Event extends BaseComponent {
     return (
       <div>
         <EventHeader
-          {...{ data, actions, $$event, topics, getCategoriesForTopic, eventFavoriteActions }}
+          {...{ data, actions, $$event, topics, getCategoriesForTopic, eventFavoriteActions, getEventFavoritesForEvent }}
         />
       </div>
     );

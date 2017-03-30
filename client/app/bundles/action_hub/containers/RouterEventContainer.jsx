@@ -16,7 +16,7 @@ function select(state) {
     getEvent: (eventId) => query.getEvent(state, eventId),
     getTopicsForEvent: (eventId) => query.getTopicsForEvent(state, eventId),
     getCategoriesForTopic: (topicId) => query.getCategoriesForTopic(state, topicId),
-
+    getEventFavoritesForEvent: (eventId) => query.getEventFavoritesForEvent(state, eventId),
   };
 }
 
@@ -30,6 +30,7 @@ class RouterEventContainer extends BaseComponent {
     getEvent: PropTypes.func.isRequired,
     getTopicsForEvent: PropTypes.func.isRequired,
     getCategoriesForTopic: PropTypes.func.isRequired,
+    getEventFavoritesForEvent: PropTypes.func.isRequired,
   };
 
   render() {
@@ -39,6 +40,7 @@ class RouterEventContainer extends BaseComponent {
       getEvent,
       getTopicsForEvent,
       getCategoriesForTopic,
+      getEventFavoritesForEvent,
     } = this.props;
     const { eventId } = this.props.routeParams;
     const actions = bindActionCreators(eventsActionCreators, dispatch);
@@ -59,6 +61,7 @@ class RouterEventContainer extends BaseComponent {
             $$event,
             topics,
             getCategoriesForTopic,
+            getEventFavoritesForEvent,
           }
         }
       />
