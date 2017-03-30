@@ -1,0 +1,38 @@
+$break-large: 9;
+
+.event-header {
+  background-color: #00BCD4 !important;
+  color: white;
+  padding: 50px 0 54px 0;
+  text-align: center;
+
+  h1 {
+    color: white;
+    font-size: 36px;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+  .date {
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  p {
+    color: white;
+    font-size: 18px;
+    line-height: 26px;
+    margin: 5px auto 0 auto;
+    max-width: 610px;
+  }
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 75%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin: auto;
+  }
+}

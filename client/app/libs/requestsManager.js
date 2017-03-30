@@ -25,6 +25,31 @@ export default {
   },
 
 
+  // Event requests
+  fetchEvent(eventId) {
+    return this.get(`events/${eventId}`);
+  },
+
+  fetchEvents() {
+    return this.get('events');
+  },
+
+  createEvent(event) {
+    return this.post('events', { event });
+  },
+
+  updateEvent(event) {
+    const eventId = event.id;
+    const eventWithoutId = event;
+    delete eventWithoutId.id;
+    return this.put(`events/${eventId}`, { event: eventWithoutId });
+  },
+
+  deleteEvent(event) {
+    return this.delete(`events/${event.id}`);
+  },
+
+
   // Topic requests
   fetchTopic(topicId) {
     return this.get(`topics/${topicId}`);

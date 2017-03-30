@@ -41,6 +41,19 @@ export function getCategoryTopicRelationshipsForCategory(state, categoryId) {
   );
 }
 
+// Returns an array of Categories for the given topicId,
+export function getCategoriesForTopic(state, topicId) {
+  const categoryTopicRelationships = this.getCategoryTopicRelationshipsForTopic(state, topicId);
+  // TODO: Don't love this naming convention to avoid clashing with parent
+  // namespace. Find something better?
+  const getCategoryForRelationship = ($$relationship) => this.getCategory(state, $$relationship.get('category_id'));
+  return categoryTopicRelationships.reduce((categories, $$relationship) => {
+    const $$category = getCategoryForRelationship($$relationship);
+    categories.push($$category);
+    return categories;
+  }, []);
+}
+
 
 // Topic queries
 export const getTopic = (state, topicId) => fromTopics.getTopic(state.$$topicsState, topicId);
@@ -67,12 +80,19 @@ export function getEventFavoritesForEvent(state, eventId) {
   ).valueSeq().toJS();
 }
 
+// Event topic relationship queries
+// Returns an array of EventTopicRelationships for the given topicId
+export function getEventTopicRelationshipsForEvent(state, eventId) {
+  return state.$$eventTopicRelationshipsState.get('$$eventTopicRelationships').filter(($$eventTopicRelationship) =>
+    String($$eventTopicRelationship.get('event_id')) === String(eventId),
+  ).valueSeq();
+}
+
 // Returns an array of Topics for the given eventId
 export function getTopicsForEvent(state, eventId) {
-  return [];
-  // const relationships = this.getCategoryTopicRelationshipsForEvent(state, eventId);
-  // return relationships.reduce((topics, $$categoryTopicRelationship) => {
-  //   topics.push(getTopic(state, $$categoryTopicRelationship.get('topic_id')));
-  //   return topics;
-  // }, []);
+  const relationships = this.getEventTopicRelationshipsForEvent(state, eventId);
+  return relationships.reduce((topics, $$categoryTopicRelationship) => {
+    topics.push(getTopic(state, $$categoryTopicRelationship.get('topic_id')));
+    return topics;
+  }, []);
 }
