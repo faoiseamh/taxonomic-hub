@@ -11,7 +11,7 @@ class EventFavoritesController < ApplicationController
   end
 
   def destroy
-    @event_favorite = EventFavorite.find_by(event_id: params[:id], user_id: current_user.id)
+    @event_favorite = EventFavorite.find_by(event_id: params[:id], user_id: current_user.id, is_active: true)
 
     # TODO: Replace this with deactivate when ActiveStateHelper is fixed
     @event_favorite.update(is_active: false)
