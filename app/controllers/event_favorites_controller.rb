@@ -1,12 +1,18 @@
 class EventFavoritesController < ApplicationController
 
   def create
-    @event_favorite = current_user.event_favorites.new(event_favorite_params)
-
-    if @event_favorite.save
+    if (EventFavorite.find_by(event_id: params[:event_favorite][:event_id], user_id: current_user.id, is_active: false))
+      @event_favorite = EventFavorite.find_by(event_id: params[:event_favorite][:event_id], user_id: current_user.id, is_active: false)
+      @event_favorite.update(is_active: true)
       render partial: 'event_favorites/event_favorite', locals: { event_favorite: @event_favorite}
     else
-      render json: @event_favorite.errors, status: :unprocessable_entity
+      @event_favorite = current_user.event_favorites.new(event_favorite_params)
+
+      if @event_favorite.save
+        render partial: 'event_favorites/event_favorite', locals: { event_favorite: @event_favorite}
+      else
+        render json: @event_favorite.errors, status: :unprocessable_entity
+      end
     end
   end
 
