@@ -1,8 +1,13 @@
 class EventFavoritesController < ApplicationController
 
   def create
-    if (EventFavorite.find_by(event_id: params[:event_favorite][:event_id], user_id: current_user.id, is_active: false))
-      @event_favorite = EventFavorite.find_by(event_id: params[:event_favorite][:event_id], user_id: current_user.id, is_active: false)
+    existing_favorite = EventFavorite.find_by(
+      event_id: params[:event_favorite][:event_id],
+      user: current_user,
+      is_active: false,
+    )
+    if (existing_favorite)
+      @event_favorite = existing_favorite
       @event_favorite.update(is_active: true)
       render partial: 'event_favorites/event_favorite', locals: { event_favorite: @event_favorite}
     else

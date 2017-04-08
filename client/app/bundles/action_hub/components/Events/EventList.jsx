@@ -72,9 +72,9 @@ export default class EventList extends BaseComponent {
 
     const eventNodes = $$events.map(($$event) => {
       if (getEventFavoritesForEvent($$event.get('id')).length > 0) {
-        favorite = <FlatButton label="-Favorite" onClick={() => this.deleteFavorite($$event)} />;
+        favorite = <FlatButton label="-Favorite" onClick={(e) => { e.stopPropagation(); this.deleteFavorite($$event)} } />;
       } else {
-        favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)} />;
+        favorite = <FlatButton label="+Favorite" onClick={(e) => { e.stopPropagation(); this.addFavorite($$event)} } />;
       }
 
       return (
