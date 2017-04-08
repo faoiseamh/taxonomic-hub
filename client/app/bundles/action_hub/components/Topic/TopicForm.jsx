@@ -10,7 +10,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import * as ButtonStyles from '../../theme/ButtonStyles';
 
-import TopicCategoryRelationshipMultiselect from './TopicCategoryRelationshipMultiselect';
+// import TopicCategoryRelationshipMultiselect from './TopicCategoryRelationshipMultiselect';
+import TagEditor from '../TagEditor/TagEditor';
 
 export default class TopicForm extends BaseComponent {
   static propTypes = {
@@ -208,11 +209,13 @@ export default class TopicForm extends BaseComponent {
           />
           <br />
 
-          <TopicCategoryRelationshipMultiselect
-            initialCategoryId={initialCategoryId}
+          <TagEditor
+            initialObjectId={initialCategoryId}
             onChange={this.handleCategoriesChange}
-            $$categories={$$categories}
-            $$categoryTopicRelationships={$$categoryTopicRelationships}
+            $$objects={$$categories}
+            $$relationships={$$categoryTopicRelationships}
+            objectName="category"
+            relationshipName="categoryTopicRelationships"
             name="categoryTopicRelationships"
             required
           />

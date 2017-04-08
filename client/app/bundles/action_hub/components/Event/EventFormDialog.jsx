@@ -6,6 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
+import TagEditor from '../TagEditor/TagEditor';
 
 export default class EventFormDialog extends BaseComponent {
   static propTypes = {
@@ -13,6 +14,7 @@ export default class EventFormDialog extends BaseComponent {
     data: PropTypes.object.isRequired,
     open: PropTypes.bool.isRequired,
     handleRequestClose: PropTypes.func.isRequired,
+    $$topics: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -35,6 +37,7 @@ export default class EventFormDialog extends BaseComponent {
       'disableButton',
       'handleClose',
       'handleFormSubmit',
+      'handleTopicsChange',
       'reset',
       'submit',
     ]);
@@ -52,6 +55,18 @@ export default class EventFormDialog extends BaseComponent {
 
   reset() {
     this.setState(this.baseState);
+  }
+
+  handleTopicsChange(relationships) {
+    this.setState({
+      selectedTopics: relationships.map(
+        (relationship) => ({
+          id: relationship.id,
+          topic_id: relationship.topic_id,
+          _destroy: relationship._destroy, // eslint-disable-line no-underscore-dangle
+        }),
+      ),
+    });
   }
 
   handleClose() {
@@ -78,7 +93,7 @@ export default class EventFormDialog extends BaseComponent {
 
   // Submit formsy form
   submit() {
-    this.form.submit()
+    this.form.submit();
   }
 
   // Handle the formsy submit
@@ -133,6 +148,7 @@ export default class EventFormDialog extends BaseComponent {
   render() {
     const {
       data,
+      $$topics,
     } = this.props;
 
     const buttons = [
@@ -184,6 +200,15 @@ export default class EventFormDialog extends BaseComponent {
             />
             <br />
 
+            <TagEditor
+              onChange={this.handleTopicsChange}
+              $$objects={$$topics}
+              objectName="topic"
+              relationshipName="eventTopicRelationships"
+              name="eventTopicRelationships"
+              required
+            />
+            <br />
             <br />
 
             <ReactQuill

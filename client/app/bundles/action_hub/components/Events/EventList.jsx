@@ -84,10 +84,11 @@ export default class EventList extends BaseComponent {
   }
 
   renderCreationDialog() {
-    const { data, actions } = this.props;
+    const { data, actions, $$topics } = this.props;
     return (
       <EventFormDialog
         data={data}
+        $$topics={$$topics}
         actions={actions}
         open={this.state.creationFormOpen}
         handleRequestClose={this.handleCloseCreationForm}

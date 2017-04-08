@@ -8,6 +8,10 @@ export function getTopic(state, topicId) {
   return state.get('$$topics').get(String(topicId));
 }
 
+export function getTopics($$state) {
+  return $$state.get('$$topics').valueSeq();
+}
+
 export const $$initialState = Immutable.fromJS({
   $$topics: {},
   fetchTopicError: null,

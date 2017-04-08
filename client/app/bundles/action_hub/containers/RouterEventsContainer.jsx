@@ -13,6 +13,9 @@ function select(state) {
   return {
     data: state.$$eventsState,
     $$events: query.getEvents(state),
+    $$topics: query.getTopics(state),
+    getEventTopicRelationshipsForEvent: (eventId) =>
+      query.getEventTopicRelationshipsForEvent(state, eventId),
     getTopicsForEvent: (categoryId) => query.getTopicsForEvent(state, categoryId),
   };
 }
@@ -29,12 +32,29 @@ class RouterEventsContainer extends BaseComponent {
   };
 
   render() {
-    const { dispatch, data, $$events, getTopicsForEvent } = this.props;
+    const {
+      dispatch,
+      data,
+      $$events,
+      $$topics,
+      getTopicsForEvent,
+    } = this.props;
     const actions = bindActionCreators(eventsActionCreators, dispatch);
     const locationState = this.props.location.state;
 
     return (
-      <EventsScreen {...{ actions, data, locationState, $$events, getTopicsForEvent }} />
+      <EventsScreen
+        {
+          ...{
+            actions,
+            data,
+            locationState,
+            $$events,
+            $$topics,
+            getTopicsForEvent,
+          }
+        }
+      />
     );
   }
 }

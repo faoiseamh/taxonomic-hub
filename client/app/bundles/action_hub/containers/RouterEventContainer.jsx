@@ -15,7 +15,6 @@ function select(state) {
     getEvent: (eventId) => query.getEvent(state, eventId),
     getTopicsForEvent: (eventId) => query.getTopicsForEvent(state, eventId),
     getCategoriesForTopic: (topicId) => query.getCategoriesForTopic(state, topicId),
-
   };
 }
 

@@ -15,11 +15,25 @@ export default class EventScreen extends BaseComponent {
   };
 
   render() {
-    const { data, actions, $$event, topics, getCategoriesForTopic } = this.props;
+    const {
+      data,
+      actions,
+      $$event,
+      topics,
+      getCategoriesForTopic,
+    } = this.props;
 
     return (
       <Event
-        {...{ data, actions, $$event, topics, getCategoriesForTopic }}
+        {
+          ...{
+            data,
+            actions,
+            $$event,
+            topics,
+            getCategoriesForTopic,
+          }
+        }
       />
     );
   }
