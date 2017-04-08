@@ -13,6 +13,7 @@ function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
   return {
     data: state.$$eventsState,
+    usersState: state.$$usersState,
     getEvent: (eventId) => query.getEvent(state, eventId),
     getTopicsForEvent: (eventId) => query.getTopicsForEvent(state, eventId),
     getCategoriesForTopic: (topicId) => query.getCategoriesForTopic(state, topicId),
@@ -24,6 +25,7 @@ class RouterEventContainer extends BaseComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
+    usersState: PropTypes.object.isRequired,
     location: PropTypes.shape({
       state: PropTypes.object,
     }).isRequired,
@@ -37,6 +39,7 @@ class RouterEventContainer extends BaseComponent {
     const {
       dispatch,
       data,
+      usersState,
       getEvent,
       getTopicsForEvent,
       getCategoriesForTopic,
@@ -57,6 +60,7 @@ class RouterEventContainer extends BaseComponent {
             actions,
             eventFavoriteActions,
             data,
+            usersState,
             locationState,
             $$event,
             topics,

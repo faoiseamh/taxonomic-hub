@@ -12,6 +12,7 @@ export default class EventScreen extends BaseComponent {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    usersState: PropTypes.object.isRequired,
     $$event: PropTypes.object.isRequired,
     topics: PropTypes.array.isRequired,
     getCategoriesForTopic: PropTypes.func.isRequired,
@@ -35,7 +36,7 @@ export default class EventScreen extends BaseComponent {
   }
 
   render() {
-    const { $$event, topics, getCategoriesForTopic, getEventFavoritesForEvent } = this.props;
+    const { $$event, usersState, topics, getCategoriesForTopic, getEventFavoritesForEvent } = this.props;
     const topicTagNodes = topics.map(($$topic) => {
       const categories = getCategoriesForTopic($$topic.get('id'));
       return (
@@ -49,10 +50,12 @@ export default class EventScreen extends BaseComponent {
 
     let favorite;
 
-    if (getEventFavoritesForEvent($$event.get('id')).length > 0) {
-      favorite = <FlatButton label="-Favorite" onClick={() => this.deleteFavorite($$event)} />;
-    } else {
-      favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)} />;
+    if (usersState.get('isAuthenticated')) {
+      if (getEventFavoritesForEvent($$event.get('id')).length > 0) {
+        favorite = <FlatButton label="-Favorite" onClick={() => this.deleteFavorite($$event)} />;
+      } else {
+        favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)} />;
+      }
     }
 
     return (
