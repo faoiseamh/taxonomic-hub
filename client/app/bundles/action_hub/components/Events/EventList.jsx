@@ -3,12 +3,15 @@ import React from 'react';
 import _ from 'lodash';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as formatConstants from '../../constants/formatConstants';
 
+import EventFavoriteButton from '../Event/EventFavoriteButton';
 import EventFormDialog from '../Event/EventFormDialog';
 
 const styles = {
@@ -48,23 +51,33 @@ export default class EventList extends BaseComponent {
   }
 
   render() {
-    const { $$events } = this.props;
+    const { eventFavoriteActions, getEventFavoritesForEvent, $$events } = this.props;
 
-    const eventNodes = $$events.map(($$event) =>
-      <Card
-        key={$$event.get('id')}
-        onClick={() => { this.goToEvent($$event); }}
-        style={styles.eventCard}
-      >
-        <CardTitle
-          title={$$event.get('title')}
-          subtitle={dateFormat(Date.parse($$event.get('date')), formatConstants.verbose)}
-        />
-        <CardText>
-          {$$event.get('body')}
-        </CardText>
-      </Card>,
-    );
+    let favorite;
+
+    const eventNodes = $$events.map(($$event) => {
+
+      return (
+        <Card
+          key={$$event.get('id')}
+          onClick={() => { this.goToEvent($$event); }}
+          style={styles.eventCard}
+        >
+          <CardTitle
+            title={$$event.get('title')}
+            subtitle={dateFormat(Date.parse($$event.get('date')), formatConstants.verbose)}
+          />
+          <CardText>
+            {$$event.get('body')}
+          </CardText>
+          <CardActions style={{ textAlign: 'right' }}>
+            <EventFavoriteButton
+              {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
+            />
+          </CardActions>
+        </Card>
+      )
+    });
 
     return (
       <div>

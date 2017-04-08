@@ -14,6 +14,7 @@ export default (props, railsContext) => {
   const initialTopics = props.topics;
   const initialEvents = props.events;
   const initialEventTopicRelationships = props.event_topic_relationships;
+  const initialEventFavorites = props.event_favorites;
   const initialCurrentUser = props.current_user;
   const {
     $$categoriesState,
@@ -21,6 +22,7 @@ export default (props, railsContext) => {
     $$topicsState,
     $$eventsState,
     $$eventTopicRelationshipsState,
+    $$eventFavoritesState,
     $$usersState } = initialStates;
   const initialState = {
     $$categoriesState,
@@ -28,6 +30,7 @@ export default (props, railsContext) => {
     $$topicsState,
     $$eventsState,
     $$eventTopicRelationshipsState,
+    $$eventFavoritesState,
     $$usersState,
     railsContext,
   };
@@ -58,10 +61,18 @@ export default (props, railsContext) => {
       $$events: arrayToObjectKeyedById(initialEvents),
     });
   }
+
   if (initialEventTopicRelationships) {
     initialState.$$eventTopicRelationshipsState =
       initialState.$$eventTopicRelationshipsState.merge({
         $$eventTopicRelationships: arrayToObjectKeyedById(initialEventTopicRelationships),
+      });
+  }
+
+  if (initialEventFavorites) {
+    initialState.$$eventFavoritesState =
+      initialState.$$eventFavoritesState.merge({
+        $$eventFavorites: arrayToObjectKeyedById(initialEventFavorites),
       });
   }
 

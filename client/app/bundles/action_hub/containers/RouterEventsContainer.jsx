@@ -7,13 +7,15 @@ import * as query from '../reducers/queries';
 
 import EventsScreen from '../components/EventsScreen/EventsScreen';
 import * as eventsActionCreators from '../actions/eventsActionCreators';
+import * as eventFavoritesActionCreators from '../actions/eventFavoritesActionCreators';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
   return {
     data: state.$$eventsState,
     $$events: query.getEvents(state),
-    getTopicsForEvent: (categoryId) => query.getTopicsForEvent(state, categoryId),
+    getTopicsForEvent: (eventId) => query.getTopicsForEvent(state, eventId),
+    getEventFavoritesForEvent: (eventId) => query.getEventFavoritesForEvent(state, eventId),
   };
 }
 
@@ -26,19 +28,20 @@ class RouterEventsContainer extends BaseComponent {
     }).isRequired,
     $$events: PropTypes.object.isRequired,
     getTopicsForEvent: PropTypes.func.isRequired,
+    getEventFavoritesForEvent: PropTypes.func.isRequired,
   };
 
   render() {
-    const { dispatch, data, $$events, getTopicsForEvent } = this.props;
+    const { dispatch, data, $$events, getTopicsForEvent, getEventFavoritesForEvent } = this.props;
     const actions = bindActionCreators(eventsActionCreators, dispatch);
+    const eventFavoriteActions = bindActionCreators(eventFavoritesActionCreators, dispatch);
     const locationState = this.props.location.state;
 
     return (
-      <EventsScreen {...{ actions, data, locationState, $$events, getTopicsForEvent }} />
+      <EventsScreen {...{ actions, eventFavoriteActions, data, locationState, $$events, getTopicsForEvent, getEventFavoritesForEvent }} />
     );
   }
 }
 
 // Don't forget to actually use connect!
 export default connect(select)(RouterEventsContainer);
-

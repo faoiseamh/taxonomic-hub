@@ -8,20 +8,22 @@ export default class EventsScreen extends BaseComponent {
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
+    eventFavoriteActions: PropTypes.object.isRequired,
     $$events: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
     getTopicsForEvent: PropTypes.func.isRequired,
+    getEventFavoritesForEvent: PropTypes.func.isRequired,
     locationState: PropTypes.object,
   };
 
   render() {
-    const { data, actions, $$events, getTopicsForEvent } = this.props;
+    const { data, actions, eventFavoriteActions, $$events, getTopicsForEvent, getEventFavoritesForEvent } = this.props;
 
     return (
       <div>
         <EventSearch />
         <EventList
-          {...{ actions, data, getTopicsForEvent, $$events }}
+          {...{ actions, eventFavoriteActions, data, getTopicsForEvent, getEventFavoritesForEvent, $$events }}
         />
       </div>
     );
