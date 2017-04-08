@@ -7,6 +7,8 @@ import FullPageTearSheet from '../Misc/FullPageTearSheet';
 import TopicTag from '../Topic/TopicTag';
 import * as formatConstants from '../../constants/formatConstants';
 
+import EventFavoriteButton from './EventFavoriteButton'
+
 export default class EventScreen extends BaseComponent {
 
   static propTypes = {
@@ -19,24 +21,14 @@ export default class EventScreen extends BaseComponent {
     eventFavoriteActions: PropTypes.object.isRequired,
   };
 
-  addFavorite($$event) {
-    const { eventFavoriteActions } = this.props;
-
-    eventFavoriteActions.createEventFavorite({
-      event_id: $$event.get('id'),
-    });
-  }
-
-  deleteFavorite($$event) {
-    const { eventFavoriteActions } = this.props;
-
-    eventFavoriteActions.deleteEventFavorite({
-      event_id: $$event.get('id'),
-    });
-  }
-
   render() {
-    const { $$event, usersState, topics, getCategoriesForTopic, getEventFavoritesForEvent } = this.props;
+    const { $$event,
+      usersState,
+      topics,
+      eventFavoriteActions,
+      getCategoriesForTopic,
+      getEventFavoritesForEvent
+    } = this.props;
     const topicTagNodes = topics.map(($$topic) => {
       const categories = getCategoriesForTopic($$topic.get('id'));
       return (
@@ -51,11 +43,9 @@ export default class EventScreen extends BaseComponent {
     let favorite;
 
     if (usersState.get('isAuthenticated')) {
-      if (getEventFavoritesForEvent($$event.get('id')).length > 0) {
-        favorite = <FlatButton label="-Favorite" onClick={() => this.deleteFavorite($$event)} />;
-      } else {
-        favorite = <FlatButton label="+Favorite" onClick={() => this.addFavorite($$event)} />;
-      }
+      favorite = <EventFavoriteButton
+        {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
+      />;
     }
 
     return (

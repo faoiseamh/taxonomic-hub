@@ -3,7 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -11,6 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as formatConstants from '../../constants/formatConstants';
 
+import EventFavoriteButton from '../Event/EventFavoriteButton';
 import EventFormDialog from '../Event/EventFormDialog';
 
 const styles = {
@@ -49,33 +50,12 @@ export default class EventList extends BaseComponent {
     this.setState({ creationFormOpen: true });
   }
 
-  addFavorite($$event) {
-    const { eventFavoriteActions } = this.props;
-
-    eventFavoriteActions.createEventFavorite({
-      event_id: $$event.get('id'),
-    });
-  }
-
-  deleteFavorite($$event) {
-    const { eventFavoriteActions } = this.props;
-
-    eventFavoriteActions.deleteEventFavorite({
-      event_id: $$event.get('id'),
-    });
-  }
-
   render() {
-    const { getEventFavoritesForEvent, $$events } = this.props;
+    const { eventFavoriteActions, getEventFavoritesForEvent, $$events } = this.props;
 
     let favorite;
 
     const eventNodes = $$events.map(($$event) => {
-      if (getEventFavoritesForEvent($$event.get('id')).length > 0) {
-        favorite = <FlatButton label="-Favorite" onClick={(e) => { e.stopPropagation(); this.deleteFavorite($$event)} } />;
-      } else {
-        favorite = <FlatButton label="+Favorite" onClick={(e) => { e.stopPropagation(); this.addFavorite($$event)} } />;
-      }
 
       return (
         <Card
@@ -89,8 +69,12 @@ export default class EventList extends BaseComponent {
           />
           <CardText>
             {$$event.get('body')}
-            {favorite}
           </CardText>
+          <CardActions style={{ textAlign: 'right' }}>
+            <EventFavoriteButton
+              {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
+            />
+          </CardActions>
         </Card>
       )
     });

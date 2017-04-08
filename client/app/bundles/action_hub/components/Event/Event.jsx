@@ -19,17 +19,6 @@ export default class Event extends BaseComponent {
   render() {
     const { data, usersState, actions, $$event, topics, getCategoriesForTopic, eventFavoriteActions, getEventFavoritesForEvent } = this.props;
 
-    // return (
-    //   <EventForm
-    //     {
-    //       ...{
-    //         actions,
-    //         data,
-    //       }
-    //     }
-    //   />
-    // );
-
     return (
       <div>
         <EventHeader
