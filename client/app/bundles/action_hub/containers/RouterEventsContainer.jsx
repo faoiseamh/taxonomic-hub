@@ -40,7 +40,7 @@ class RouterEventsContainer extends BaseComponent {
       $$topics,
       data,
       dispatch,
-      getEventFavoritesForEvent
+      getEventFavoritesForEvent,
       getTopicsForEvent,
     } = this.props;
     const actions = bindActionCreators(eventsActionCreators, dispatch);
@@ -56,7 +56,7 @@ class RouterEventsContainer extends BaseComponent {
             actions,
             data,
             eventFavoriteActions,
-            getEventFavoritesForEvent
+            getEventFavoritesForEvent,
             getTopicsForEvent,
             locationState,
           }

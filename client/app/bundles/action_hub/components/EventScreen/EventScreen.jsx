@@ -38,7 +38,7 @@ export default class EventScreen extends BaseComponent {
             data,
             eventFavoriteActions,
             getCategoriesForTopic,
-            getEventFavoritesForEvent
+            getEventFavoritesForEvent,
             topics,
             usersState,
           }
