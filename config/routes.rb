@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :events
     resources :topics
+    resources :event_favorites, only: [:create, :destroy]
   end
 
 

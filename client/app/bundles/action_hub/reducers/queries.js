@@ -74,6 +74,15 @@ export const getEvents = (state) => fromEvents.getEvents(state.$$eventsState);
 
 export const getEvent = (state, eventId) => fromEvents.getEvent(state.$$eventsState, eventId);
 
+// Event Favorites queries
+// Returns an array of current favorites for the eventId
+
+export function getEventFavoritesForEvent(state, eventId) {
+  return state.$$eventFavoritesState.get('$$eventFavorites').filter(($$eventFavorites) =>
+    String($$eventFavorites.get('event_id')) === String(eventId),
+  ).valueSeq().toJS();
+}
+
 // Event topic relationship queries
 // Returns an array of EventTopicRelationships for the given topicId
 export function getEventTopicRelationshipsForEvent(state, eventId) {
@@ -90,4 +99,3 @@ export function getTopicsForEvent(state, eventId) {
     return topics;
   }, []);
 }
-

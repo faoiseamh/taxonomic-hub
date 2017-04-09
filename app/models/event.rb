@@ -9,4 +9,6 @@ class Event < ActiveRecord::Base
 
   # before_validation :find_category_topic_relationships
 
+  has_many :event_favorites
+  has_many :users, -> { where is_active: true }, through: :event_favorites
 end

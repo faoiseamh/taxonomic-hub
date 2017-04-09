@@ -27,7 +27,7 @@ topic_trans = category_gender_issues.topics.create! title: "Transgender Bathroom
 
 
 # Events
-Event.create! title: "New York Gender Rights March",
+event = Event.create! title: "New York Gender Rights March",
               date: 1.week.from_now,
               created_by: user,
               topics: [

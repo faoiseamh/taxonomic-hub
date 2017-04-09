@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307173347) do
+ActiveRecord::Schema.define(version: 20170316024228) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title",                               null: false
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20170307173347) do
     t.index ["category_id", "topic_id"], name: "index_category_topic_relationships_on_category_id_and_topic_id", unique: true, using: :btree
     t.index ["category_id"], name: "index_category_topic_relationships_on_category_id", using: :btree
     t.index ["topic_id"], name: "index_category_topic_relationships_on_topic_id", using: :btree
+  end
+
+  create_table "event_favorites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id",                   null: false
+    t.integer  "event_id",                  null: false
+    t.boolean  "is_active",  default: true, null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["event_id"], name: "index_event_favorites_on_event_id", using: :btree
+    t.index ["user_id"], name: "index_event_favorites_on_user_id", using: :btree
   end
 
   create_table "event_topic_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -85,6 +95,8 @@ ActiveRecord::Schema.define(version: 20170307173347) do
 
   add_foreign_key "category_topic_relationships", "categories"
   add_foreign_key "category_topic_relationships", "topics"
+  add_foreign_key "event_favorites", "events"
+  add_foreign_key "event_favorites", "users"
   add_foreign_key "event_topic_relationships", "events"
   add_foreign_key "event_topic_relationships", "topics"
 end
