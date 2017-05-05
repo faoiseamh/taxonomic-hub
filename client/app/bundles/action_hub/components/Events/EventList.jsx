@@ -70,7 +70,8 @@ export default class EventList extends BaseComponent {
           <CardText>
             {$$event.get('body')}
           </CardText>
-          <CardActions style={{ textAlign: 'right' }}>
+          <CardActions style={{ display: 'flex', justifyContent: "space-between" }}>
+            <div>Hello</div>
             <EventFavoriteButton
               {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
             />

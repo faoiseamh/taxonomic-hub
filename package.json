@@ -33,7 +33,9 @@
     "url": "https://github.com/faoiseamh/action-hub/issues"
   },
   "homepage": "https://github.com/faoiseamh/action-hub",
-  "dependencies": {},
+  "dependencies": {
+    "react-share": "^1.13.2"
+  },
   "devDependencies": {},
   "cacheDirectories": [
     "node_modules",
