@@ -2,14 +2,13 @@ import dateFormat from 'dateformat';
 import React, { PropTypes } from 'react';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
-import FlatButton from 'material-ui/FlatButton';
 import FullPageTearSheet from '../Misc/FullPageTearSheet';
 import TopicTag from '../Topic/TopicTag';
 import * as formatConstants from '../../constants/formatConstants';
 
-import EventFavoriteButton from './EventFavoriteButton'
+import EventFavoriteButton from './EventFavoriteButton';
 
-export default class EventScreen extends BaseComponent {
+export default class EventHeader extends BaseComponent {
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
@@ -22,12 +21,13 @@ export default class EventScreen extends BaseComponent {
   };
 
   render() {
-    const { $$event,
+    const {
+      $$event,
       usersState,
       topics,
       eventFavoriteActions,
       getCategoriesForTopic,
-      getEventFavoritesForEvent
+      getEventFavoritesForEvent,
     } = this.props;
     const topicTagNodes = topics.map(($$topic) => {
       const categories = getCategoriesForTopic($$topic.get('id'));
@@ -43,9 +43,9 @@ export default class EventScreen extends BaseComponent {
     let favorite;
 
     if (usersState.get('isAuthenticated')) {
-      favorite = <EventFavoriteButton
+      favorite = (<EventFavoriteButton
         {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
-      />;
+      />);
     }
 
     return (

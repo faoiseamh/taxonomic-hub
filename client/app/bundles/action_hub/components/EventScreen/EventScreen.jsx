@@ -26,7 +26,7 @@ export default class EventScreen extends BaseComponent {
       topics,
       getCategoriesForTopic,
       eventFavoriteActions,
-      getEventFavoritesForEvent
+      getEventFavoritesForEvent,
     } = this.props;
 
     return (
