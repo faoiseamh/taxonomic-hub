@@ -102,6 +102,7 @@ export default class EventFormDialog extends BaseComponent {
     const event = {
       ...eventFormData,
       body: this.state.eventBody,
+      event_topic_relationships_attributes: this.state.selectedTopics,
     };
     actions.createEvent(event);
   }

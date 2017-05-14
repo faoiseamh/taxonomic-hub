@@ -45,9 +45,9 @@ class EventsController < ApplicationController
         :title,
         :subtitle,
         :body,
-        category_event_relationships_attributes: [
+        event_topic_relationships_attributes: [
           :id,
-          :category_id,
+          :topic_id,
           :_destroy,
         ]
       )

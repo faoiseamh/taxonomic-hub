@@ -22,7 +22,7 @@ export function saveEventSuccess(event, eventTopicRelationships) {
       event,
     });
     dispatch({
-      type: eventTopicRelationshipActionTypes.UPDATE_EVENT_TOPIC_RELATIONSHIPS_FOR_TOPIC,
+      type: eventTopicRelationshipActionTypes.UPDATE_EVENT_TOPIC_RELATIONSHIPS_FOR_EVENT,
       event,
       eventTopicRelationships,
     });

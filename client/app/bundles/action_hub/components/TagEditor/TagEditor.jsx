@@ -3,6 +3,9 @@
 // the state is modified and maintained locally and passed up to parent via an onChange callback
 // similar to the pattern established by react-color.
 // Also operating on normal JS objects (not Immutables) in local state
+
+// TODO: Refactor to match formsy component style: https://github.com/christianalfoni/formsy-react
+
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
