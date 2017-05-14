@@ -28,11 +28,18 @@ class ShareButton extends Component {
   }
 
   render() {
+    const xBtn = { cursor: 'pointer', float: 'right', border: 0, background: '#ffffff', borderColor: '#ffffff', outline: 'none' };
+
     return (
       <div>
         <RaisedButton label="ShareBar" onClick={(e) => { e.stopPropagation(); this.handleOpen() }} />
         <Dialog
-          title="Share"
+          title={
+            <div>
+              Sharing
+              <button onClick={this.handleClose} style={xBtn}>X</button>
+            </div>
+          }
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
