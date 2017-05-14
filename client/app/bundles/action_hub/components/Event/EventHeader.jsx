@@ -7,7 +7,8 @@ import FullPageTearSheet from '../Misc/FullPageTearSheet';
 import TopicTag from '../Topic/TopicTag';
 import * as formatConstants from '../../constants/formatConstants';
 
-import EventFavoriteButton from './EventFavoriteButton'
+import EventFavoriteButton from './EventFavoriteButton';
+import SharingBar from '../Sharing/ShareBar';
 
 export default class EventScreen extends BaseComponent {
 
@@ -62,6 +63,9 @@ export default class EventScreen extends BaseComponent {
           </div>
           <div>
             {favorite}
+          </div>
+          <div>
+            <SharingBar />
           </div>
         </div>
       </FullPageTearSheet>

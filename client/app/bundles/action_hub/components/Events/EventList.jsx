@@ -14,6 +14,7 @@ import * as formatConstants from '../../constants/formatConstants';
 import EventFavoriteButton from '../Event/EventFavoriteButton';
 import EventFormDialog from '../Event/EventFormDialog';
 import ShareButton from '../Sharing/ShareButton';
+import SharingBar from '../Sharing/ShareBar';
 
 const styles = {
   eventCard: {

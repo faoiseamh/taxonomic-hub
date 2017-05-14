@@ -22,11 +22,11 @@ const PinterestIcon = generateShareIcon('pinterest');
 class SharingBar extends Component {
   render() {
     const shareUrl = window.location.href;
-    const title = 'GitHub';
+    const title = 'Action Hub';
 
     return (
-      <div className="sharebutton">
-        <div className="Demo__some-network">
+      <div className="sharebuttons">
+        <div className="Demo__some-network share-icon">
           <FacebookShareButton
             url={shareUrl}
             title={title}
@@ -43,7 +43,7 @@ class SharingBar extends Component {
           </FacebookShareCount>
         </div>
 
-        <div className="Demo__some-network">
+        <div className="Demo__some-network share-icon">
           <TwitterShareButton
             url={shareUrl}
             title={title}
@@ -58,7 +58,7 @@ class SharingBar extends Component {
           </div>
         </div>
 
-        <div className="Demo__some-network">
+        <div className="Demo__some-network share-icon">
           <GooglePlusShareButton
             url={shareUrl}
             className="Demo__some-network__share-button">
@@ -74,7 +74,7 @@ class SharingBar extends Component {
           </GooglePlusShareCount>
         </div>
 
-        <div className="Demo__some-network">
+        <div className="Demo__some-network share-icon">
           <PinterestShareButton
             url={String(window.location)}
             windowWidth={1000}
