@@ -13,6 +13,7 @@ import * as formatConstants from '../../constants/formatConstants';
 
 import EventFavoriteButton from '../Event/EventFavoriteButton';
 import EventFormDialog from '../Event/EventFormDialog';
+import ShareButton from '../Sharing/ShareButton';
 
 const styles = {
   eventCard: {
@@ -71,13 +72,13 @@ export default class EventList extends BaseComponent {
             {$$event.get('body')}
           </CardText>
           <CardActions style={{ display: 'flex', justifyContent: "space-between" }}>
-            <div>Hello</div>
+            <ShareButton />
             <EventFavoriteButton
               {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
             />
           </CardActions>
         </Card>
-      )
+      );
     });
 
     return (
