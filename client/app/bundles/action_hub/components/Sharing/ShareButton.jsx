@@ -30,7 +30,7 @@ class ShareButton extends Component {
   render() {
     return (
       <div>
-        <RaisedButton label="ShareBar" onTouchTap={this.handleOpen} />
+        <RaisedButton label="ShareBar" onClick={(e) => { e.stopPropagation(); this.handleOpen() }} />
         <Dialog
           title="Share"
           modal={false}
