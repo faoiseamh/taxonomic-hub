@@ -8,7 +8,7 @@ import TopicTag from '../Topic/TopicTag';
 import * as formatConstants from '../../constants/formatConstants';
 
 import EventFavoriteButton from './EventFavoriteButton';
-import SharingBar from '../Sharing/ShareBar';
+import ShareButton from '../Sharing/ShareButton';
 
 export default class EventScreen extends BaseComponent {
 
@@ -65,7 +65,7 @@ export default class EventScreen extends BaseComponent {
             {favorite}
           </div>
           <div>
-            <SharingBar />
+            <ShareButton />
           </div>
         </div>
       </FullPageTearSheet>
