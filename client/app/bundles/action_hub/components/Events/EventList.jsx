@@ -67,9 +67,6 @@ export default class EventList extends BaseComponent {
             title={$$event.get('title')}
             subtitle={dateFormat(Date.parse($$event.get('date')), formatConstants.verbose)}
           />
-          <CardText>
-            {$$event.get('body')}
-          </CardText>
           <CardActions style={{ textAlign: 'right' }}>
             <EventFavoriteButton
               {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
