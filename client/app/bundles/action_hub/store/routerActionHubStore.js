@@ -19,18 +19,20 @@ export default (props, railsContext) => {
   const {
     $$categoriesState,
     $$categoryTopicRelationshipsState,
-    $$topicsState,
     $$eventsState,
     $$eventTopicRelationshipsState,
     $$eventFavoritesState,
+    $$pageState,
+    $$topicsState,
     $$usersState } = initialStates;
   const initialState = {
     $$categoriesState,
     $$categoryTopicRelationshipsState,
-    $$topicsState,
     $$eventsState,
     $$eventTopicRelationshipsState,
     $$eventFavoritesState,
+    $$pageState,
+    $$topicsState,
     $$usersState,
     railsContext,
   };

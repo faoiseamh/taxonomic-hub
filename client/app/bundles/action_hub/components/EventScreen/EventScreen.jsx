@@ -14,6 +14,7 @@ export default class EventScreen extends BaseComponent {
     getCategoriesForTopic: PropTypes.func.isRequired,
     locationState: PropTypes.object,
     eventFavoriteActions: PropTypes.object.isRequired,
+    pageActions: PropTypes.object.isRequired,
     getEventFavoritesForEvent: PropTypes.func.isRequired,
   };
 
@@ -21,6 +22,7 @@ export default class EventScreen extends BaseComponent {
     const {
       data,
       actions,
+      pageActions,
       usersState,
       $$event,
       topics,
@@ -35,8 +37,9 @@ export default class EventScreen extends BaseComponent {
           ...{
             $$event,
             actions,
-            data,
+            pageActions,
             eventFavoriteActions,
+            data,
             getCategoriesForTopic,
             getEventFavoritesForEvent,
             topics,

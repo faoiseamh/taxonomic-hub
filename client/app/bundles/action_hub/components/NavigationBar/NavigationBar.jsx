@@ -8,6 +8,7 @@ import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import FontIcon from 'material-ui/FontIcon';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
@@ -114,12 +115,32 @@ export default class NavigationBar extends BaseComponent {
     );
   }
 
+  renderEditButton() {
+    return (
+      <IconButton>
+        <FontIcon className="material-icons">edit</FontIcon>
+      </IconButton>
+    );
+  }
+
+  renderRightButton() {
+    const { data } = this.props;
+    const isEditable = data.$$pageState.get('isEditable');
+    const $$currentUser = data.$$usersState.get('$$currentUser');
+
+    if ($$currentUser && isEditable) {
+      return this.renderEditButton();
+    }
+
+    return this.renderUserButton();
+  }
+
   render() {
     return (
       <div>
         <AppBar
           title="The Current"
-          iconElementRight={this.renderUserButton()}
+          iconElementRight={this.renderRightButton()}
           onLeftIconButtonTouchTap={() => { this.handleToggle(); }}
         />
         <Drawer

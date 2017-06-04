@@ -8,6 +8,7 @@ export default class Event extends BaseComponent {
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
+    pageActions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
     usersState: PropTypes.object.isRequired,
     $$event: PropTypes.object.isRequired,
@@ -16,6 +17,16 @@ export default class Event extends BaseComponent {
     eventFavoriteActions: PropTypes.object.isRequired,
     getEventFavoritesForEvent: PropTypes.func.isRequired,
   };
+
+  componentWillMount() {
+    const { pageActions } = this.props;
+    pageActions.setPageIsEditable();
+  }
+
+  componentWillUnmount() {
+    const { pageActions } = this.props;
+    pageActions.setPageNotEditable();
+  }
 
   render() {
     const {

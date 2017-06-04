@@ -1,0 +1,5 @@
+// Sign Up
+export const SET_PAGE_IS_EDITABLE = 'SET_PAGE_IS_EDITABLE';
+export const SET_PAGE_NOT_EDITABLE = 'SET_PAGE_NOT_EDITABLE';
+export const SET_EDIT_MODE = 'SET_EDIT_MODE';
+export const EDIT_SUCCESS = 'EDIT_SUCCESS';
