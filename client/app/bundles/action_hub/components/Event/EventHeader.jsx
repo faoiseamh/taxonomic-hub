@@ -1,10 +1,15 @@
 import dateFormat from 'dateformat';
 import React, { PropTypes } from 'react';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import { blueGrey800 } from 'material-ui/styles/colors';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
 import FullPageTearSheet from '../Misc/FullPageTearSheet';
+import Paper from 'material-ui/Paper';
 import TopicTag from '../Topic/TopicTag';
 import * as formatConstants from '../../constants/formatConstants';
+
 
 import EventFavoriteButton from './EventFavoriteButton';
 
@@ -43,28 +48,56 @@ export default class EventHeader extends BaseComponent {
     let favorite;
 
     if (usersState.get('isAuthenticated')) {
-      favorite = (<EventFavoriteButton
-        {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
-      />);
+      favorite = (
+        <EventFavoriteButton
+          {...{ eventFavoriteActions, getEventFavoritesForEvent, $$event }}
+          color={blueGrey800}
+        />
+      );
     }
 
+    const titleOverlay = (
+      <div className="header-overlay">
+        <h1>
+          {$$event.get('title')}
+        </h1>
+        <div className="tags-container">
+          {topicTagNodes}
+        </div>
+      </div>
+    );
+
     return (
-      <FullPageTearSheet>
-        <div className="event-header">
-          <h1>
-            {$$event.get('title')}
-          </h1>
+      <Card className="event-header">
+        <CardMedia
+          overlay={titleOverlay}
+        >
+          <img src="https://www.google.com/permissions/images/maps-att.png" />
+        </CardMedia>
+
+        <Paper className="event-action-bar" zDepth={1}>
+          <div className="action-buttons">
+            {favorite}
+          </div>
           <div className="date">
             {dateFormat(Date.parse($$event.get('date')), formatConstants.verbose)}
           </div>
-          <div className="tags-container">
-            {topicTagNodes}
+          <div className="location">
+            {$$event.get('location_name')}
           </div>
-          <div>
-            {favorite}
-          </div>
-        </div>
-      </FullPageTearSheet>
+        </Paper>
+
+
+        <CardText>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+        </CardText>
+      </Card>
     );
+
   }
 }
+
+

@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
+import { white, grey700, grey100 } from 'material-ui/styles/colors';
 
 class TopicTag extends Component {
 
@@ -62,11 +63,21 @@ class TopicTag extends Component {
     // Avatar colored
     return (
       <Chip
+        backgroundColor={grey100}
+        labelColor={grey700}
         style={chipStyle}
       >
         <Avatar
           color={color}
-          icon={<FontIcon className="material-icons">fiber_manual_record</FontIcon>}
+          backgroundColor={grey100}
+          icon={
+            <FontIcon
+              className="material-icons"
+              style={{ fontSize: 40, height: 40, width: 40, }}
+            >
+              fiber_manual_record
+            </FontIcon>
+          }
         />
         {$$topic.get('title')}
       </Chip>

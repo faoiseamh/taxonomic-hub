@@ -3,7 +3,14 @@ class EventsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json { render events_json_render_params }
+      format.json do
+        render(
+          template: "/events/index.json.jbuilder",
+          locals: {
+            events: Event.all.includes(:topics)
+          }
+        )
+      end
     end
   end
 
