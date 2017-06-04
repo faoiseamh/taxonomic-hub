@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     resources :events
     resources :topics
     resources :event_favorites, only: [:create, :destroy]
+    scope :users, controller: 'users' do
+      post :sign_in, action: 'sign_in'
+    end
   end
 
 

@@ -29,6 +29,41 @@ This is an app that consists of a Rails backend that serves as an API and helps 
         - **startup** - the main entry point for client and server apps. Server app is a mirror of client app and used for rendering the first page on the server so search engines which do not execute javascript can still index the site. These register components and wrap the routes in a redux store and a material-ui theme provider (just other "components" that must enclose all of our content to enable redux and material-ui functionality)
         - **store** - redux stores. Where the state lives.
 
+## REST API
+There is a REST API exposed to both the React client as well as any React Native or native Android / iOS apps. Right now this is lacking most security protections and documentation but that will come.
+
+~~~
+      Alias      VERB   PATH(.format)                      RAILS_CONTROLLER#ACTION
+      categories GET    /api/categories(.:format)          categories#index
+                 POST   /api/categories(.:format)          categories#create
+    new_category GET    /api/categories/new(.:format)      categories#new
+   edit_category GET    /api/categories/:id/edit(.:format) categories#edit
+        category GET    /api/categories/:id(.:format)      categories#show
+                 PATCH  /api/categories/:id(.:format)      categories#update
+                 PUT    /api/categories/:id(.:format)      categories#update
+                 DELETE /api/categories/:id(.:format)      categories#destroy
+          events GET    /api/events(.:format)              events#index
+                 POST   /api/events(.:format)              events#create
+       new_event GET    /api/events/new(.:format)          events#new
+      edit_event GET    /api/events/:id/edit(.:format)     events#edit
+           event GET    /api/events/:id(.:format)          events#show
+                 PATCH  /api/events/:id(.:format)          events#update
+                 PUT    /api/events/:id(.:format)          events#update
+                 DELETE /api/events/:id(.:format)          events#destroy
+          topics GET    /api/topics(.:format)              topics#index
+                 POST   /api/topics(.:format)              topics#create
+       new_topic GET    /api/topics/new(.:format)          topics#new
+      edit_topic GET    /api/topics/:id/edit(.:format)     topics#edit
+           topic GET    /api/topics/:id(.:format)          topics#show
+                 PATCH  /api/topics/:id(.:format)          topics#update
+                 PUT    /api/topics/:id(.:format)          topics#update
+                 DELETE /api/topics/:id(.:format)          topics#destroy
+ event_favorites POST   /api/event_favorites(.:format)     event_favorites#create
+  event_favorite DELETE /api/event_favorites/:id(.:format) event_favorites#destroy
+                 POST   /api/users/sign_in(.:format)       users#sign_in
+~~~
+
+
 # Setup
 - Install rvm from https://rvm.io/
 - Install ruby 2.3.3
