@@ -25,20 +25,36 @@ class PagesController < ApplicationController
     render_html
   end
 
+  def initial_data
+    respond_to do |format|
+      format.json do
+        render initial_data_json_params
+      end
+    end
+  end
+
   private
 
   def initial_data_json_string
+    render_to_string(initial_data_json_params, format: :json)
+  end
+
+
+  def initial_data_json_params
     event_favorites = current_user.nil? ? [] : current_user.event_favorites
 
-    render_to_string( template: "initial_data.json.jbuilder",
-                      locals: {
-                        categories: Category.active,
-                        topics: Topic.active,
-                        events: Event.active,
-                        category_topic_relationships: CategoryTopicRelationship.active,
-                        event_topic_relationships: EventTopicRelationship.active,
-                        event_favorites: event_favorites,
-                      }, format: :json)
+    {
+      template: "initial_data.json.jbuilder",
+      locals: {
+        categories: Category.active,
+        topics: Topic.active,
+        events: Event.active,
+        category_topic_relationships: CategoryTopicRelationship.active,
+        event_topic_relationships: EventTopicRelationship.active,
+        event_favorites: event_favorites,
+      },
+      format: :json
+    }
   end
 
   def render_html

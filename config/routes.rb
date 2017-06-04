@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     scope :users, controller: 'users' do
       post :sign_in, action: 'sign_in'
     end
+    get 'initial_data' => 'pages#initial_data'
   end
 
 
