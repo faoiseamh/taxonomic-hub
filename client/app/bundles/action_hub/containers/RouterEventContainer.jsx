@@ -15,6 +15,7 @@ function select(state) {
   return {
     data: state.$$eventsState,
     usersState: state.$$usersState,
+    pageState: state.$$pageState,
     getEvent: (eventId) => query.getEvent(state, eventId),
     getTopicsForEvent: (eventId) => query.getTopicsForEvent(state, eventId),
     getCategoriesForTopic: (topicId) => query.getCategoriesForTopic(state, topicId),
@@ -27,6 +28,7 @@ class RouterEventContainer extends BaseComponent {
     dispatch: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     usersState: PropTypes.object.isRequired,
+    pageState: PropTypes.object.isRequired,
     location: PropTypes.shape({
       state: PropTypes.object,
     }).isRequired,
@@ -41,6 +43,7 @@ class RouterEventContainer extends BaseComponent {
       dispatch,
       data,
       usersState,
+      pageState,
       getEvent,
       getTopicsForEvent,
       getCategoriesForTopic,
@@ -64,6 +67,7 @@ class RouterEventContainer extends BaseComponent {
             pageActions,
             data,
             usersState,
+            pageState,
             locationState,
             $$event,
             topics,

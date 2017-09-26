@@ -6,6 +6,7 @@ import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-lin
 
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import * as usersActionCreators from '../actions/usersActionCreators';
+import * as pageActionCreators from '../actions/pageActionCreators';
 
 function stateToProps(state) {
   // Which part of the Redux global state does our component want to receive as props?
@@ -26,9 +27,11 @@ class NavigationBarContainer extends BaseComponent {
   render() {
     const { dispatch, data, pathname, router } = this.props;
     const actions = bindActionCreators(usersActionCreators, dispatch);
+    const pageActions = bindActionCreators(pageActionCreators, dispatch);
+
 
     return (
-      <NavigationBar {...{ actions, data, pathname, router }} />
+      <NavigationBar {...{ actions, pageActions, data, pathname, router }} />
     );
   }
 }

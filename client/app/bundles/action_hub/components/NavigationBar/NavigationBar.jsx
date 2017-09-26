@@ -19,6 +19,7 @@ import * as paths from '../../constants/paths';
 export default class NavigationBar extends BaseComponent {
   static propTypes = {
     pathname: PropTypes.string.isRequired,
+    pageActions: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -116,20 +117,40 @@ export default class NavigationBar extends BaseComponent {
   }
 
   renderEditButton() {
+    const { pageActions } = this.props;
+
     return (
-      <IconButton>
+      <IconButton
+        onTouchTap={pageActions.setEditMode}
+      >
         <FontIcon className="material-icons">edit</FontIcon>
       </IconButton>
+    );
+  }
+
+  renderSaveEditButton() {
+    return (
+      <FlatButton
+        label="Save"
+        {() => {
+
+        }}
+      />
     );
   }
 
   renderRightButton() {
     const { data } = this.props;
     const isEditable = data.$$pageState.get('isEditable');
+    const mode = data.$$pageState.get('mode');
     const $$currentUser = data.$$usersState.get('$$currentUser');
 
     if ($$currentUser && isEditable) {
-      return this.renderEditButton();
+      if (mode == 'view') {
+        return this.renderEditButton();
+      } else if (mode == 'edit') {
+        return this.renderSaveEditButton();
+      }
     }
 
     return this.renderUserButton();

@@ -2,6 +2,7 @@ import dateFormat from 'dateformat';
 import React, { PropTypes } from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import { blueGrey800 } from 'material-ui/styles/colors';
 
 import BaseComponent from 'libs/components/BaseComponent'; // eslint-disable-line import/no-extraneous-dependencies, import/no-unresolved
@@ -34,6 +35,7 @@ export default class EventHeader extends BaseComponent {
       getCategoriesForTopic,
       getEventFavoritesForEvent,
     } = this.props;
+
     const topicTagNodes = topics.map(($$topic) => {
       const categories = getCategoriesForTopic($$topic.get('id'));
       return (
@@ -44,6 +46,8 @@ export default class EventHeader extends BaseComponent {
         />
       );
     });
+
+    const mode = data.$$pageState.get('mode');
 
     let favorite;
 
@@ -59,7 +63,18 @@ export default class EventHeader extends BaseComponent {
     const titleOverlay = (
       <div className="header-overlay">
         <h1>
-          {$$event.get('title')}
+          {
+            if (mode == 'view') {
+              return $$event.get('title');
+            } else {
+              return (
+                <TextField
+                  hintText="Event Title"
+                  value={$$event.get('title')}
+                />
+              );
+            }
+          }
         </h1>
         <div className="tags-container">
           {topicTagNodes}
