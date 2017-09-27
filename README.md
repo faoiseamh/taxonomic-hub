@@ -1,3 +1,11 @@
+
+# Background
+This is a react and rails app that was being developed for a "social issues hub" centered around the idea of organizing events based on the topics they were related to. Topics belonged to one or more categories and these collective relationships would be used to draw similarities between events and illustrate intersectionality. I don't currently have the time to continue this side project so I'm open sourcing this as a general platform for organizing content (currently events) based on a tiered relational hierarchy (topics and categoryes - think graph structure).
+
+## Disclaimer
+
+This was my first foray into react and redux so this is by no means an example of the right way to do things in react. This was a learning project for me, so take it with *many grains of salt*.
+
 # Overview
 This is an app that consists of a Rails backend that serves as an API and helps to initially render the page. After initial page load, a single page javascript app takes over using React as a view layer, Redux to manage a global state, and React Router to handle the page routing. This React stack is also used on the backend to render the initial page for search engine indexing.
 
